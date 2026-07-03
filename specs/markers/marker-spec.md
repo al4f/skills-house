@@ -21,7 +21,7 @@ In-package paths in links and `@include` are **root-absolute from the skill pack
 
 **Syntax:** `@include /path/to/fragment.md`
 
-**Behavior:** Read the markdown file and merge its content into `SKILL.md` body at build time. The fragment is not copied as a separate dist file (unless also linked elsewhere).
+**Behavior:** Read the markdown file and merge its content into `SKILL.md` body at build time. Fragments may contain their own `@include` markers; the builder expands them recursively. Circular includes are rejected with an error. The fragment is not copied as a separate dist file (unless also linked elsewhere).
 
 **Applies to:** Markdown only.
 

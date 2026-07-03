@@ -227,7 +227,7 @@ Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCR
 
 - [ ] Publish `@skills-house/cli` — `npx skills add <name>` from npm ([guide](./content/publish/PUBLISHING.md))
 - [ ] Per-skill npm packages for download metrics
-- [ ] Nested `@include` support
+- [x] Nested `@include` support
 - [x] CI for build + test on PRs
 - [x] al4f.dev static site + GitHub Pages deploy
 - [x] Website works on github.io/skills-house (relative asset paths)
