@@ -62,6 +62,7 @@ node scripts/pack-skill.mjs skill-auditor   # npm-ready package
 - CLI scaffold + tests + `scripts/pack-skill.mjs`
 - Ready-to-publish: `content/publish/thread-1-ready.md`, `linkedin-1-ready.md`
 - Progress tracker: `content/publish/PROGRESS.md`
+- al4f.dev custom domain live (DNS configured)
 
 ## Principles (always apply)
 
@@ -72,6 +73,7 @@ node scripts/pack-skill.mjs skill-auditor   # npm-ready package
 
 ## Manual todos still open
 
+- [x] al4f.dev live (DNS configured)
 - [ ] GitHub profile setup — `content/github-profile/SETUP.md` (bio, pin skills-house, `al4f.dev`)
 - [ ] Publish X thread 1 — `content/publish/thread-1-ready.md`
 - [ ] Publish LinkedIn post 1 — `content/publish/linkedin-1-ready.md`
@@ -83,7 +85,7 @@ node scripts/pack-skill.mjs skill-auditor   # npm-ready package
 
 - [ ] Publish `@skills-house/cli` to npm (`npx @skills-house/cli add <name>`)
 - [ ] Publish `@skills-house/skill-skill-auditor` to npm
-- [ ] Nested `@include` support
+- [x] Nested `@include` support
 
 ## Important decisions made
 

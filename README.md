@@ -11,7 +11,7 @@
 
 skills-house is an open-source **framework** for skill authors — not a skill catalog. Write your own skills with modular markdown and shared scripts; the build pipeline produces spec-compliant artifacts ready to install into any supported agent.
 
-**Built by [al4f](https://github.com/al4f)** — Agent Skills tooling engineer. Follow build logs and architecture notes at **[al4f.dev](https://al4f.dev)** · [Agent Skills at Scale](https://al4f.github.io/skills-house/writing/agent-skills-at-scale.html) · [Live site](https://al4f.github.io/skills-house/)
+**Built by [al4f](https://github.com/al4f)** — Agent Skills tooling engineer. Follow build logs and architecture notes at **[al4f.dev](https://al4f.dev)** · [Agent Skills at Scale](https://al4f.dev/writing/agent-skills-at-scale.html)
 
 ---
 
@@ -227,10 +227,11 @@ Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCR
 
 - [ ] Publish `@skills-house/cli` to npm — `pnpm pack:cli` then publish ([guide](./content/publish/PUBLISHING.md))
 - [ ] Publish `@skills-house/skill-skill-auditor` to npm — `pnpm pack:skill skill-auditor`
-- [ ] Nested `@include` support
+- [x] Nested `@include` support
+
 - [x] CI for build + test on PRs
 - [x] al4f.dev static site + GitHub Pages deploy
-- [x] Website works on github.io/skills-house (relative asset paths)
+- [x] al4f.dev custom domain live
 
 ---
 
@@ -243,7 +244,6 @@ Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCR
 ## Links
 
 - [al4f.dev](https://al4f.dev) — articles and architecture notes by the author
-- [Live site](https://al4f.github.io/skills-house/) — GitHub Pages (until custom domain DNS is configured)
 - [Agent Skills specification](https://agentskills.io)
 - [Architecture specs](./specs/)
 - [Marker / authoring spec](./specs/markers/marker-spec.md)

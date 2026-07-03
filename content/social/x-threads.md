@@ -32,7 +32,7 @@ A build step lets both win.
 **Tweet 4**
 Wrote the full architecture breakdown:
 
-→ al4f.dev/writing/agent-skills-at-scale.html
+→ https://al4f.dev/writing/agent-skills-at-scale.html
 → github.com/al4f/skills-house
 
 Building in public. More threads coming on @include, shared scripts, and multi-agent install.

@@ -32,6 +32,43 @@ test("builds minimal-skill fixture with includes, file links, and script refs", 
   assert.ok(fs.existsSync(path.join(outDir, "scripts/hello.sh")));
 });
 
+test("expands nested @include chains", () => {
+  const fixture = path.join(packageRoot, "fixtures/nested-includes-skill");
+  const outDir = fs.mkdtempSync(path.join(os.tmpdir(), "skills-house-nested-"));
+  runBuild(fixture, outDir);
+
+  const skillMd = fs.readFileSync(path.join(outDir, "SKILL.md"), "utf8");
+  const body = skillMd.replace(/^---[\s\S]*?---\n/, "");
+  assert.match(body, /## Outer section/);
+  assert.match(body, /Inner content here/);
+  assert.match(body, /Outer tail/);
+  assert.doesNotMatch(body, /^@include/m);
+});
+
+test("rejects circular @include chains", () => {
+  const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "skills-house-cycle-"));
+  const skillDir = path.join(tmpRoot, "cycle-skill");
+  const sectionsDir = path.join(skillDir, "sections");
+  fs.mkdirSync(sectionsDir, { recursive: true });
+  fs.writeFileSync(
+    path.join(skillDir, "SKILL.md"),
+    "---\nname: cycle-skill\ndescription: cycle test\n---\n\n@include /sections/a.md\n",
+  );
+  fs.writeFileSync(
+    path.join(sectionsDir, "a.md"),
+    "@include /sections/b.md\n",
+  );
+  fs.writeFileSync(
+    path.join(sectionsDir, "b.md"),
+    "@include /sections/a.md\n",
+  );
+
+  assert.throws(
+    () => runBuild(skillDir, path.join(tmpRoot, "out")),
+    /@include cycle detected/,
+  );
+});
+
 test("rejects frontmatter name that does not match directory", () => {
   const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "skills-house-bad-"));
   const skillDir = path.join(tmpRoot, "wrong-name");
