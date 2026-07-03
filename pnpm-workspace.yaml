@@ -2,3 +2,6 @@ packages:
   - "skills/*"
   - "scripts/*"
   - "internal-scripts/*"
+
+allowBuilds:
+  esbuild: true
