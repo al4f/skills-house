@@ -1,0 +1,76 @@
+name: Publish skill
+
+on:
+  push:
+    tags:
+      - '*/v*'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Parse tag
+        id: tag
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          SKILL="${TAG%%/*}"
+          VERSION="${TAG#*/}"
+          DIST="skills-dist/${SKILL}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "skill=$SKILL" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "dist=$DIST" >> "$GITHUB_OUTPUT"
+          if [[ ! -f "$DIST/SKILL.md" ]]; then
+            echo "No built skill at $DIST for tag $TAG" >&2
+            exit 1
+          fi
+
+      - name: Build and test
+        run: |
+          pnpm --filter "@skills-house/${{ steps.tag.outputs.skill }}" build
+          pnpm test
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ steps.tag.outputs.skill }} ${{ steps.tag.outputs.version }}
+          body: |
+            ## Install
+
+            Pin to this release:
+
+            ```bash
+            npx skills add ${{ github.repository }}/skills-dist/${{ steps.tag.outputs.skill }}#${{ steps.tag.outputs.tag }} -g -y
+            ```
+
+            Latest on the default branch:
+
+            ```bash
+            npx skills add ${{ github.repository }}/skills-dist --skill ${{ steps.tag.outputs.skill }} -g -y
+            ```
+
+            [View files on GitHub](https://github.com/${{ github.repository }}/tree/${{ steps.tag.outputs.tag }}/skills-dist/${{ steps.tag.outputs.skill }})
+          generate_release_notes: true
+
+      - name: Bootstrap skills.sh telemetry
+        run: |
+          npx --yes skills@latest add "${{ github.repository }}/skills-dist/${{ steps.tag.outputs.skill }}#${{ steps.tag.outputs.tag }}" -g -y

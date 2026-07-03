@@ -142,6 +142,28 @@ Build a single skill:
 pnpm --filter @skills-house/brainstorming build
 ```
 
+### Publish to skills.sh
+
+Built skills in `skills-dist/` can be published with versioned git tags. skills.sh discovers public repos when users run `npx skills add`.
+
+```bash
+pnpm --filter @skills-house/brainstorming build
+git add skills-dist/brainstorming && git commit -m "chore: build brainstorming for release"
+pnpm publish:skill brainstorming --push --bootstrap
+```
+
+Install commands for consumers:
+
+```bash
+# Pinned to a release tag
+npx skills add al4f/skills-house/skills-dist/brainstorming#brainstorming/v1.0.0 -g -y
+
+# Latest on main
+npx skills add al4f/skills-house/skills-dist --skill brainstorming -g -y
+```
+
+Tag format: `<skill>/v<semver>` (e.g. `brainstorming/v1.0.0`). Full guide: **[specs/conventions/publishing-skills.md](./specs/conventions/publishing-skills.md)**
+
 ### Install flags
 
 | Flag | Description |
@@ -204,6 +226,7 @@ Skill `name` in frontmatter must match the directory name (enforced by the build
 
 ## Roadmap
 
+- [x] Tag-based publish to skills.sh (`pnpm publish:skill`)
 - [ ] `npx skills add <name>` — npm publish + CLI for public installs
 - [ ] Per-skill npm packages for download metrics
 - [ ] Nested `@include` support
