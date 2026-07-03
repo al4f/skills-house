@@ -17,7 +17,8 @@
     "install:skills": "bash internal-scripts/install/install-skills.sh",
     "remove:skills": "bash internal-scripts/install/remove-skills.sh",
     "skills": "node internal-scripts/cli/dist/cli.js",
-    "test": "pnpm --filter @skills-house/build test && pnpm --filter @skills-house/cli test",
+    "test": "pnpm --filter @skills-house/build test && pnpm --filter @skills-house/cli test && node --test scripts/pack.test.mjs",
+    "pack:cli": "node scripts/pack-cli.mjs",
     "pack:skill": "node scripts/pack-skill.mjs",
     "validate": "pnpm --filter \"./skills/*\" run validate --if-present && pnpm --filter \"./scripts/*\" run validate --if-present && pnpm --filter @skills-house/build validate"
   }

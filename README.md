@@ -225,8 +225,8 @@ Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCR
 
 ## Roadmap
 
-- [ ] Publish `@skills-house/cli` — `npx skills add <name>` from npm ([guide](./content/publish/PUBLISHING.md))
-- [ ] Per-skill npm packages for download metrics
+- [ ] Publish `@skills-house/cli` to npm — `pnpm pack:cli` then publish ([guide](./content/publish/PUBLISHING.md))
+- [ ] Publish `@skills-house/skill-skill-auditor` to npm — `pnpm pack:skill skill-auditor`
 - [ ] Nested `@include` support
 - [x] CI for build + test on PRs
 - [x] al4f.dev static site + GitHub Pages deploy
