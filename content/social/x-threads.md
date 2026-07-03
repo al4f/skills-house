@@ -53,7 +53,7 @@ No @ref. No magic syntax per package type. One rule for all references.
 
 [guide](/references/deep-dive.md)  → copy file to dist
 
-[run](visual-companion/start-server)  → bundle from scripts/ workspace
+[run](fixture-helper/hello)  → bundle from scripts/ workspace
 
 **Tweet 3**
 Link resolution rule:
@@ -79,14 +79,13 @@ Every skill repo eventually copy-pastes the same shell script into 3 directories
 skills-house fixes this with scripts/ workspace packages.
 
 **Tweet 2**
-scripts/visual-companion/package.json:
+scripts/fixture-helper/package.json:
 
 exports: {
-  "./start-server": "./scripts/start-server.sh",
-  "./server": "./scripts/server.cjs"
+  "./hello": "./scripts/hello.sh"
 }
 
-Skills reference: [Start](visual-companion/start-server)
+Skills reference: [Run](fixture-helper/hello)
 
 Build bundles into each skill's dist/scripts/.
 
@@ -128,7 +127,7 @@ Project:
 Flags:
 --agent cursor
 --scope project
---skill brainstorming
+--skill skill-auditor
 --copy (instead of symlink)
 
 **Tweet 4**
@@ -139,34 +138,31 @@ al4f.dev
 
 ---
 
-## Thread 5: Dogfooding — how I use brainstorming skill daily
+## Thread 5: Dogfooding — skill-auditor as framework example
 
 **Tweet 1**
-I dogfood skills-house with the brainstorming skill before any creative work.
+skills-house is a framework, not a skill catalog.
 
-Structured dialogue → design approval → then implementation.
-
-Hard gate: no code until design is approved.
+The included skill-auditor example shows how to validate skills before publish — frontmatter, links, layout.
 
 **Tweet 2**
-The skill uses @include for modular sections:
-• anti-patterns
-• checklist
-• process flow
-• visual companion offer
+The example uses @include for modular sections:
+• audit checklist
+• manual review points
+• references/ for on-demand docs
 
 SKILL.md stays short. Context stays small.
 
 **Tweet 3**
-Optional visual companion: local HTTP server for mockups and A/B choices during brainstorming.
+Shared validate.sh lives in scripts/skill-auditor-tools/ — referenced by link, bundled at build time.
 
-Rebranded to skills-house / al4f.dev — building my own identity, not inheriting someone else's.
+That's the framework pattern: write once, build, install your own skills.
 
 **Tweet 4**
-Try it:
+Try the framework:
 github.com/al4f/skills-house
 
-Skill source: skills/brainstorming/
+Example skill: skills/skill-auditor/
 al4f.dev
 
 ---
@@ -179,7 +175,7 @@ skills-house roadmap (honest):
 ✅ Monorepo + build pipeline
 ✅ Multi-agent install
 ✅ CI on PRs
-✅ skill-auditor (second reference skill)
+✅ skill-auditor (framework example)
 
 Next: distribution RFC → npx skills add
 
@@ -189,7 +185,7 @@ Not rushing npm publish.
 Sequence:
 1. Authority content (al4f.dev articles)
 2. OSS hygiene (CI, CONTRIBUTING)
-3. Reference skills catalog
+3. Framework example (skill-auditor)
 4. Then CLI + per-skill packages
 
 **Tweet 3**

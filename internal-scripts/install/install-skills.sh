@@ -17,7 +17,7 @@
 #   ./install-skills.sh
 #   ./install-skills.sh --agent cursor
 #   ./install-skills.sh --scope project
-#   ./install-skills.sh --agent codex --skill brainstorming --copy
+#   ./install-skills.sh --agent codex --skill skill-auditor --copy
 
 set -euo pipefail
 

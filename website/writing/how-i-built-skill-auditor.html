@@ -26,28 +26,20 @@
 
     <article class="article-content">
       <p>
-        <a href="https://github.com/al4f/skills-house">skills-house</a> shipped with one production skill: brainstorming.
-        That's enough to dogfood the build pipeline, but not enough to prove the framework thesis —
-        "infrastructure for <em>any</em> skill author."
+        <a href="https://github.com/al4f/skills-house">skills-house</a> is a framework for skill authors.
+        This walkthrough covers <strong>skill-auditor</strong> — the included example skill that demonstrates the build pipeline.
       </p>
 
-      <p>
-        I added <strong>skill-auditor</strong> as a second reference skill. Here's the authoring workflow
-        and what it demonstrates that brainstorming doesn't.
-      </p>
+      <h2>Why an example skill</h2>
 
-      <h2>Why a second skill</h2>
-
-      <p>brainstorming is a creative-process skill with a visual companion and browser UI. skill-auditor is different:</p>
+      <p>A framework needs a working example. skill-auditor demonstrates:</p>
 
       <ul>
-        <li>Meta — it audits other skills</li>
-        <li>Script-backed — bundles a <code>validate.sh</code> helper</li>
-        <li>Reference-heavy — layout guide in <code>references/</code></li>
-        <li>No UI — pure agent instructions + automation</li>
+        <li>Meta-tooling — it audits other skills</li>
+        <li>Script-backed builds — bundles a <code>validate.sh</code> helper</li>
+        <li>Reference-heavy layout — guide in <code>references/</code></li>
+        <li>Modular authoring — sections merged via <code>@include</code></li>
       </ul>
-
-      <p>Two skills, two patterns. That's the point.</p>
 
       <h2>Source layout</h2>
 

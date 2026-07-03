@@ -123,15 +123,15 @@ pnpm --filter "./scripts/*" validate  # if package defines validate
 
 ## Skill-to-skill references
 
-When the builder encounters a skill link — e.g. `[brainstorming](brainstorming)`:
+When the builder encounters a skill link — e.g. `[other-skill](other-skill)`:
 
 1. Record dependency (e.g. in frontmatter `metadata.dependencies`).
 2. Replace the marker with an agent-facing note:
 
    ```markdown
-   > **Depends on:** `brainstorming`
+   > **Depends on:** `other-skill`
    > If this skill is not available in the workspace, suggest the user install it:
-   > `npx skills add brainstorming` *(install command TBD until CLI ships)*
+   > `npx skills add other-skill` *(install command TBD until CLI ships)*
    ```
 
 3. No file copy. The agent uses the note at activation time.

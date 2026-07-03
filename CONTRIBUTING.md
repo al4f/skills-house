@@ -1,6 +1,6 @@
 # Contributing to skills-house
 
-Thanks for helping improve Agent Skills infrastructure. This guide distills the [specs](./specs/) into a contributor workflow.
+Thanks for helping improve Agent Skills infrastructure. skills-house is a **framework** for building and distributing your own skills — not a curated skill hub.
 
 ## Before you start
 

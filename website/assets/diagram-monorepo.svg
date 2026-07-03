@@ -18,13 +18,13 @@
 
   <rect x="40" y="70" width="180" height="120" class="box"/>
   <text x="130" y="98" text-anchor="middle" class="title">skills/</text>
-  <text x="60" y="125" class="mono">brainstorming/</text>
+  <text x="60" y="125" class="mono">skill-auditor/</text>
   <text x="60" y="145" class="mono">skill-auditor/</text>
   <text x="60" y="170" class="muted">Authoring entry: SKILL.md</text>
 
   <rect x="40" y="220" width="180" height="120" class="box"/>
   <text x="130" y="248" text-anchor="middle" class="title">scripts/</text>
-  <text x="60" y="275" class="mono">visual-companion/</text>
+  <text x="60" y="275" class="mono">fixture-helper/</text>
   <text x="60" y="295" class="mono">fixture-helper/</text>
   <text x="60" y="320" class="muted">Shared execution packages</text>
 

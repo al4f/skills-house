@@ -9,7 +9,7 @@
 
 **Author, build, and ship [Agent Skills](https://agentskills.io) for Cursor, Claude Code, Codex, and more — from one monorepo.**
 
-skills-house is an open-source toolkit for skill authors. Write simple source skills with modular markdown and shared scripts; the build pipeline produces spec-compliant artifacts ready to install into any supported agent.
+skills-house is an open-source **framework** for skill authors — not a skill catalog. Write your own skills with modular markdown and shared scripts; the build pipeline produces spec-compliant artifacts ready to install into any supported agent.
 
 **Built by [al4f](https://github.com/al4f)** — Agent Skills tooling engineer. Follow build logs and architecture notes at **[al4f.dev](https://al4f.dev)** · [Agent Skills at Scale](https://al4f.dev/writing/agent-skills-at-scale.html)
 
@@ -39,7 +39,7 @@ skills-house fixes that with a clear split:
 ## Features
 
 - **Simple authoring** — `@include` for markdown fragments; standard `[label](target)` links for everything else
-- **Shared script packages** — reference `visual-companion/start-server` instead of copy-pasting shell scripts
+- **Shared script packages** — reference `fixture-helper/hello` instead of copy-pasting shell scripts
 - **Agent Skills compliant output** — `SKILL.md`, `references/`, `scripts/`, `assets/`
 - **Multi-agent install** — global (`~/.cursor/skills`, `~/.agents/skills`, …) or project-local (`.agents/skills`, `.claude/skills`, …)
 - **pnpm monorepo** — skills, scripts, and tooling in one workspace
@@ -56,7 +56,12 @@ cd skills-house
 nvm use
 pnpm install
 pnpm build
-pnpm install:skills --scope project   # install into this repo for local dev
+```
+
+Install built skills into your agent (optional):
+
+```bash
+pnpm install:skills --scope project
 ```
 
 Install globally for all agents:
@@ -69,19 +74,21 @@ Uninstall:
 
 ```bash
 pnpm remove:skills --scope project
-pnpm remove:skills --agent cursor --skill brainstorming
+pnpm remove:skills --scope project
+pnpm remove:skills --agent cursor --skill skill-auditor
 ```
 
 ---
 
-## Available skills
+## Example skill
 
-| Skill | Description |
-|-------|-------------|
-| [brainstorming](./skills/brainstorming/) | Turn ideas into designs through structured dialogue before implementation |
-| [skill-auditor](./skills/skill-auditor/) | Validate Agent Skills before publish — frontmatter, links, layout conventions |
+The repo includes one **example** skill to demonstrate the framework — not a curated catalog:
 
-More skills welcome — see [Contributing](#contributing).
+| Example | Description |
+|---------|-------------|
+| [skill-auditor](./skills/skill-auditor/) | Validates Agent Skills before publish — shows `@include`, references, and shared scripts |
+
+Add your own skills under `skills/<name>/`. See [Contributing](#contributing).
 
 ---
 
@@ -100,7 +107,7 @@ description: What it does and when to use it.
 @include /sections/workflow.md
 
 Read [the guide](/references/deep-dive.md) when needed.
-Run [start server](visual-companion/start-server).
+Run [hello](fixture-helper/hello).
 ```
 
 ### Reference rules
@@ -145,7 +152,7 @@ skills-house/
 Build a single skill:
 
 ```bash
-pnpm --filter @skills-house/brainstorming build
+pnpm --filter @skills-house/skill-auditor build
 ```
 
 ### Install flags
