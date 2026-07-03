@@ -41,4 +41,4 @@ website/
 3. Add entry to `website/feed.xml`
 4. Push to `main` — GitHub Pages redeploys automatically
 
-Diagram source files live in `docs/assets/`. The deploy workflow copies them into `website/assets/`.
+Use **relative paths** for assets and navigation (`styles.css`, `../assets/…`) so the site works on both `al4f.dev` and `al4f.github.io/skills-house/`.
