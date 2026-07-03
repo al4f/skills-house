@@ -1,0 +1,7 @@
+{
+  "name": "@skills-house/script-fixture-helper",
+  "private": true,
+  "exports": {
+    "./hello": "./scripts/hello.sh"
+  }
+}
