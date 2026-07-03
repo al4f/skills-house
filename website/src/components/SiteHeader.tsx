@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { RegistrySearch } from "@/components/RegistrySearch";
 import { BRAND } from "@/lib/types";
@@ -17,19 +18,36 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ active }: SiteHeaderProps) {
   const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
   const current =
     active ??
     navItems.find((item) => location.pathname.startsWith(item.href))?.key ??
     (location.pathname === "/" ? "home" : location.pathname.startsWith("/search") ? "search" : undefined);
 
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
   return (
     <header className="site-header">
       <div className="site-header-inner">
-        <Link to="/" className="logo">
-          <span className="logo-mark" aria-hidden="true" />
-          Skills House
-        </Link>
-        <nav className="site-nav" aria-label="Main">
+        <div className="site-header-bar">
+          <Link to="/" className="logo">
+            <span className="logo-mark" aria-hidden="true" />
+            Skills House
+          </Link>
+          <button
+            type="button"
+            className="nav-toggle"
+            aria-expanded={menuOpen}
+            aria-controls="site-nav"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span className="sr-only">{menuOpen ? "Close menu" : "Open menu"}</span>
+            <span className="nav-toggle-icon" aria-hidden="true" />
+          </button>
+        </div>
+        <nav id="site-nav" className={`site-nav${menuOpen ? " is-open" : ""}`} aria-label="Main">
           {navItems.map((item) => (
             <Link
               key={item.key}
