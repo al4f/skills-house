@@ -22,6 +22,6 @@
     "pack:skill": "node scripts/pack-skill.mjs",
     "validate": "pnpm --filter \"./skills/*\" run validate --if-present && pnpm --filter \"./scripts/*\" run validate --if-present && pnpm --filter @skills-house/build validate && pnpm --filter @skills-house/registry validate",
     "generate": "pnpm --filter @skills-house/registry build && node internal-scripts/registry/dist/cli.js",
-    "generate:check": "pnpm generate && git diff --exit-code -- generated website/data website/skills website/scripts website/graph website/search website/platform website/platform.css"
+    "generate:check": "pnpm generate && node scripts/check-generated.mjs"
   }
 }
