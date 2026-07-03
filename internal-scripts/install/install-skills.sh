@@ -16,6 +16,7 @@
 # Examples:
 #   ./install-skills.sh
 #   ./install-skills.sh --agent cursor
+#   ./install-skills.sh --scope project
 #   ./install-skills.sh --agent codex --skill brainstorming --copy
 
 set -euo pipefail
@@ -32,7 +33,7 @@ DRY_RUN=false
 INCLUDE_ALL=false
 
 usage() {
-  sed -n '3,19p' "$0" | sed 's/^# \?//'
+  sed -n '3,21p' "$0" | sed 's/^# \?//'
 }
 
 log() { printf '%s\n' "$*"; }
@@ -44,27 +45,44 @@ run() {
   fi
 }
 
-agent_dir() {
+# Append unique path to TARGET_PATHS and parallel label to TARGET_LABELS.
+add_target() {
+  local label="$1"
+  local path="$2"
+  local existing
+  for existing in "${TARGET_PATHS[@]:-}"; do
+    [[ "$existing" == "$path" ]] && return
+  done
+  TARGET_PATHS+=("$path")
+  TARGET_LABELS+=("$label")
+}
+
+# Resolve install directories for an agent. Multiple paths when an agent reads
+# more than one location (e.g. cursor project: open standard + cursor-specific).
+resolve_agent_targets() {
   local agent="$1"
   case "$SCOPE" in
     global)
       case "$agent" in
-        agents) printf '%s' "$HOME/.agents/skills" ;;
-        codex)  printf '%s' "$HOME/.codex/skills" ;;
-        cursor) printf '%s' "$HOME/.cursor/skills" ;;
-        claude) printf '%s' "$HOME/.claude/skills" ;;
+        agents) add_target "agents" "$HOME/.agents/skills" ;;
+        codex)  add_target "codex" "$HOME/.codex/skills" ;;
+        cursor) add_target "cursor" "$HOME/.cursor/skills" ;;
+        claude) add_target "claude" "$HOME/.claude/skills" ;;
         *) echo "Unknown agent: $agent" >&2; return 1 ;;
       esac
       ;;
     project)
       case "$agent" in
-        agents) printf '%s' "$REPO_ROOT/.agents/skills" ;;
-        cursor) printf '%s' "$REPO_ROOT/.cursor/skills" ;;
-        claude) printf '%s' "$REPO_ROOT/.claude/skills" ;;
+        agents) add_target "agents (project)" "$REPO_ROOT/.agents/skills" ;;
         codex)
-          echo "Codex project skills use .agents/skills (open standard). Use --agent agents with --scope project." >&2
-          return 1
+          # Codex project skills use the open-standard .agents/skills path.
+          add_target "codex → .agents/skills (project)" "$REPO_ROOT/.agents/skills"
           ;;
+        cursor)
+          add_target "cursor → .agents/skills (project)" "$REPO_ROOT/.agents/skills"
+          add_target "cursor (project)" "$REPO_ROOT/.cursor/skills"
+          ;;
+        claude) add_target "claude (project)" "$REPO_ROOT/.claude/skills" ;;
         *) echo "Unknown agent: $agent" >&2; return 1 ;;
       esac
       ;;
@@ -76,6 +94,8 @@ agent_dir() {
 }
 
 ALL_AGENTS=(agents codex cursor claude)
+TARGET_PATHS=()
+TARGET_LABELS=()
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -114,6 +134,15 @@ else
   agents=("${ALL_AGENTS[@]}")
 fi
 
+for agent in "${agents[@]}"; do
+  resolve_agent_targets "$agent" || exit 1
+done
+
+if [[ ${#TARGET_PATHS[@]} -eq 0 ]]; then
+  echo "No install targets resolved." >&2
+  exit 1
+fi
+
 skills=()
 for dir in "$DIST_DIR"/*; do
   [[ -d "$dir" ]] || continue
@@ -137,11 +166,12 @@ log "Installing from: $DIST_DIR"
 log "Skills: ${skills[*]}"
 log "Mode: $MODE | Scope: $SCOPE"
 
-for agent in "${agents[@]}"; do
-  target_root="$(agent_dir "$agent")" || exit 1
+for i in "${!TARGET_PATHS[@]}"; do
+  target_root="${TARGET_PATHS[$i]}"
+  label="${TARGET_LABELS[$i]}"
   run mkdir -p "$target_root"
   log ""
-  log "[$agent] → $target_root"
+  log "[$label] → $target_root"
 
   for skill in "${skills[@]}"; do
     src="$DIST_DIR/$skill"
