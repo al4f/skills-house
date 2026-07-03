@@ -21,16 +21,18 @@ Architecture and design docs. **Paper first, code second.**
 | Distribution | Adopted |
 | Marker spec | Adopted |
 | Package naming | Adopted |
+| Platform vision | Adopted |
+| Skill frontmatter schema | Adopted (`specs/schema/skill-frontmatter.schema.json`) |
 | Implementation plan | Completed (historical) |
 
 ## Principles
 
-1. **Framework, not catalog** — one example skill; authors bring their own.
+1. **Platform for AI Skills** — publish, discover, and reuse skills on [al4f.dev](https://al4f.dev); GitHub is the backend.
 2. **Source is freeform** — only `SKILL.md` is required as the builder entry.
 3. **Dist is spec-compliant** — build output conforms to [Agent Skills](https://agentskills.io).
 4. **Primary install = skills.sh** — `npx skills add owner/repo`; npm dist is secondary.
-5. **Validate is per-package** — each package defines its own `validate` script.
-6. **Do not validate `skills-dist/`** — generated output only.
+5. **Validate is per-package** — each package defines its own `validate` script; registry validates metadata and references.
+6. **Generated, not duplicated** — registry, search, graph, and website data come from `pnpm generate`.
 
 ## Remaining work
 
