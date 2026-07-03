@@ -1,8 +1,8 @@
 # al4f.dev — Static Site
 
-Minimal authority hub for al4f. **Live at https://al4f.dev**
+Modern React static site for al4f and Skills House. **Live at https://al4f.dev**
 
-Deployed automatically via GitHub Pages on push to `main`. Also available at https://al4f.github.io/skills-house/
+Built with Vite + React and pre-rendered at build time. Deployed automatically via GitHub Pages on push to `main`.
 
 ## GitHub Pages setup (one-time)
 
@@ -12,32 +12,53 @@ Deployed automatically via GitHub Pages on push to `main`. Also available at htt
    - Enter: `al4f.dev`
 3. DNS (configured): apex `CNAME` flattening or `ALIAS` → `al4f.github.io`
 
-The workflow [`.github/workflows/deploy-al4f-dev.yml`](../.github/workflows/deploy-al4f-dev.yml) deploys `website/` on every push.
+The workflow [`.github/workflows/deploy-al4f-dev.yml`](../.github/workflows/deploy-al4f-dev.yml) builds `website/` and deploys `website/dist/` on every push.
 
-## Local preview
+## Local development
 
 ```bash
-npx serve website -p 3000
-# Open http://localhost:3000
+# From repo root
+pnpm install
+pnpm --filter @skills-house/website dev
+# Open http://localhost:5173
+```
+
+## Build
+
+```bash
+pnpm build:website
+# Output: website/dist/
+pnpm --filter @skills-house/website preview
 ```
 
 ## Structure
 
 ```
 website/
-├── CNAME               # Custom domain (al4f.dev)
-├── index.html          # Homepage
-├── styles.css          # Global styles
-├── feed.xml            # RSS feed
-├── assets/             # Diagrams, OG image
-└── writing/            # Blog articles
+├── public/             # Static assets, registry JSON, CNAME, feed.xml
+│   ├── data/           # Generated registry data (from pnpm generate)
+│   └── assets/         # Diagrams, OG image
+├── src/
+│   ├── components/     # Layout, header, footer
+│   ├── pages/          # Route pages
+│   ├── content/        # Writing article HTML bodies
+│   └── lib/            # Registry types, routes, writing metadata
+├── scripts/prerender.mjs
+└── dist/               # Build output (deployed to GitHub Pages)
 ```
 
-## Updating content
+## Updating registry content
 
-1. Add HTML article under `website/writing/`
-2. Link from `website/writing/index.html` and `website/index.html`
-3. Add entry to `website/feed.xml`
-4. Push to `main` — GitHub Pages redeploys automatically
+Skills and scripts pages are driven by generated JSON:
 
-Use **relative paths** for assets and navigation (`styles.css`, `../assets/…`) so the site works on both `al4f.dev` and `al4f.github.io/skills-house/`.
+```bash
+pnpm generate
+```
+
+This updates `generated/` and `website/public/data/`. Commit the changes, then push — CI rebuilds and redeploys the site.
+
+## Updating writing
+
+1. Add article HTML body under `website/src/content/writing/<slug>.html`
+2. Register metadata in `website/src/lib/writing.ts`
+3. Add RSS entry in `website/public/feed.xml`

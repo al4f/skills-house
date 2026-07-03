@@ -2,6 +2,7 @@ packages:
   - "skills/*"
   - "scripts/*"
   - "internal-scripts/*"
+  - "website"
 
 allowBuilds:
   esbuild: true

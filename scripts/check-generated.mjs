@@ -6,18 +6,9 @@ const JSON_PATHS = [
   "generated/registry.json",
   "generated/search-index.json",
   "generated/dependency-graph.json",
-  "website/data/registry.json",
-  "website/data/search-index.json",
-  "website/data/dependency-graph.json",
-];
-
-const OTHER_PATHS = [
-  "website/skills",
-  "website/scripts",
-  "website/graph",
-  "website/search",
-  "website/platform",
-  "website/platform.css",
+  "website/public/data/registry.json",
+  "website/public/data/search-index.json",
+  "website/public/data/dependency-graph.json",
 ];
 
 function stripGeneratedAt(value) {
@@ -51,12 +42,6 @@ for (const filePath of JSON_PATHS) {
     console.error(`Generated output mismatch: ${filePath}`);
     failed = true;
   }
-}
-
-try {
-  execSync(`git diff --exit-code -- ${OTHER_PATHS.join(" ")}`, { stdio: "inherit" });
-} catch {
-  failed = true;
 }
 
 if (failed) process.exit(1);

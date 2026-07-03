@@ -7,7 +7,7 @@ import {
   scanSkills,
 } from "./scan.js";
 import { buildSearchIndex, loadSkillSchema, validateRegistry, hasValidationErrors, formatValidationIssues } from "./validate.js";
-import { writeGeneratedJson, writeWebsitePages } from "./generate-website.js";
+import { writeGeneratedJson } from "./generate-website.js";
 import type { Registry } from "./types.js";
 
 type PackageJson = { author?: string };
@@ -48,10 +48,7 @@ export async function generateRegistry(options: GenerateOptions = {}): Promise<R
     }
   }
 
-  if (!options.websiteOnly) {
-    await writeGeneratedJson(repoRoot, registry);
-  }
-  await writeWebsitePages(repoRoot, registry);
+  await writeGeneratedJson(repoRoot, registry);
 
   return registry;
 }
