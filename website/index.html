@@ -13,14 +13,19 @@
   <link rel="canonical" href="https://al4f.dev/">
   <link rel="alternate" type="application/rss+xml" title="al4f.dev" href="feed.xml">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="platform.css">
 </head>
 <body>
   <header class="site-header">
     <a href="./" class="logo">al4f</a>
     <nav>
+      <a href="platform/">Skills House</a>
+      <a href="skills/">Skills</a>
+      <a href="scripts/">Scripts</a>
+      <a href="graph/">Graph</a>
+      <a href="search/">Search</a>
       <a href="writing/">Writing</a>
-      <a href="https://github.com/al4f/skills-house">skills-house</a>
-      <a href="https://github.com/al4f">GitHub</a>
+      <a href="https://github.com/al4f/skills-house">GitHub</a>
     </nav>
   </header>
 
@@ -29,29 +34,31 @@
       <p class="eyebrow">Agent Skills tooling engineer</p>
       <h1>I build infrastructure for Agent Skills</h1>
       <p class="lead">
-        <a href="https://github.com/al4f/skills-house">skills-house</a> — an open-source <strong>framework</strong>
-        for writing, building, and shipping <a href="https://agentskills.io">Agent Skills</a> to Cursor, Claude Code, Codex, and more.
-        Not a skill catalog — bring your own skills.
+        <a href="platform/">Skills House</a> — the official platform to <strong>publish, discover, and reuse AI Skills</strong>.
+        Author with modular markdown and shared scripts; the build pipeline produces spec-compliant artifacts
+        ready to install into any supported agent.
       </p>
       <div class="hero-actions">
-        <a class="button primary" href="writing/agent-skills-at-scale.html">Read: Agent Skills at Scale</a>
-        <a class="button" href="https://github.com/al4f/skills-house">View skills-house</a>
+        <a class="button primary" href="platform/">Explore Skills House</a>
+        <a class="button" href="skills/">Browse Skills</a>
+        <a class="button" href="writing/agent-skills-at-scale.html">Read: Agent Skills at Scale</a>
       </div>
     </section>
 
     <section class="featured">
-      <h2>Featured project</h2>
+      <h2>Skills House Platform</h2>
       <article class="card project-card">
         <div class="card-media">
           <img src="assets/diagram-pipeline.svg" alt="skills-house pipeline diagram" width="720" height="240">
         </div>
         <div class="card-body">
-          <h3><a href="https://github.com/al4f/skills-house">skills-house</a></h3>
-          <p>Author your own skills with <code>@include</code> and shared scripts. One build step produces spec-compliant artifacts and installs them into any supported agent.</p>
+          <h3><a href="platform/">Skills House</a></h3>
+          <p>GitHub is the backend. The website is the product — browse skills, scripts, dependency graphs, and install with one command. Skill PRs auto-merge when validation passes.</p>
           <ul class="feature-list">
-            <li>Modular markdown authoring</li>
-            <li>Shared script packages</li>
-            <li>Multi-agent install</li>
+            <li><a href="skills/">Skills Explorer</a></li>
+            <li><a href="scripts/">Scripts Explorer</a></li>
+            <li><a href="graph/">Dependency Graph</a></li>
+            <li><a href="search/">Global Search</a></li>
           </ul>
         </div>
       </article>
@@ -110,8 +117,8 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <p>© 2026 al4f · <a href="https://github.com/al4f">GitHub</a> · <a href="feed.xml">RSS</a></p>
+  <footer class="site-footer platform-footer">
+    <p>© 2026 <a href="https://al4f.dev">al4f</a> · <strong>Skills House</strong> · <a href="https://github.com/al4f/skills-house">GitHub</a> · <a href="https://github.com/al4f/skills-house/tree/main/specs">Documentation</a> · <a href="feed.xml">RSS</a></p>
   </footer>
 </body>
 </html>

@@ -1,7 +1,15 @@
 {
   "name": "@skills-house/script-skill-auditor-tools",
   "private": true,
+  "description": "Validation tools for Agent Skills source directories.",
   "exports": {
     "./validate": "./scripts/validate.sh"
+  },
+  "skills-house": {
+    "description": "Bash validator for SKILL.md frontmatter, naming, and in-package link resolution.",
+    "inputs": ["skill source directory path"],
+    "outputs": ["validation report (exit code 0 = pass)"],
+    "examples": ["bash scripts/validate.sh skills/my-skill"],
+    "maintainers": ["al4f"]
   }
 }

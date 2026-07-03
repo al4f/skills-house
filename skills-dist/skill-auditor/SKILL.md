@@ -3,6 +3,13 @@ name: skill-auditor
 description: Use when reviewing, publishing, or contributing Agent Skills.
   Validates SKILL.md frontmatter, directory naming, in-package links, and Agent
   Skills layout conventions before merge or release.
+metadata:
+  author: al4f
+  version: 0.1.0
+  tags:
+    - validation
+    - publishing
+    - agent-skills
 ---
 
 # Skill Auditor
