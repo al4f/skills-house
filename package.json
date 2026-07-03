@@ -13,9 +13,10 @@
     "url": "https://github.com/al4f/skills-house/issues"
   },
   "scripts": {
-    "build": "pnpm --filter @skills-house/build build && pnpm --filter \"./skills/*\" build",
+    "build": "pnpm --filter @skills-house/build build && pnpm --filter @skills-house/cli build && pnpm --filter \"./skills/*\" build",
     "install:skills": "bash internal-scripts/install/install-skills.sh",
     "remove:skills": "bash internal-scripts/install/remove-skills.sh",
+    "skills": "node internal-scripts/cli/dist/cli.js",
     "test": "pnpm --filter @skills-house/build test",
     "validate": "pnpm --filter \"./skills/*\" run validate --if-present && pnpm --filter \"./scripts/*\" run validate --if-present && pnpm --filter @skills-house/build validate"
   }

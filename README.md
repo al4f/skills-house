@@ -132,6 +132,7 @@ skills-house/
 ├── scripts/                 # Shared script packages (package.json exports)
 ├── internal-scripts/
 │   ├── build/               # @skills-house/build — skill compiler
+│   ├── cli/                 # @skills-house/cli — skills add
 │   └── install/             # install-skills.sh, remove-skills.sh
 ├── skills-dist/             # Built Agent Skills output
 └── specs/                   # Architecture & design docs
@@ -147,6 +148,7 @@ skills-house/
 | `pnpm test` | Run build pipeline tests |
 | `pnpm validate` | Run per-package validate scripts |
 | `pnpm install:skills` | Install dist skills to agent directories |
+| `pnpm skills add <name>` | Install a built skill via CLI (see `--from ./skills-dist`) |
 | `pnpm remove:skills` | Remove installed skills |
 
 Build a single skill:
@@ -223,10 +225,11 @@ Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCR
 
 ## Roadmap
 
-- [ ] `npx skills add <name>` — npm publish + CLI for public installs
+- [ ] Publish `@skills-house/cli` — `npx skills add <name>` from npm (scaffold in repo)
 - [ ] Per-skill npm packages for download metrics
 - [ ] Nested `@include` support
 - [x] CI for build + test on PRs
+- [x] al4f.dev static site + GitHub Pages deploy
 
 ---
 

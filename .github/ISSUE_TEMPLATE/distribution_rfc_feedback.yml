@@ -1,0 +1,28 @@
+name: Distribution RFC feedback
+description: Feedback on the skills-house distribution model (npx skills add)
+title: "[rfc]: "
+labels: ["distribution-rfc"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read the RFC: [skills-house Distribution Model](https://al4f.dev/writing/skills-house-distribution-rfc.html)
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Feedback
+      description: Package naming, install UX, versioning, metrics — constructive input welcome.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - CLI UX (npx skills add)
+        - npm package model
+        - Versioning
+        - Install paths / agents
+        - Other
+    validations:
+      required: true

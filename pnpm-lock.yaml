@@ -27,6 +27,18 @@ importers:
         specifier: ^5.8.0
         version: 5.9.3
 
+  internal-scripts/cli:
+    devDependencies:
+      '@types/node':
+        specifier: ^22.15.0
+        version: 22.20.0
+      tsup:
+        specifier: ^8.5.0
+        version: 8.5.1(typescript@5.9.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+
   scripts/fixture-helper: {}
 
   scripts/skill-auditor-tools: {}

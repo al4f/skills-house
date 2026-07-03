@@ -27,6 +27,9 @@ jobs:
       - name: Build compiler
         run: pnpm --filter @skills-house/build build
 
+      - name: Build CLI
+        run: pnpm --filter @skills-house/cli build
+
       - name: Build skills
         run: |
           for skill in skills/*/; do

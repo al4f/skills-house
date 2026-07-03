@@ -1,0 +1,30 @@
+name: Example skill contribution
+description: Propose an example skill that demonstrates skills-house framework patterns
+title: "[example]: "
+labels: ["example"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        skills-house is a **framework**, not a skill catalog. We accept focused example skills that teach authoring patterns — not a growing marketplace.
+  - type: input
+    id: skill-name
+    attributes:
+      label: Example skill name
+      placeholder: my-example-skill
+    validations:
+      required: true
+  - type: textarea
+    id: pattern
+    attributes:
+      label: What framework pattern does this demonstrate?
+      description: e.g. shared scripts, @include composition, skill dependencies, validation tooling
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Keep examples small and educational. One clear pattern per PR.
+    validations:
+      required: true
