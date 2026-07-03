@@ -26,7 +26,7 @@
   "scripts": {
     "build": "tsup",
     "validate": "tsc --noEmit",
-    "test": "node --test test/cli.test.mjs"
+    "test": "node --test test/cli.test.mjs test/layout-npm-skill.test.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",

@@ -79,13 +79,15 @@ node scripts/pack-skill.mjs skill-auditor   # npm-ready package
 - [ ] Publish LinkedIn post 1 — `content/publish/linkedin-1-ready.md`
 - [ ] Record demo video — `content/demo-video/SCRIPT.md`
 - [ ] Ecosystem engagement — `content/ecosystem/ENGAGEMENT.md`
-- [ ] npm publish CLI + skill — `content/publish/PUBLISHING.md` (`pnpm pack:cli` / `pnpm pack:skill`)
+- [ ] npm org + login — `content/publish/NPM-SETUP.md`
+- [ ] npm publish CLI + skill — `content/publish/PUBLISHING.md`
 
 ## Code roadmap (not done)
 
-- [ ] Publish `@skills-house/cli` to npm (`npx @skills-house/cli add <name>`)
+- [ ] Publish `@skills-house/cli` to npm — `content/publish/NPM-SETUP.md` then `PUBLISHING.md`
 - [ ] Publish `@skills-house/skill-skill-auditor` to npm
 - [x] Nested `@include` support
+- [x] npm publish package layout (CLI bundles install scripts)
 
 ## Important decisions made
 

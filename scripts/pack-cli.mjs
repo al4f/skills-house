@@ -14,6 +14,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, "..");
 const CLI_SRC = join(REPO_ROOT, "internal-scripts", "cli");
+const INSTALL_SRC = join(REPO_ROOT, "internal-scripts", "install");
 const DIST = join(CLI_SRC, "dist", "cli.js");
 
 function parseArgs(argv) {
@@ -40,6 +41,17 @@ function main() {
   mkdirSync(dest, { recursive: true });
   cpSync(join(CLI_SRC, "dist"), join(dest, "dist"), { recursive: true });
 
+  const installDest = join(dest, "install");
+  mkdirSync(join(installDest, "lib"), { recursive: true });
+  cpSync(
+    join(INSTALL_SRC, "install-skills.sh"),
+    join(installDest, "install-skills.sh"),
+  );
+  cpSync(
+    join(INSTALL_SRC, "lib", "agent-targets.sh"),
+    join(installDest, "lib", "agent-targets.sh"),
+  );
+
   const packageJson = {
     name: sourcePkg.name,
     version: sourcePkg.version,
@@ -52,7 +64,7 @@ function main() {
     keywords: sourcePkg.keywords,
     engines: { node: ">=20" },
     publishConfig: { access: "public" },
-    files: ["dist"],
+    files: ["dist", "install"],
     bin: sourcePkg.bin,
   };
 

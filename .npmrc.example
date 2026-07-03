@@ -1,0 +1,4 @@
+# Scoped packages for @skills-house (optional)
+# Copy to ~/.npmrc or project .npmrc if needed.
+
+@skills-house:registry=https://registry.npmjs.org/

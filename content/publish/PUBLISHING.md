@@ -2,10 +2,12 @@
 
 Monorepo packages stay `private: true`. Use the pack scripts to emit npm-ready directories under `packages/publish/` (gitignored).
 
+**First time?** Complete [NPM-SETUP.md](./NPM-SETUP.md) to create the `@skills-house` org and authenticate.
+
 ## Prerequisites
 
-- npm account with access to `@skills-house` scope (create org on npmjs.com)
-- `npm login`
+- `@skills-house` npm org created and your user has publish access
+- `npm login` (verify with `npm whoami`)
 
 ## 1. Pack and publish the CLI
 
@@ -20,6 +22,7 @@ npm publish --access public
 After publish:
 
 ```bash
+npx @skills-house/cli add skill-auditor --dry-run
 npx @skills-house/cli add skill-auditor
 ```
 
