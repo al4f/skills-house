@@ -1,0 +1,183 @@
+# SKILL.md Authoring Spec
+
+**Date:** 2026-07-03  
+**Status:** Draft
+
+Source `SKILL.md` (after YAML frontmatter) uses one build marker and standard markdown links. The parser and builder handle everything else.
+
+## Path convention
+
+In-package paths in links and `@include` are **root-absolute from the skill package**:
+
+```
+✅ /references/guide.md
+✅ /sections/workflow.md
+✅ /assets/template.html
+❌ ./references/guide.md
+❌ ../shared/foo.md
+```
+
+## `@include` — the only marker
+
+**Syntax:** `@include /path/to/fragment.md`
+
+**Behavior:** Read the markdown file and merge its content into `SKILL.md` body at build time. The fragment is not copied as a separate dist file (unless also linked elsewhere).
+
+**Applies to:** Markdown only.
+
+**Example (source):**
+
+```markdown
+---
+name: brainstorming
+description: Explore ideas before implementation.
+---
+
+# Brainstorming
+
+@include /sections/checklist.md
+
+## Process
+...
+```
+
+**Example (dist):** Body contains expanded checklist content inline.
+
+---
+
+## Markdown links — all references
+
+Every non-inline reference uses standard markdown link syntax: `[label](target)`.
+
+The parser reads `target` (href) and the builder resolves it. No `@ref` marker exists.
+
+### Form 1: In-package file
+
+```markdown
+See [visual companion guide](/references/visual-companion.md).
+[extract script](/scripts/extract.py)
+[template](/assets/template.html)
+```
+
+**Behavior:**
+
+- Copy file to the appropriate dist subfolder.
+- Rewrite href to a spec-relative path (no leading `/`).
+
+**Routing:**
+
+| Source path prefix | Dist destination |
+|--------------------|------------------|
+| `/references/**` | `references/` |
+| `/scripts/**` | `scripts/` |
+| `/assets/**` | `assets/` |
+
+**Example (dist):**
+
+```markdown
+See [visual companion guide](references/visual-companion.md).
+```
+
+---
+
+### Form 2: Script namespace export
+
+```markdown
+[Start server](visual-companion/start-server)
+```
+
+**Not a file path.** The href matches a named export from a `scripts/` workspace package (`package.json` `exports`).
+
+**Resolution:**
+
+1. Find workspace package matching `visual-companion` (short directory name).
+2. Read `exports["./start-server"]`.
+3. Bundle resolved files into dist `scripts/`.
+
+**Script package `package.json`:**
+
+```json
+{
+  "name": "@skills-house/script-visual-companion",
+  "exports": {
+    "./start-server": "./scripts/start-server.sh",
+    "./server": "./scripts/server.cjs"
+  }
+}
+```
+
+Export names are used directly as link targets: `visual-companion/<export-name>`.
+
+---
+
+### Form 3: Skill package
+
+```markdown
+Uses [brainstorming](brainstorming) for design exploration.
+```
+
+**Not a file path.** References another skill in the `skills/` workspace.
+
+**Behavior (build-time only):**
+
+1. Record dependency in dist metadata.
+2. Replace link with agent-facing install-suggestion note.
+3. No file copy.
+
+**Example (dist):**
+
+```markdown
+> **Depends on:** `brainstorming`
+> If this skill is not available in the workspace, suggest the user install it:
+> `npx skills add brainstorming`
+```
+
+---
+
+## Link target disambiguation
+
+One rule for all references. No special cases per package type at parse time.
+
+```
+href starts with /     → in-package file path
+href has no leading /  → package reference (resolved via package.json exports)
+```
+
+**Package references:**
+
+| href | Meaning |
+|------|---------|
+| `brainstorming` | Package default export (`exports["."]` or package main) |
+| `visual-companion/start-server` | Package named export (`exports["./start-server"]`) |
+
+The builder looks up the short package name in `skills/` and `scripts/` workspaces, reads `package.json` `exports`, and applies the appropriate output behavior (bundle files, inject skill-dependency note, etc.) based on which workspace the package lives in.
+
+**In-package file example:**
+
+| Source link | Resolves to |
+|-------------|-------------|
+| `[guide](/references/guide.md)` | Copy file from skill package → dist |
+
+**Package reference examples:**
+
+| Source link | Resolves to |
+|-------------|-------------|
+| `[run](visual-companion/start-server)` | Named export from scripts package |
+| `[companion](visual-companion)` | Default export from scripts package |
+| `[dep](brainstorming)` | Default export from skills package → dependency note |
+
+---
+
+## Summary
+
+| Mechanism | Syntax | Purpose |
+|-----------|--------|---------|
+| `@include` | `@include /sections/foo.md` | Merge markdown into body |
+| Markdown link | `[label](/references/foo.md)` | In-package file (href starts with `/`) |
+| Markdown link | `[label](package-name)` | Package default export |
+| Markdown link | `[label](package-name/export-name)` | Package named export |
+
+## Related
+
+- [Monorepo overview](../architecture/monorepo-overview.md)
+- [Agent Skills spec](https://agentskills.io)
