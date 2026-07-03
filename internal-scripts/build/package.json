@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "tsup",
-    "validate": "tsc --noEmit"
+    "validate": "tsc --noEmit",
+    "test": "node --test test/build.test.mjs"
   },
   "dependencies": {
     "esbuild": "^0.25.0",
