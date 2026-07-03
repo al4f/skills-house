@@ -12,8 +12,13 @@ Copy the contents of [`README.md`](./README.md) into a new public repository nam
 
 ## Checklist
 
+- [ ] Enable GitHub Pages (Source: GitHub Actions) on skills-house repo
+- [ ] Set custom domain `al4f.dev` in Pages settings (see `website/README.md`)
 - [ ] Create `al4f/al4f` repo with profile README
 - [ ] Set bio with "Agent Skills" keyword
 - [ ] Pin `skills-house`
 - [ ] Set website to al4f.dev
 - [ ] Add profile picture (optional but recommended)
+- [ ] Publish first X thread from `content/social/x-threads.md`
+- [ ] Publish first LinkedIn post from `content/linkedin/posts.md`
+- [ ] Record demo video using `content/demo-video/SCRIPT.md`

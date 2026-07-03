@@ -22,8 +22,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-DIST_DIR="$REPO_ROOT/skills-dist"
+REPO_ROOT="${SKILLS_REPO_ROOT:-$(cd "$SCRIPT_DIR/../.." && pwd)}"
+DIST_DIR="${SKILLS_DIST_DIR:-$REPO_ROOT/skills-dist}"
 # shellcheck source=lib/agent-targets.sh
 source "$SCRIPT_DIR/lib/agent-targets.sh"
 
