@@ -33,8 +33,16 @@ jobs:
           JSON="$(node scripts/parse-release-tag.mjs "$GITHUB_REF_NAME")"
           echo "$JSON" | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> "$GITHUB_OUTPUT"
 
-      - name: Build
-        run: pnpm build
+      - name: Build compiler
+        run: pnpm --filter @skills-house/build build
+
+      - name: Build CLI
+        if: steps.release.outputs.type == 'cli'
+        run: pnpm --filter @skills-house/cli build
+
+      - name: Build skill
+        if: steps.release.outputs.type == 'skill'
+        run: node internal-scripts/build/dist/cli.js "skills/${{ steps.release.outputs.skill }}"
 
       - name: Set CLI version from tag
         if: steps.release.outputs.type == 'cli'
