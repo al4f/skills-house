@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./docs/assets/skills-house-banner.png" alt="skills-house — Author, Build, Ship Agent Skills" width="720" />
+</p>
+
 # skills-house
 
 **Author, build, and ship [Agent Skills](https://agentskills.io) for Cursor, Claude Code, Codex, and more — from one monorepo.**
