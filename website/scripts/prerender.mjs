@@ -86,4 +86,6 @@ for (const route of routes) {
   console.log(`  prerendered ${route} → ${routeToFilePath(route)}`);
 }
 
+await fs.rm(path.join(distDir, "server"), { recursive: true, force: true });
+
 console.log(`\nPrerendered ${routes.length} routes.`);
