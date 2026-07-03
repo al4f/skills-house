@@ -12,6 +12,7 @@ pnpm install
 pnpm build
 pnpm install:skills                    # global: all agents
 pnpm install:skills --scope project    # project: .agents, .cursor, .claude
+pnpm remove:skills --scope project     # uninstall from project paths
 pnpm install:skills --agent cursor
 pnpm install:skills --agent codex --scope project --skill brainstorming
 ```
