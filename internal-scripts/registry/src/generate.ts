@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { execSync } from "node:child_process";
 import {
   buildDependencyGraph,
   findRepoRoot,
@@ -11,6 +12,19 @@ import { writeGeneratedJson, writeWebsitePages } from "./generate-website.js";
 import type { Registry } from "./types.js";
 
 type PackageJson = { author?: string };
+
+function resolveGeneratedAt(repoRoot: string): string {
+  try {
+    const timestamp = execSync(
+      "git log -1 --format=%cI HEAD -- skills scripts specs/schema",
+      { cwd: repoRoot, encoding: "utf8" },
+    ).trim();
+    if (timestamp) return timestamp;
+  } catch {
+    // Fall through when git is unavailable.
+  }
+  return "1970-01-01T00:00:00.000Z";
+}
 
 export type GenerateOptions = {
   repoRoot?: string;
@@ -28,7 +42,7 @@ export async function generateRegistry(options: GenerateOptions = {}): Promise<R
   const graph = buildDependencyGraph(skills);
 
   const partial: Omit<Registry, "searchIndex"> = {
-    generatedAt: new Date().toISOString(),
+    generatedAt: resolveGeneratedAt(repoRoot),
     repository: "https://github.com/al4f/skills-house",
     skills,
     scripts,
