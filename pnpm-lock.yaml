@@ -29,9 +29,9 @@ importers:
 
   scripts/fixture-helper: {}
 
-  scripts/visual-companion: {}
+  scripts/skill-auditor-tools: {}
 
-  skills/brainstorming:
+  skills/skill-auditor:
     devDependencies:
       '@skills-house/build':
         specifier: workspace:*

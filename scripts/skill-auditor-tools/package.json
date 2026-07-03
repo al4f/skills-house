@@ -1,0 +1,7 @@
+{
+  "name": "@skills-house/script-skill-auditor-tools",
+  "private": true,
+  "exports": {
+    "./validate": "./scripts/validate.sh"
+  }
+}

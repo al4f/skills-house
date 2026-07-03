@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Skills at Scale: Why You Need a Build Pipeline — al4f</title>
+  <meta name="description" content="Why a source-to-dist build step matters when authoring Agent Skills at scale. By al4f, author of skills-house.">
+  <meta property="og:title" content="Agent Skills at Scale: Why You Need a Build Pipeline">
+  <meta property="og:description" content="Why a source-to-dist build step matters when authoring Agent Skills at scale.">
+  <meta property="og:url" content="https://al4f.dev/writing/agent-skills-at-scale.html">
+  <meta property="og:image" content="https://al4f.dev/assets/diagram-pipeline.svg">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo">al4f</a>
+    <nav>
+      <a href="/writing/">Writing</a>
+      <a href="https://github.com/al4f/skills-house">skills-house</a>
+      <a href="https://github.com/al4f">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <header class="article-header">
+      <p class="eyebrow">Agent Skills engineering</p>
+      <h1>Agent Skills at Scale: Why You Need a Build Pipeline</h1>
+      <p class="article-meta">Jul 2026 · 12 min read</p>
+    </header>
+
+    <article class="article-content">
+      <p>
+        <a href="https://agentskills.io">Agent Skills</a> give coding agents reusable expertise — structured instructions,
+        references, and scripts that load when the task matches. Cursor, Claude Code, Codex, and other tools are adopting
+        the format. Skills work well for a single file. They get messy at scale.
+      </p>
+
+      <p>
+        I built <a href="https://github.com/al4f/skills-house">skills-house</a> to solve that. This article explains
+        why a build pipeline between <em>source</em> and <em>dist</em> is the missing layer — and what design decisions
+        matter when you author skills for production use.
+      </p>
+
+      <h2>What Agent Skills are</h2>
+
+      <p>
+        An Agent Skill is a directory an agent can load: a required <code>SKILL.md</code>, plus optional
+        <code>references/</code>, <code>scripts/</code>, and <code>assets/</code>. The agent reads the skill when
+        its description matches the task. Progressive disclosure keeps context small — references load on demand.
+      </p>
+
+      <p>
+        The <a href="https://agentskills.io">open specification</a> defines the <em>dist</em> layout: what agents consume.
+        It does not define how authors should structure source files while writing. That gap is where pain shows up.
+      </p>
+
+      <h2>The authoring pain at scale</h2>
+
+      <p>Once you maintain more than one skill, the same problems repeat:</p>
+
+      <ul>
+        <li><strong>Duplicated scripts</strong> — the same shell helper copied into three skill directories</li>
+        <li><strong>Bloated SKILL.md</strong> — a 400-line file that burns context every activation</li>
+        <li><strong>Manual install paths</strong> — copying into <code>~/.cursor/skills</code>, <code>.agents/skills</code>, <code>~/.claude/skills</code> by hand</li>
+        <li><strong>No shared build step</strong> — source and dist diverge; you edit one, forget the other</li>
+      </ul>
+
+      <p>
+        These are not Agent Skills spec problems. They are <em>authoring infrastructure</em> problems — the same class
+        of problems front-end teams solved with bundlers, and docs teams solved with static site generators.
+      </p>
+
+      <h2>Source vs dist: why a build step matters</h2>
+
+      <p>
+        skills-house splits authoring from distribution:
+      </p>
+
+      <img src="/assets/diagram-pipeline.svg" alt="skills-house pipeline: source, build, dist, install">
+
+      <ul>
+        <li><strong>Source</strong> (<code>skills/</code>) — freeform layout. Only <code>SKILL.md</code> is required.</li>
+        <li><strong>Build</strong> (<code>@skills-house/build</code>) — compiles markers and links into spec-compliant output.</li>
+        <li><strong>Dist</strong> (<code>skills-dist/</code>) — what agents load. Always valid Agent Skills layout.</li>
+        <li><strong>Install</strong> — one command targets Cursor, Claude, Codex, or all at once.</li>
+      </ul>
+
+      <p>
+        Authors optimize for readability and reuse. Agents optimize for a fixed contract. A build step lets both win.
+      </p>
+
+      <h2>One marker philosophy: <code>@include</code> only</h2>
+
+      <img src="/assets/diagram-authoring.svg" alt="skills-house authoring model: @include and link resolution">
+
+      <p>
+        skills-house uses exactly one build marker: <code>@include /path/to/fragment.md</code>. Everything else is a
+        standard markdown link. No custom <code>@ref</code>, no magic syntax per package type.
+      </p>
+
+      <pre><code>---
+name: my-skill
+description: What it does and when to use it.
+---
+
+# My Skill
+
+@include /sections/workflow.md
+
+Read [the guide](/references/deep-dive.md) when needed.
+Run [hello](fixture-helper/hello).</code></pre>
+
+      <p>Link resolution follows one rule:</p>
+
+      <ul>
+        <li><code>/path</code> (leading slash) → in-package file, copied to dist</li>
+        <li><code>package/export</code> (no leading slash) → workspace package reference</li>
+      </ul>
+
+      <p>
+        Shared scripts live in <code>scripts/</code> as reusable packages. Skills reference them by export name instead
+        of copy-pasting shell files. The build bundles resolved files into each skill's dist <code>scripts/</code> folder.
+      </p>
+
+      <h2>Multi-agent install strategy</h2>
+
+      <p>
+        Different agents read skills from different paths. skills-house installs from one dist output:
+      </p>
+
+      <ul>
+        <li><strong>Global:</strong> <code>~/.cursor/skills/</code>, <code>~/.claude/skills/</code>, <code>~/.agents/skills/</code></li>
+        <li><strong>Project:</strong> <code>.agents/skills/</code>, <code>.cursor/skills/</code>, <code>.claude/skills/</code></li>
+      </ul>
+
+      <pre><code>pnpm build
+pnpm install:skills --scope project   # this repo
+pnpm install:skills                     # all agents, global</code></pre>
+
+      <p>
+        Build once. Install everywhere. The install script is a thin layer over <code>skills-dist/</code> — no
+        per-agent authoring forks.
+      </p>
+
+      <h2>How we built skills-house</h2>
+
+      <img src="/assets/diagram-monorepo.svg" alt="skills-house monorepo workspace layout">
+
+      <p>Honest architecture decisions:</p>
+
+      <ul>
+        <li><strong>Paper first, code second</strong> — specs in <code>specs/</code> before implementation</li>
+        <li><strong>Committed dist in v1</strong> — inspectable PRs; you see exactly what agents load</li>
+        <li><strong>pnpm workspaces</strong> — skills, scripts, and build tooling in one monorepo</li>
+        <li><strong>esbuild for script graphs</strong> — bundle namespace exports from <code>scripts/</code> packages</li>
+        <li><strong>No dist validation</strong> — if build is correct, dist is correct by construction</li>
+      </ul>
+
+      <p>
+        Deferred on purpose: <code>npx skills add</code>, per-skill npm packages, nested <code>@include</code>.
+        Infrastructure before distribution. Authority before vanity metrics.
+      </p>
+
+      <h2>What this means for skill authors</h2>
+
+      <p>
+        If you maintain one skill as a flat <code>SKILL.md</code>, you may not need a build pipeline yet.
+        If you maintain a library of skills with shared scripts and modular sections, you will — whether you
+        build it yourself or use a toolkit.
+      </p>
+
+      <p>
+        skills-house is my answer. Clone it, read the <a href="https://github.com/al4f/skills-house/tree/main/specs">specs</a>,
+        and adapt the patterns. The goal is not stars — it's making Agent Skills infrastructure a solved problem
+        that developers associate with clear conventions.
+      </p>
+
+      <blockquote>
+        <p>
+          <strong>Next:</strong> <a href="/writing/how-i-built-skill-auditor.html">How I built skill-auditor</a> —
+          a walkthrough of authoring a second reference skill in the monorepo.
+        </p>
+      </blockquote>
+    </article>
+
+    <nav class="article-nav">
+      <p><a href="https://github.com/al4f/skills-house">skills-house on GitHub</a> · <a href="/writing/">More writing</a></p>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 al4f · <a href="https://github.com/al4f">GitHub</a> · <a href="/feed.xml">RSS</a></p>
+  </footer>
+</body>
+</html>

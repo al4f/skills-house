@@ -15,7 +15,7 @@
 # Examples:
 #   ./remove-skills.sh
 #   ./remove-skills.sh --scope project
-#   ./remove-skills.sh --agent claude --skill brainstorming
+#   ./remove-skills.sh --agent claude --skill skill-auditor
 
 set -euo pipefail
 

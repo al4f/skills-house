@@ -1,0 +1,11 @@
+{
+  "name": "@skills-house/skill-auditor",
+  "private": true,
+  "scripts": {
+    "build": "skills-house-build .",
+    "validate": "bash ../../scripts/skill-auditor-tools/scripts/validate.sh ."
+  },
+  "devDependencies": {
+    "@skills-house/build": "workspace:*"
+  }
+}

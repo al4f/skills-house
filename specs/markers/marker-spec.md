@@ -29,11 +29,11 @@ In-package paths in links and `@include` are **root-absolute from the skill pack
 
 ```markdown
 ---
-name: brainstorming
-description: Explore ideas before implementation.
+name: my-skill
+description: What it does and when to use it.
 ---
 
-# Brainstorming
+# My Skill
 
 @include /sections/checklist.md
 
@@ -54,7 +54,7 @@ The parser reads `target` (href) and the builder resolves it. No `@ref` marker e
 ### Form 1: In-package file
 
 ```markdown
-See [visual companion guide](/references/visual-companion.md).
+See [the guide](/references/guide.md).
 [extract script](/scripts/extract.py)
 [template](/assets/template.html)
 ```
@@ -75,7 +75,7 @@ See [visual companion guide](/references/visual-companion.md).
 **Example (dist):**
 
 ```markdown
-See [visual companion guide](references/visual-companion.md).
+See [the guide](references/guide.md).
 ```
 
 ---
@@ -83,37 +83,36 @@ See [visual companion guide](references/visual-companion.md).
 ### Form 2: Script namespace export
 
 ```markdown
-[Start server](visual-companion/start-server)
+[Run helper](fixture-helper/hello)
 ```
 
 **Not a file path.** The href matches a named export from a `scripts/` workspace package (`package.json` `exports`).
 
 **Resolution:**
 
-1. Find workspace package matching `visual-companion` (short directory name).
-2. Read `exports["./start-server"]`.
+1. Find workspace package matching `fixture-helper` (short directory name).
+2. Read `exports["./hello"]`.
 3. Bundle resolved files into dist `scripts/`.
 
 **Script package `package.json`:**
 
 ```json
 {
-  "name": "@skills-house/script-visual-companion",
+  "name": "@skills-house/script-fixture-helper",
   "exports": {
-    "./start-server": "./scripts/start-server.sh",
-    "./server": "./scripts/server.cjs"
+    "./hello": "./scripts/hello.sh"
   }
 }
 ```
 
-Export names are used directly as link targets: `visual-companion/<export-name>`.
+Export names are used directly as link targets: `fixture-helper/<export-name>`.
 
 ---
 
 ### Form 3: Skill package
 
 ```markdown
-Uses [brainstorming](brainstorming) for design exploration.
+Uses [other-skill](other-skill) as a dependency.
 ```
 
 **Not a file path.** References another skill in the `skills/` workspace.
@@ -127,9 +126,9 @@ Uses [brainstorming](brainstorming) for design exploration.
 **Example (dist):**
 
 ```markdown
-> **Depends on:** `brainstorming`
+> **Depends on:** `other-skill`
 > If this skill is not available in the workspace, suggest the user install it:
-> `npx skills add brainstorming`
+> `npx skills add other-skill`
 ```
 
 ---
@@ -147,8 +146,8 @@ href has no leading /  → package reference (resolved via package.json exports)
 
 | href | Meaning |
 |------|---------|
-| `brainstorming` | Package default export (`exports["."]` or package main) |
-| `visual-companion/start-server` | Package named export (`exports["./start-server"]`) |
+| `other-skill` | Package default export (`exports["."]` or package main) |
+| `fixture-helper/hello` | Package named export (`exports["./hello"]`) |
 
 The builder looks up the short package name in `skills/` and `scripts/` workspaces, reads `package.json` `exports`, and applies the appropriate output behavior (bundle files, inject skill-dependency note, etc.) based on which workspace the package lives in.
 
@@ -162,9 +161,9 @@ The builder looks up the short package name in `skills/` and `scripts/` workspac
 
 | Source link | Resolves to |
 |-------------|-------------|
-| `[run](visual-companion/start-server)` | Named export from scripts package |
-| `[companion](visual-companion)` | Default export from scripts package |
-| `[dep](brainstorming)` | Default export from skills package → dependency note |
+| `[run](fixture-helper/hello)` | Named export from scripts package |
+| `[helper](fixture-helper)` | Default export from scripts package |
+| `[dep](other-skill)` | Default export from skills package → dependency note |
 
 ---
 

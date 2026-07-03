@@ -1,6 +1,17 @@
 {
   "name": "skills-house",
   "private": true,
+  "version": "0.1.0",
+  "description": "Framework for authoring, building, and shipping Agent Skills — not a skill catalog.",
+  "author": "al4f <https://al4f.dev>",
+  "homepage": "https://al4f.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/al4f/skills-house.git"
+  },
+  "bugs": {
+    "url": "https://github.com/al4f/skills-house/issues"
+  },
   "scripts": {
     "build": "pnpm --filter @skills-house/build build && pnpm --filter \"./skills/*\" build",
     "install:skills": "bash internal-scripts/install/install-skills.sh",
