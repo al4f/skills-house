@@ -148,7 +148,8 @@ skills-house/
 | `pnpm test` | Run build pipeline tests |
 | `pnpm validate` | Run per-package validate scripts |
 | `pnpm install:skills` | Install dist skills to agent directories |
-| `pnpm skills add <name>` | Install a built skill via CLI (see `--from ./skills-dist`) |
+| `./skills.sh add <name>` | Install a published skill from npm ([guide](./content/publish/INSTALL.md)) |
+| `pnpm skills add <name>` | Install via Node CLI (optional; requires `@skills-house/cli` on npm) |
 | `pnpm remove:skills` | Remove installed skills |
 
 Build a single skill:

@@ -20,8 +20,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-DIST_DIR="$REPO_ROOT/skills-dist"
+REPO_ROOT="${SKILLS_REPO_ROOT:-$(cd "$SCRIPT_DIR/../.." && pwd)}"
+DIST_DIR="${SKILLS_DIST_DIR:-$REPO_ROOT/skills-dist}"
 # shellcheck source=lib/agent-targets.sh
 source "$SCRIPT_DIR/lib/agent-targets.sh"
 
@@ -82,16 +82,18 @@ if [[ ${#TARGET_PATHS[@]} -eq 0 ]]; then
   exit 1
 fi
 
-if [[ ! -d "$DIST_DIR" ]]; then
-  echo "skills-dist/ not found at $DIST_DIR — nothing to match." >&2
+if [[ -n "$SKILL_FILTER" ]]; then
+  skills=("$SKILL_FILTER")
+elif [[ ! -d "$DIST_DIR" ]]; then
+  echo "skills-dist/ not found at $DIST_DIR — pass --skill <name> to remove by name." >&2
   exit 1
+else
+  collect_dist_skills "$DIST_DIR" "$SKILL_FILTER" "$INCLUDE_ALL"
+  skills=("${SKILLS_LIST[@]}")
 fi
 
-collect_dist_skills "$DIST_DIR" "$SKILL_FILTER" "$INCLUDE_ALL"
-skills=("${SKILLS_LIST[@]}")
-
 if [[ ${#skills[@]} -eq 0 ]]; then
-  echo "No skills to remove (none matched in skills-dist/)." >&2
+  echo "No skills to remove." >&2
   exit 1
 fi
 
