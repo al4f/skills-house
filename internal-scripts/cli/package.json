@@ -13,6 +13,12 @@
   },
   "homepage": "https://al4f.dev",
   "keywords": ["agent-skills", "skills-house", "cursor", "claude", "codex"],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "files": ["dist"],
   "bin": {
     "skills": "./dist/cli.js"

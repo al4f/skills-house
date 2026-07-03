@@ -41,7 +41,7 @@ Last updated after nested `@include` support (post PR #6).
 - [ ] **Publish LinkedIn post 1** — `content/publish/linkedin-1-ready.md`
 - [ ] **Record demo** — `content/demo-video/SCRIPT.md`
 - [ ] **Ecosystem posts** — `content/ecosystem/ENGAGEMENT.md`
-- [ ] **npm publish** — `content/publish/PUBLISHING.md`
+- [ ] **npm publish** — `content/publish/PUBLISHING.md` (`pnpm pack:cli` / `pnpm pack:skill`)
 
 ## Next code milestones (roadmap)
 

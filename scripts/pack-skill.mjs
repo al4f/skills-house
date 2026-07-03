@@ -61,8 +61,10 @@ function main() {
       url: "https://github.com/al4f/skills-house.git",
       directory: `skills/${skill}`,
     },
-    homepage: `https://al4f.dev`,
+    homepage: "https://al4f.dev",
     keywords: ["agent-skills", "cursor", "claude", "codex", "skills-house"],
+    engines: { node: ">=20" },
+    publishConfig: { access: "public" },
     files: ["SKILL.md", "references", "scripts", "assets"],
   };
 

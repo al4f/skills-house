@@ -1,18 +1,19 @@
 # Publishing skills-house packages
 
-Packages stay `private: true` in the monorepo until you publish manually.
+Monorepo packages stay `private: true`. Use the pack scripts to emit npm-ready directories under `packages/publish/` (gitignored).
 
 ## Prerequisites
 
 - npm account with access to `@skills-house` scope (create org on npmjs.com)
 - `npm login`
 
-## 1. Publish the CLI
+## 1. Pack and publish the CLI
 
 ```bash
 nvm use
 pnpm build
-cd internal-scripts/cli
+pnpm pack:cli
+cd packages/publish/cli
 npm publish --access public
 ```
 
@@ -22,11 +23,11 @@ After publish:
 npx @skills-house/cli add skill-auditor
 ```
 
-## 2. Publish a skill package
+## 2. Pack and publish a skill package
 
 ```bash
 pnpm build
-node scripts/pack-skill.mjs skill-auditor
+pnpm pack:skill skill-auditor
 cd packages/publish/skill-skill-auditor
 npm publish --access public
 ```
@@ -37,7 +38,8 @@ Repeat for each skill you want distributable outside the monorepo.
 
 ## 3. Versioning
 
-- Bump `version` in package.json before each publish
+- Bump `version` in `internal-scripts/cli/package.json` (CLI) or in `scripts/pack-skill.mjs` default (skills) before each publish
+- Re-run the pack script after bumping
 - Tag releases: `git tag v0.1.0-cli && git push origin v0.1.0-cli`
 
 ## 4. Announce
