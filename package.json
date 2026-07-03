@@ -1,0 +1,8 @@
+{
+  "name": "skills-house",
+  "private": true,
+  "scripts": {
+    "build": "pnpm --filter \"./skills/*\" build",
+    "validate": "pnpm --filter \"./skills/*\" run validate --if-present && pnpm --filter \"./scripts/*\" run validate --if-present"
+  }
+}

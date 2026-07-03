@@ -1,0 +1,4 @@
+packages:
+  - "skills/*"
+  - "scripts/*"
+  - "internal-scripts/*"
