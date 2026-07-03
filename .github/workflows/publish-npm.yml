@@ -1,0 +1,72 @@
+name: Publish npm
+
+on:
+  push:
+    tags:
+      - "v*-*"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Parse release tag
+        id: release
+        run: |
+          JSON="$(node scripts/parse-release-tag.mjs "$GITHUB_REF_NAME")"
+          echo "$JSON" | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> "$GITHUB_OUTPUT"
+
+      - name: Build
+        run: pnpm build
+
+      - name: Set CLI version from tag
+        if: steps.release.outputs.type == 'cli'
+        run: |
+          node -e "
+            const fs = require('node:fs');
+            const path = 'internal-scripts/cli/package.json';
+            const pkg = JSON.parse(fs.readFileSync(path, 'utf8'));
+            pkg.version = '${{ steps.release.outputs.version }}';
+            fs.writeFileSync(path, JSON.stringify(pkg, null, 2) + '\n');
+          "
+
+      - name: Pack and publish CLI
+        if: steps.release.outputs.type == 'cli'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          pnpm pack:cli
+          cd packages/publish/cli
+          npm publish --access public
+
+      - name: Pack and publish skill
+        if: steps.release.outputs.type == 'skill'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          pnpm pack:skill ${{ steps.release.outputs.skill }} --version ${{ steps.release.outputs.version }}
+          cd packages/publish/skill-${{ steps.release.outputs.skill }}
+          npm publish --access public
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          name: ${{ github.ref_name }}

@@ -42,5 +42,8 @@ jobs:
       - name: Pack skill-auditor (smoke)
         run: node scripts/pack-skill.mjs skill-auditor
 
+      - name: Pack CLI (smoke)
+        run: node scripts/pack-cli.mjs
+
       - name: Validate skill-auditor
         run: bash scripts/skill-auditor-tools/scripts/validate.sh skills/skill-auditor

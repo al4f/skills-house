@@ -5,6 +5,7 @@
  * Usage:
  *   node scripts/pack-skill.mjs skill-auditor
  *   node scripts/pack-skill.mjs skill-auditor --out packages/publish
+ *   node scripts/pack-skill.mjs skill-auditor --version 0.1.0
  */
 
 import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -13,22 +14,27 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, "..");
+const DEFAULT_VERSION = "0.0.1";
 
 function parseArgs(argv) {
   const skill = argv[2];
   if (!skill || skill.startsWith("-")) {
-    console.error("Usage: node scripts/pack-skill.mjs <skill-name> [--out <dir>]");
+    console.error(
+      "Usage: node scripts/pack-skill.mjs <skill-name> [--out <dir>] [--version <semver>]",
+    );
     process.exit(1);
   }
   let outDir = join(REPO_ROOT, "packages", "publish");
+  let version = DEFAULT_VERSION;
   for (let i = 3; i < argv.length; i++) {
     if (argv[i] === "--out") outDir = resolve(argv[++i]);
+    else if (argv[i] === "--version") version = argv[++i];
   }
-  return { skill, outDir };
+  return { skill, outDir, version };
 }
 
 function main() {
-  const { skill, outDir } = parseArgs(process.argv);
+  const { skill, outDir, version } = parseArgs(process.argv);
   const src = join(REPO_ROOT, "skills-dist", skill);
   const skillMd = join(src, "SKILL.md");
 
@@ -52,7 +58,7 @@ function main() {
 
   const packageJson = {
     name: pkgName,
-    version: "0.0.1",
+    version,
     description,
     author: "al4f <https://al4f.dev>",
     license: "MIT",

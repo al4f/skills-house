@@ -26,6 +26,8 @@ test("pack-cli emits publish-ready package.json", () => {
   assert.equal(pkg.name, "@skills-house/cli");
   assert.equal(pkg.publishConfig.access, "public");
   assert.ok(fs.existsSync(path.join(outDir, "cli", "dist", "cli.js")));
+  assert.ok(fs.existsSync(path.join(outDir, "cli", "install", "install-skills.sh")));
+  assert.ok(fs.existsSync(path.join(outDir, "cli", "install", "lib", "agent-targets.sh")));
 });
 
 test("pack-skill emits publish-ready package.json", () => {

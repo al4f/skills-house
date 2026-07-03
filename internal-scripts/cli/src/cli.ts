@@ -1,12 +1,16 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdtempSync, readdirSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = resolve(__dirname, "../../..");
-const INSTALL_SCRIPT = join(REPO_ROOT, "internal-scripts/install/install-skills.sh");
+import { join, resolve } from "node:path";
+import {
+  layoutDistFromNpmPackage,
+  npmPackageForSkill,
+} from "./layout-npm-skill.js";
+import {
+  defaultRepoRoot,
+  monorepoDistDir,
+  resolveInstallScript,
+} from "./paths.js";
 
 type AddOptions = {
   skill: string;
@@ -36,7 +40,7 @@ Examples:
   skills add skill-auditor --agent cursor --scope project
   skills add skill-auditor --from ./skills-dist
 
-npm distribution (when published):
+npm distribution:
   npx @skills-house/cli add skill-auditor
 `);
 }
@@ -91,10 +95,6 @@ function parseAddArgs(args: string[]): AddOptions | null {
   return options;
 }
 
-function npmPackageForSkill(name: string): string {
-  return `@skills-house/skill-${name}`;
-}
-
 function tryInstallFromNpm(name: string, targetDir: string): string | null {
   const pkg = npmPackageForSkill(name);
   const pack = spawnSync("npm", ["pack", pkg, "--pack-destination", targetDir], {
@@ -141,7 +141,7 @@ function resolveDistDir(options: AddOptions): string {
     return options.from;
   }
 
-  const monorepoDist = join(REPO_ROOT, "skills-dist");
+  const monorepoDist = monorepoDistDir();
   if (existsSync(join(monorepoDist, options.skill, "SKILL.md"))) {
     return monorepoDist;
   }
@@ -149,26 +149,36 @@ function resolveDistDir(options: AddOptions): string {
   const tempRoot = mkdtempSync(join(tmpdir(), "skills-house-"));
   const extracted = tryInstallFromNpm(options.skill, tempRoot);
   if (extracted) {
-    return extracted;
+    const distDir = layoutDistFromNpmPackage(
+      extracted,
+      options.skill,
+      tempRoot,
+    );
+    if (distDir) {
+      return distDir;
+    }
   }
 
   console.error(`Could not find skill "${options.skill}".`);
   console.error("");
   console.error("Options:");
-  console.error(`  • Clone skills-house and run: pnpm build && skills add ${options.skill} --from ./skills-dist`);
-  console.error(`  • When published: npx @skills-house/cli add ${options.skill}`);
-  console.error(`  • npm package: ${npmPackageForSkill(options.skill)} (not yet published)`);
+  console.error(
+    `  • Clone skills-house and run: pnpm build && skills add ${options.skill} --from ./skills-dist`,
+  );
+  console.error(`  • npx @skills-house/cli add ${options.skill}`);
+  console.error(`  • npm package: ${npmPackageForSkill(options.skill)}`);
   process.exit(1);
 }
 
 function runInstall(distDir: string, options: AddOptions): void {
-  if (!existsSync(INSTALL_SCRIPT)) {
-    console.error("install-skills.sh not found — run from skills-house monorepo.");
+  const installScript = resolveInstallScript();
+  if (!installScript) {
+    console.error("install-skills.sh not found in CLI package.");
     process.exit(1);
   }
 
   const installArgs = [
-    INSTALL_SCRIPT,
+    installScript,
     "--skill",
     options.skill,
     "--scope",
@@ -185,10 +195,11 @@ function runInstall(distDir: string, options: AddOptions): void {
     installArgs.push("--dry-run");
   }
 
+  const repoRoot = defaultRepoRoot();
   const env = {
     ...process.env,
     SKILLS_DIST_DIR: distDir,
-    SKILLS_REPO_ROOT: options.scope === "project" ? process.cwd() : REPO_ROOT,
+    SKILLS_REPO_ROOT: options.scope === "project" ? process.cwd() : repoRoot,
   };
 
   const result = spawnSync("bash", installArgs, {
