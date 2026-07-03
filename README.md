@@ -225,7 +225,7 @@ Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCR
 
 ## Roadmap
 
-- [ ] Publish `@skills-house/cli` to npm — [NPM setup](./content/publish/NPM-SETUP.md) then [publish](./content/publish/PUBLISHING.md)
+- [ ] Publish `@skills-house/cli` to npm — tag `v0.0.1-cli` ([setup](./content/publish/NPM-SETUP.md), [tags](./content/publish/PUBLISHING.md))
 - [ ] Publish `@skills-house/skill-skill-auditor` to npm
 - [x] Nested `@include` support
 

@@ -1,30 +1,35 @@
 # npm setup for @skills-house
 
-One-time setup before your first publish. The repo pack scripts (`pnpm pack:cli`, `pnpm pack:skill`) are ready — this configures the npm registry side.
+One-time setup. Publishing runs in **GitHub Actions** when you push a release tag — not from your laptop.
 
-## 1. Create the scope
+## 1. Create the npm org
 
 1. Sign in at [npmjs.com](https://www.npmjs.com/)
-2. Go to **Organizations** → **Create Organization**
+2. **Organizations** → **Create Organization**
 3. Name: `skills-house` (publishes as `@skills-house/*`)
-4. Choose the free plan unless you need paid features
+4. Free plan is enough
 
-If the org name is taken, pick an alternative and update package names in `internal-scripts/cli/package.json` and `scripts/pack-skill.mjs` before publishing.
+If the name is taken, pick an alternative and update package names in `internal-scripts/cli/package.json` and `scripts/pack-skill.mjs` before the first release.
 
-## 2. Authenticate locally
+## 2. Create an automation token
 
-```bash
-npm login
-npm whoami
-```
+Use an **Automation** token (CI-friendly; bypasses 2FA for publish):
 
-Confirm your user is a member of the org:
+1. npm → **Access Tokens** → **Generate New Token**
+2. Type: **Granular Access Token** (recommended) or **Classic** → **Automation**
+3. Packages: read + write for `@skills-house/*`
+4. Copy the token — shown once
 
-```bash
-npm org ls skills-house
-```
+## 3. Add the token to GitHub
 
-## 3. Verify pack output (dry run)
+1. Open [skills-house → Settings → Secrets and variables → Actions](https://github.com/al4f/skills-house/settings/secrets/actions)
+2. **New repository secret**
+3. Name: `NPM_TOKEN`
+4. Value: paste the npm automation token
+
+No local `npm login` is required for publishing.
+
+## 4. Verify pack output locally (optional)
 
 ```bash
 nvm use
@@ -32,7 +37,6 @@ pnpm build
 pnpm pack:cli
 pnpm pack:skill skill-auditor
 
-# Inspect tarballs without publishing
 cd packages/publish/cli && npm pack --dry-run
 cd ../skill-skill-auditor && npm pack --dry-run
 ```
@@ -43,41 +47,46 @@ The CLI package must include:
 - `install/install-skills.sh`
 - `install/lib/agent-targets.sh`
 
-## 4. Publish
+## 5. Release with git tags
 
-Follow [PUBLISHING.md](./PUBLISHING.md):
+Push a tag to `main`. GitHub Actions (`.github/workflows/publish-npm.yml`) builds, packs, publishes to npm, and creates a GitHub Release.
+
+| Tag | Publishes |
+|-----|-----------|
+| `v0.0.1-cli` | `@skills-house/cli@0.0.1` |
+| `v0.0.1-skill-auditor` | `@skills-house/skill-skill-auditor@0.0.1` |
 
 ```bash
-cd packages/publish/cli
-npm publish --access public
+# After merging release prep to main:
+git checkout main && git pull
 
-cd ../skill-skill-auditor
-npm publish --access public
+# CLI
+git tag v0.0.1-cli
+git push origin v0.0.1-cli
+
+# Skill (after CLI or independently)
+git tag v0.0.1-skill-auditor
+git push origin v0.0.1-skill-auditor
 ```
 
-## 5. Smoke test
+Watch the run: [Actions → Publish npm](https://github.com/al4f/skills-house/actions/workflows/publish-npm.yml)
+
+## 6. Smoke test
 
 ```bash
 npx @skills-house/cli add skill-auditor --dry-run
-```
-
-## 6. Tag the release
-
-```bash
-git tag v0.0.1-cli
-git tag v0.0.1-skill-auditor
-git push origin v0.0.1-cli v0.0.1-skill-auditor
 ```
 
 ## Troubleshooting
 
 | Error | Fix |
 |-------|-----|
-| `ENEEDAUTH` | Run `npm login` |
-| `402 Payment Required` / scope access | Confirm org membership; use `--access public` |
-| `403 Forbidden` | Your user may not have publish rights on `@skills-house` |
-| `404 Scope not found` | Create the `skills-house` org first |
+| Workflow skipped / no publish | Tag must match `v<semver>-cli` or `v<semver>-<skill-name>` |
+| `NPM_TOKEN` missing | Add repository secret (step 3) |
+| `403 Forbidden` | Token needs publish access to `@skills-house` scope |
+| `402 Payment Required` | Confirm org exists; workflow uses `--access public` |
+| Version already published | Bump semver in the tag (npm rejects duplicate versions) |
 
 ## Optional: scoped registry defaults
 
-Copy `.npmrc.example` to your home directory or project if you use a private registry mirror later. Public publish uses the default npm registry.
+Copy `.npmrc.example` if you use a registry mirror. Public publish uses registry.npmjs.org.

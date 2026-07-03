@@ -24,6 +24,7 @@ Last updated after npm package configuration (PR #10).
 | npm pack scripts | `pnpm pack:cli` / `pnpm pack:skill` |
 | Nested `@include` support | Done (PR #8) |
 | npm publish package layout | CLI bundles install scripts; flat skill npm layout supported |
+| Tag-driven npm publish workflow | `.github/workflows/publish-npm.yml` + `NPM_TOKEN` secret |
 
 ## Live URLs
 
@@ -34,8 +35,8 @@ Last updated after npm package configuration (PR #10).
 
 ## Your manual checklist
 
-- [ ] **npm org + login** — `content/publish/NPM-SETUP.md`
-- [ ] **Publish CLI + skill** — `content/publish/PUBLISHING.md`
+- [ ] **npm org + `NPM_TOKEN` secret** — `content/publish/NPM-SETUP.md`
+- [ ] **Push release tags** — `content/publish/PUBLISHING.md` (`v0.0.1-cli`, `v0.0.1-skill-auditor`)
 - [ ] **GitHub profile** — `content/github-profile/SETUP.md`
 - [ ] **Publish thread 1** — `content/publish/thread-1-ready.md`
 - [ ] **Publish LinkedIn post 1** — `content/publish/linkedin-1-ready.md`

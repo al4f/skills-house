@@ -1,51 +1,61 @@
 # Publishing skills-house packages
 
-Monorepo packages stay `private: true`. Use the pack scripts to emit npm-ready directories under `packages/publish/` (gitignored).
+Publishing is **tag-driven via GitHub Actions**. Do not run `npm publish` locally.
 
-**First time?** Complete [NPM-SETUP.md](./NPM-SETUP.md) to create the `@skills-house` org and authenticate.
+**First time?** Complete [NPM-SETUP.md](./NPM-SETUP.md) — create the `@skills-house` org and add `NPM_TOKEN` to GitHub Secrets.
 
-## Prerequisites
+## How it works
 
-- `@skills-house` npm org created and your user has publish access
-- `npm login` (verify with `npm whoami`)
+1. You push a git tag to `main`
+2. [publish-npm.yml](../../.github/workflows/publish-npm.yml) runs on GitHub
+3. Workflow builds, packs, publishes to npm using `secrets.NPM_TOKEN`
+4. A GitHub Release is created for the tag
 
-## 1. Pack and publish the CLI
+## Release tags
+
+| Tag format | npm package | Example |
+|------------|-------------|---------|
+| `v<semver>-cli` | `@skills-house/cli` | `v0.0.1-cli` |
+| `v<semver>-<skill-dir>` | `@skills-house/skill-<skill-dir>` | `v0.0.1-skill-auditor` |
+
+`<skill-dir>` is the folder name under `skills/` (e.g. `skill-auditor`).
+
+## Publish the CLI
 
 ```bash
-nvm use
-pnpm build
-pnpm pack:cli
-cd packages/publish/cli
-npm publish --access public
+git checkout main && git pull
+
+# Optional: bump default version in internal-scripts/cli/package.json before tagging
+# (CI also sets version from the tag at publish time)
+
+git tag v0.0.1-cli
+git push origin v0.0.1-cli
 ```
 
-After publish:
+After the workflow succeeds:
 
 ```bash
 npx @skills-house/cli add skill-auditor --dry-run
-npx @skills-house/cli add skill-auditor
 ```
 
-## 2. Pack and publish a skill package
+## Publish a skill
 
 ```bash
-pnpm build
-pnpm pack:skill skill-auditor
-cd packages/publish/skill-skill-auditor
-npm publish --access public
+git tag v0.0.1-skill-auditor
+git push origin v0.0.1-skill-auditor
 ```
 
 Package name: `@skills-house/skill-skill-auditor`
 
-Repeat for each skill you want distributable outside the monorepo.
+Repeat with a new tag per skill and semver.
 
-## 3. Versioning
+## Versioning
 
-- Bump `version` in `internal-scripts/cli/package.json` (CLI) or in `scripts/pack-skill.mjs` default (skills) before each publish
-- Re-run the pack script after bumping
-- Tag releases: `git tag v0.1.0-cli && git push origin v0.1.0-cli`
+- Semver comes from the **tag** (`v0.2.0-cli` → `0.2.0`)
+- npm rejects re-publishing the same version — bump the tag
+- GitHub Release notes are auto-generated per tag
 
-## 4. Announce
+## Announce
 
 Per the distribution RFC — publish with an article, not a bare registry drop:
 

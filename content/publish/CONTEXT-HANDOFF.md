@@ -79,8 +79,8 @@ node scripts/pack-skill.mjs skill-auditor   # npm-ready package
 - [ ] Publish LinkedIn post 1 — `content/publish/linkedin-1-ready.md`
 - [ ] Record demo video — `content/demo-video/SCRIPT.md`
 - [ ] Ecosystem engagement — `content/ecosystem/ENGAGEMENT.md`
-- [ ] npm org + login — `content/publish/NPM-SETUP.md`
-- [ ] npm publish CLI + skill — `content/publish/PUBLISHING.md`
+- [ ] npm org + `NPM_TOKEN` GitHub secret — `content/publish/NPM-SETUP.md`
+- [ ] Push release tags (CLI + skill) — `content/publish/PUBLISHING.md`
 
 ## Code roadmap (not done)
 
