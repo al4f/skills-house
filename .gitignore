@@ -8,4 +8,4 @@ dist/
 .claude/skills/
 
 # Brainstorming visual companion session files (start-server.sh --project-dir)
-.superpowers/
+.skills-house/

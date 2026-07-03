@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" role="img" aria-label="skills-house authoring model">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f1419"/>
+      <stop offset="100%" stop-color="#1a2332"/>
+    </linearGradient>
+    <style>
+      .box { fill: #161b22; stroke: #30363d; stroke-width: 2; rx: 10; }
+      .title { fill: #f0f6fc; font: 600 14px system-ui, sans-serif; }
+      .mono { fill: #c9d1d9; font: 12px ui-monospace, monospace; }
+      .muted { fill: #8b949e; font: 11px system-ui, sans-serif; }
+      .accent { fill: #58a6ff; }
+      .credit { fill: #484f58; font: 10px system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect width="900" height="400" fill="url(#bg2)"/>
+  <text x="450" y="34" text-anchor="middle" class="title" font-size="18">Authoring model</text>
+
+  <!-- SKILL.md -->
+  <rect x="40" y="60" width="260" height="300" class="box"/>
+  <text x="170" y="88" text-anchor="middle" class="title">SKILL.md (source)</text>
+  <text x="60" y="120" class="mono">---</text>
+  <text x="60" y="140" class="mono">name: my-skill</text>
+  <text x="60" y="160" class="mono">---</text>
+  <text x="60" y="190" class="mono"># My Skill</text>
+  <text x="60" y="220" class="mono accent">@include /sections/a.md</text>
+  <text x="60" y="250" class="mono">[guide](/references/g.md)</text>
+  <text x="60" y="280" class="mono">[run](pkg/start-server)</text>
+
+  <!-- Rules -->
+  <rect x="340" y="60" width="220" height="300" class="box"/>
+  <text x="450" y="88" text-anchor="middle" class="title">Link resolution</text>
+  <text x="360" y="125" class="muted">/path ’ in-package file</text>
+  <text x="360" y="155" class="muted">pkg/export ’ scripts/</text>
+  <text x="360" y="185" class="muted">other-skill ’ dependency</text>
+  <text x="360" y="230" class="mono accent">Only @include is a marker</text>
+  <text x="360" y="260" class="muted">Everything else uses</text>
+  <text x="360" y="280" class="muted">standard markdown links</text>
+
+  <!-- Output -->
+  <rect x="600" y="60" width="260" height="300" class="box"/>
+  <text x="730" y="88" text-anchor="middle" class="title">Agent Skills dist</text>
+  <text x="620" y="125" class="mono">SKILL.md (flattened)</text>
+  <text x="620" y="155" class="mono">references/guide.md</text>
+  <text x="620" y="185" class="mono">scripts/start-server.sh</text>
+  <text x="620" y="215" class="mono">scripts/server.cjs</text>
+  <text x="620" y="260" class="muted">Spec-compliant layout</text>
+  <text x="620" y="285" class="muted">ready for any agent</text>
+
+  <text x="888" y="392" text-anchor="end" class="credit">al4f.dev</text>
+</svg>

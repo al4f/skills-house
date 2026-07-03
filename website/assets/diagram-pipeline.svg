@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" role="img" aria-label="skills-house pipeline overview">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f1419"/>
+      <stop offset="100%" stop-color="#1a2332"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#58a6ff"/>
+    </marker>
+    <style>
+      .box { fill: #161b22; stroke: #30363d; stroke-width: 2; rx: 12; }
+      .title { fill: #f0f6fc; font: 600 15px system-ui, sans-serif; }
+      .label { fill: #8b949e; font: 12px ui-monospace, monospace; }
+      .arrow { stroke: #58a6ff; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .credit { fill: #484f58; font: 10px system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect width="960" height="320" fill="url(#bg)"/>
+  <text x="480" y="34" text-anchor="middle" class="title" font-size="18">skills-house pipeline</text>
+
+  <!-- Source -->
+  <rect x="40" y="70" width="200" height="170" class="box"/>
+  <text x="140" y="98" text-anchor="middle" class="title">Source</text>
+  <text x="60" y="128" class="label">skills/</text>
+  <text x="60" y="148" class="label">  SKILL.md</text>
+  <text x="60" y="168" class="label">  @include sections</text>
+  <text x="60" y="198" class="label">scripts/</text>
+  <text x="60" y="218" class="label">  shared packages</text>
+
+  <!-- Build -->
+  <rect x="300" y="95" width="180" height="120" class="box"/>
+  <text x="390" y="123" text-anchor="middle" class="title">Build</text>
+  <text x="320" y="153" class="label">@skills-house/build</text>
+  <text x="320" y="173" class="label">resolve @include</text>
+  <text x="320" y="193" class="label">bundle scripts</text>
+
+  <!-- Dist -->
+  <rect x="540" y="70" width="200" height="170" class="box"/>
+  <text x="640" y="98" text-anchor="middle" class="title">Dist</text>
+  <text x="560" y="128" class="label">skills-dist/</text>
+  <text x="560" y="148" class="label">  SKILL.md</text>
+  <text x="560" y="168" class="label">  references/</text>
+  <text x="560" y="188" class="label">  scripts/</text>
+  <text x="560" y="208" class="label">  assets/</text>
+
+  <!-- Install -->
+  <rect x="800" y="95" width="120" height="120" class="box"/>
+  <text x="860" y="123" text-anchor="middle" class="title">Install</text>
+  <text x="815" y="153" class="label">Cursor</text>
+  <text x="815" y="173" class="label">Claude</text>
+  <text x="815" y="193" class="label">Codex</text>
+
+  <line x1="240" y1="155" x2="300" y2="155" class="arrow"/>
+  <line x1="480" y1="155" x2="540" y2="155" class="arrow"/>
+  <line x1="740" y1="155" x2="800" y2="155" class="arrow"/>
+
+  <text x="948" y="312" text-anchor="end" class="credit">al4f.dev</text>
+</svg>

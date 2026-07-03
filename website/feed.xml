@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>al4f.dev</title>
+    <link>https://al4f.dev</link>
+    <description>Architecture notes and build logs on Agent Skills engineering by al4f.</description>
+    <language>en</language>
+    <item>
+      <title>Agent Skills at Scale: Why You Need a Build Pipeline</title>
+      <link>https://al4f.dev/writing/agent-skills-at-scale.html</link>
+      <guid>https://al4f.dev/writing/agent-skills-at-scale.html</guid>
+      <pubDate>Thu, 03 Jul 2026 00:00:00 GMT</pubDate>
+      <description>Why a source-to-dist build step matters when authoring Agent Skills at scale.</description>
+    </item>
+    <item>
+      <title>How I Built skill-auditor in skills-house</title>
+      <link>https://al4f.dev/writing/how-i-built-skill-auditor.html</link>
+      <guid>https://al4f.dev/writing/how-i-built-skill-auditor.html</guid>
+      <pubDate>Thu, 03 Jul 2026 00:00:00 GMT</pubDate>
+      <description>A walkthrough of authoring a second reference skill in the skills-house monorepo.</description>
+    </item>
+    <item>
+      <title>Authoring Conventions I'd Propose for Agent Skills v2</title>
+      <link>https://al4f.dev/writing/authoring-conventions-v2.html</link>
+      <guid>https://al4f.dev/writing/authoring-conventions-v2.html</guid>
+      <pubDate>Thu, 03 Jul 2026 00:00:00 GMT</pubDate>
+      <description>Constructive proposals for the Agent Skills specification based on skills-house learnings.</description>
+    </item>
+    <item>
+      <title>RFC: skills-house Distribution Model</title>
+      <link>https://al4f.dev/writing/skills-house-distribution-rfc.html</link>
+      <guid>https://al4f.dev/writing/skills-house-distribution-rfc.html</guid>
+      <pubDate>Thu, 03 Jul 2026 00:00:00 GMT</pubDate>
+      <description>Public RFC for npx skills add and per-skill npm distribution.</description>
+    </item>
+  </channel>
+</rss>

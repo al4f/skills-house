@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RFC: skills-house Distribution Model — al4f</title>
+  <meta name="description" content="Public RFC for npx skills add and per-skill npm distribution.">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo">al4f</a>
+    <nav>
+      <a href="/writing/">Writing</a>
+      <a href="https://github.com/al4f/skills-house">skills-house</a>
+      <a href="https://github.com/al4f">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <header class="article-header">
+      <p class="eyebrow">RFC</p>
+      <h1>RFC: skills-house Distribution Model</h1>
+      <p class="article-meta">Jul 2026 · Status: Draft for feedback</p>
+    </header>
+
+    <article class="article-content">
+      <p>
+        <strong>Author:</strong> al4f<br>
+        <strong>Repo:</strong> <a href="https://github.com/al4f/skills-house">skills-house</a><br>
+        <strong>Goal:</strong> Define how skills-house distributes built Agent Skills via npm and CLI
+      </p>
+
+      <h2>Summary</h2>
+
+      <p>
+        Today, skills-house is clone-and-build. This RFC proposes <code>npx skills add &lt;name&gt;</code>
+        to install individual skills from npm without cloning the monorepo.
+      </p>
+
+      <h2>Non-goals (v1 distribution)</h2>
+
+      <ul>
+        <li>Skills marketplace UI</li>
+        <li>Private registry support</li>
+        <li>Version pinning across skill dependency graphs</li>
+      </ul>
+
+      <h2>Package model</h2>
+
+      <p>Each published skill is an npm package:</p>
+
+      <pre><code>@skills-house/skill-brainstorming
+@skills-house/skill-skill-auditor</code></pre>
+
+      <p>Package contents = built <code>skills-dist/&lt;name&gt;/</code> layout only. No source, no build tooling.</p>
+
+      <h2>CLI: <code>npx skills add</code></h2>
+
+      <pre><code>npx skills add brainstorming
+npx skills add brainstorming --agent cursor --scope project</code></pre>
+
+      <p>Behavior:</p>
+
+      <ol>
+        <li>Download <code>@skills-house/skill-&lt;name&gt;</code> from npm</li>
+        <li>Extract to temp directory</li>
+        <li>Install to agent paths (reuse <code>install-skills.sh</code> logic)</li>
+        <li>Print success + link to skill docs</li>
+      </ol>
+
+      <h2>Metrics philosophy</h2>
+
+      <p>
+        Per-skill npm packages enable weekly download counts — useful signal, not a success metric.
+        Reputation comes from educational content and DX, not download leaderboards.
+      </p>
+
+      <h2>Sequencing</h2>
+
+      <p>Ship distribution only after:</p>
+
+      <ul>
+        <li>Flagship article + al4f.dev authority hub live</li>
+        <li>CI on PRs</li>
+        <li>At least two reference skills in catalog</li>
+      </ul>
+
+      <h2>Feedback</h2>
+
+      <p>
+        Open a <a href="https://github.com/al4f/skills-house/issues">GitHub issue</a> with tag <code>distribution-rfc</code>
+        or reply on the announcement thread.
+      </p>
+    </article>
+
+    <nav class="article-nav">
+      <p><a href="/writing/">More writing</a></p>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 al4f · <a href="https://github.com/al4f">GitHub</a> · <a href="/feed.xml">RSS</a></p>
+  </footer>
+</body>
+</html>

@@ -4,9 +4,14 @@
 
 # skills-house
 
+![CI](https://github.com/al4f/skills-house/actions/workflows/ci.yml/badge.svg)
+![License](https://img.shields.io/github/license/al4f/skills-house)
+
 **Author, build, and ship [Agent Skills](https://agentskills.io) for Cursor, Claude Code, Codex, and more — from one monorepo.**
 
 skills-house is an open-source toolkit for skill authors. Write simple source skills with modular markdown and shared scripts; the build pipeline produces spec-compliant artifacts ready to install into any supported agent.
+
+**Built by [al4f](https://github.com/al4f)** — Agent Skills tooling engineer. Follow build logs and architecture notes at **[al4f.dev](https://al4f.dev)** · [Agent Skills at Scale](https://al4f.dev/writing/agent-skills-at-scale.html)
 
 ---
 
@@ -74,6 +79,7 @@ pnpm remove:skills --agent cursor --skill brainstorming
 | Skill | Description |
 |-------|-------------|
 | [brainstorming](./skills/brainstorming/) | Turn ideas into designs through structured dialogue before implementation |
+| [skill-auditor](./skills/skill-auditor/) | Validate Agent Skills before publish — frontmatter, links, layout conventions |
 
 More skills welcome — see [Contributing](#contributing).
 
@@ -177,6 +183,8 @@ Project install paths are gitignored — they are local symlinks/copies from `sk
 
 ## Architecture
 
+![skills-house pipeline](./docs/assets/diagram-pipeline.svg)
+
 ```
 skills/ + scripts/          skills-dist/           agent dirs
 ┌─────────────────┐        ┌──────────────┐       ┌──────────────────┐
@@ -202,12 +210,16 @@ Skill `name` in frontmatter must match the directory name (enforced by the build
 
 ---
 
+## Demo
+
+Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCRIPT.md) — *Author to Install in 5 Minutes*
+
 ## Roadmap
 
 - [ ] `npx skills add <name>` — npm publish + CLI for public installs
 - [ ] Per-skill npm packages for download metrics
 - [ ] Nested `@include` support
-- [ ] CI for build + test on PRs
+- [x] CI for build + test on PRs
 
 ---
 
@@ -219,6 +231,8 @@ Skill `name` in frontmatter must match the directory name (enforced by the build
 
 ## Links
 
+- [al4f.dev](https://al4f.dev) — articles and architecture notes by the author
 - [Agent Skills specification](https://agentskills.io)
 - [Architecture specs](./specs/)
 - [Marker / authoring spec](./specs/markers/marker-spec.md)
+- [Contributing](./CONTRIBUTING.md)
