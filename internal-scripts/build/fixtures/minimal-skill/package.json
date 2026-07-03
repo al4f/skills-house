@@ -1,0 +1,7 @@
+{
+  "name": "minimal-skill",
+  "private": true,
+  "scripts": {
+    "build": "skills-house-build ."
+  }
+}
