@@ -1,6 +1,8 @@
 # al4f.dev — Static Site
 
-Minimal authority hub for al4f. Deployed automatically via GitHub Pages on push to `main`.
+Minimal authority hub for al4f. **Live at https://al4f.dev**
+
+Deployed automatically via GitHub Pages on push to `main`. Also available at https://al4f.github.io/skills-house/
 
 ## GitHub Pages setup (one-time)
 
@@ -8,10 +10,7 @@ Minimal authority hub for al4f. Deployed automatically via GitHub Pages on push 
    - Source: **GitHub Actions**
 2. Repo **Settings → Pages → Custom domain**
    - Enter: `al4f.dev`
-3. At your DNS provider, add:
-   - `A` records → GitHub Pages IPs (see [GitHub docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site))
-   - Or `CNAME` `al4f.dev` → `al4f.github.io` (if using user/org site)
-   - For project site: `CNAME` `al4f.dev` → `al4f.github.io`
+3. DNS (configured): apex `CNAME` flattening or `ALIAS` → `al4f.github.io`
 
 The workflow [`.github/workflows/deploy-al4f-dev.yml`](../.github/workflows/deploy-al4f-dev.yml) deploys `website/` on every push.
 

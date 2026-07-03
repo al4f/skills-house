@@ -41,7 +41,7 @@ A build step lets both win.
 **4/4**
 
 Full architecture write-up:
-https://al4f.github.io/skills-house/writing/agent-skills-at-scale.html
+https://al4f.dev/writing/agent-skills-at-scale.html
 
 Open source:
 https://github.com/al4f/skills-house
