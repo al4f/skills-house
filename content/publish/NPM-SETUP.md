@@ -55,21 +55,14 @@ Push a tag to `main`. GitHub Actions (`.github/workflows/publish-npm.yml`) build
 
 | Tag | Publishes |
 |-----|-----------|
-| `v0.0.1-cli` | `@skills-house/cli@0.0.1` |
 | `v0.0.1-skill-auditor` | `@skills-house/skill-skill-auditor@0.0.1` |
 
 ```bash
-# After merging release prep to main:
-git checkout main && git pull
-
-# CLI
-git tag v0.0.1-cli
-git push origin v0.0.1-cli
-
-# Skill (after CLI or independently)
 git tag v0.0.1-skill-auditor
 git push origin v0.0.1-skill-auditor
 ```
+
+Optional (not needed for consumers): `v0.0.1-cli` → `@skills-house/cli`
 
 Watch the run: [Actions → Publish npm](https://github.com/al4f/skills-house/actions/workflows/publish-npm.yml)
 

@@ -1,49 +1,70 @@
 # Brand Plan Progress
 
-Last updated after npm package configuration (PR #10).
+Last updated: Jul 2026 — post skills.sh distribution adoption.
 
-## Done (in repo)
+## Shipped (in repo)
 
-| Item | Status |
+| Area | Status |
 |------|--------|
-| Visual companion rebrand | Done (brainstorming removed) |
-| README authority layer + framework positioning | Done |
-| Architecture SVG diagrams | Done |
-| al4f.dev static site | Done |
-| GitHub Pages deploy workflow | Done |
-| Website paths fix (github.io/skills-house) | Done |
-| Flagship + supporting articles | Done |
-| X thread series (draft) | `content/social/x-threads.md` |
-| LinkedIn posts (draft) | `content/linkedin/posts.md` |
-| CI + CONTRIBUTING + issue templates | Done |
-| skill-auditor example skill | Done |
-| Spec v2 article + ecosystem notes | Done |
-| Distribution RFC | Done |
-| Demo video script | `content/demo-video/SCRIPT.md` |
-| CLI scaffold (`pnpm skills add`) | Done |
-| npm pack scripts | `pnpm pack:cli` / `pnpm pack:skill` |
-| Nested `@include` support | Done (PR #8) |
-| npm publish package layout | CLI bundles install scripts; flat skill npm layout supported |
-| Tag-driven npm publish workflow | `.github/workflows/publish-npm.yml` + `NPM_TOKEN` secret |
+| Framework positioning (not a catalog) | Done |
+| `@skills-house/build` — `@include`, links, nested includes | Done |
+| Example skill `skill-auditor` | Done |
+| CI + tests + pack scripts | Done |
+| al4f.dev site + GitHub Pages + custom domain | Done |
+| Distribution spec — skills.sh primary, npm secondary | `specs/architecture/distribution.md` |
+| npm publish workflow (tag → GitHub Actions) | `.github/workflows/publish-npm.yml` |
+| `@skills-house/skill-skill-auditor@0.0.1` on npm | Published |
+| Consumer install via skills.sh | `npx skills add al4f/skills-house --skill skill-auditor` |
 
-## Live URLs
+## Live
 
 | URL | Purpose |
 |-----|---------|
-| https://al4f.github.io/skills-house/ | Site (working) |
-| https://al4f.dev | Custom domain |
+| https://al4f.dev | Authority hub |
+| https://github.com/al4f/skills-house | Source + skills.sh install target |
+| https://www.npmjs.com/package/@skills-house/skill-skill-auditor | npm dist channel |
 
-## Your manual checklist
+---
 
-- [ ] **npm org + `NPM_TOKEN` secret** — `content/publish/NPM-SETUP.md`
-- [ ] **Consumer install** — `npx skills add al4f/skills-house --skill skill-auditor` ([INSTALL.md](./content/publish/INSTALL.md))
+## Manual checklist (remaining)
+
+### Distribution & visibility
+
+- [ ] Verify install in a real project (`snappfood-vendor` or similar):
+
+  ```bash
+  npx skills add al4f/skills-house --skill skill-auditor -a cursor -y
+  ```
+
+- [ ] Add [skills.sh badge](https://www.skills.sh/docs/cli) to README when listing is stable
+
+### Brand & content
+
 - [ ] **GitHub profile** — `content/github-profile/SETUP.md`
-- [ ] **Publish thread 1** — `content/publish/thread-1-ready.md`
+- [ ] **Publish X thread 1** — `content/publish/thread-1-ready.md`
 - [ ] **Publish LinkedIn post 1** — `content/publish/linkedin-1-ready.md`
 - [ ] **Record demo** — `content/demo-video/SCRIPT.md`
 - [ ] **Ecosystem posts** — `content/ecosystem/ENGAGEMENT.md`
+- [ ] Update distribution RFC article status to **Adopted** on al4f.dev
 
-## Next code milestones (roadmap)
+---
 
-- [ ] Publish `@skills-house/cli` to npm (blocked on org setup)
-- [ ] Publish `@skills-house/skill-skill-auditor` to npm (blocked on org setup)
+## Optional / low priority
+
+| Item | Notes |
+|------|-------|
+| Publish `@skills-house/cli` to npm | Not needed — consumers use official `npx skills` from skills.sh |
+| Second example skill | Only if it teaches a new framework pattern |
+| Turborepo / build caching | When skill count justifies it |
+| Version pinning in skill dependency graphs | Non-goal per distribution spec |
+
+---
+
+## Guides
+
+| Task | Doc |
+|------|-----|
+| Install in any repo | `content/publish/INSTALL.md` |
+| npm org + tags | `content/publish/NPM-SETUP.md`, `PUBLISHING.md` |
+| Architecture | `specs/architecture/` |
+| Continue in new chat | `content/publish/CONTEXT-HANDOFF.md` |

@@ -1,28 +1,36 @@
 # skills-house — Specifications
 
-Architecture and design docs for the skills-house monorepo. **Paper first, code second.**
+Architecture and design docs. **Paper first, code second.**
 
 ## Index
 
 | Document | Description |
 |----------|-------------|
-| [architecture/monorepo-overview.md](./architecture/monorepo-overview.md) | Workspaces, build flow, dist contract, goals |
+| [architecture/monorepo-overview.md](./architecture/monorepo-overview.md) | Workspaces, build flow, source vs dist |
+| [architecture/distribution.md](./architecture/distribution.md) | skills.sh + npm channels, install commands |
 | [markers/marker-spec.md](./markers/marker-spec.md) | `@include` marker and markdown link resolution |
-| [conventions/package-naming.md](./conventions/package-naming.md) | npm scope and package naming |
-| [plans/2026-07-03-implementation-plan.md](./plans/2026-07-03-implementation-plan.md) | Phased build plan |
+| [conventions/package-naming.md](./conventions/package-naming.md) | Workspace and published npm naming |
+| [plans/2026-07-03-implementation-plan.md](./plans/2026-07-03-implementation-plan.md) | Original phased plan (completed) |
 
 ## Status
 
 | Spec | Status |
 |------|--------|
-| Monorepo architecture | Draft — 2026-07-03 |
-| Marker spec | Draft — 2026-07-03 |
-| Package naming | Draft — 2026-07-03 |
-| Implementation plan | Ready — 2026-07-03 |
+| Monorepo architecture | Adopted |
+| Distribution | Adopted |
+| Marker spec | Adopted |
+| Package naming | Adopted |
+| Implementation plan | Completed (historical) |
 
 ## Principles
 
-1. **Source is freeform** — only `SKILL.md` is required as the builder entry.
-2. **Dist is spec-compliant** — build output conforms to [Agent Skills](https://agentskills.io).
-3. **Validate is per-package** — each package defines its own `validate` script; the repo structure does not prescribe its contents.
-4. **Do not validate `skills-dist/`** — it is generated output from `build`.
+1. **Framework, not catalog** — one example skill; authors bring their own.
+2. **Source is freeform** — only `SKILL.md` is required as the builder entry.
+3. **Dist is spec-compliant** — build output conforms to [Agent Skills](https://agentskills.io).
+4. **Primary install = skills.sh** — `npx skills add owner/repo`; npm dist is secondary.
+5. **Validate is per-package** — each package defines its own `validate` script.
+6. **Do not validate `skills-dist/`** — generated output only.
+
+## Remaining work
+
+See [content/publish/PROGRESS.md](../content/publish/PROGRESS.md).

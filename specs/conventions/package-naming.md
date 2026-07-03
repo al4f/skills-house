@@ -1,25 +1,26 @@
 # Package Naming Conventions
 
 **Date:** 2026-07-03  
-**Status:** Draft
+**Status:** Adopted
 
 ## npm scope
 
-All published packages use the `@skills-house` scope:
+Published packages use `@skills-house`:
 
 ```
-@skills-house/skill-auditor           # skill (source / dist)
-@skills-house/script-fixture-helper   # scripts workspace package
-@skills-house/build                   # build tool (internal-scripts)
+@skills-house/skill-skill-auditor    # published dist (npm channel)
+@skills-house/build                  # build tool (private monorepo)
 ```
 
-## Workspace categories → package names
+## Workspace vs published names
 
-| Workspace | Directory | Package name pattern | Example |
-|-----------|-----------|---------------------|---------|
-| Skills | `skills/<name>/` | `@skills-house/<name>` | `@skills-house/skill-auditor` |
-| Scripts | `scripts/<name>/` | `@skills-house/script-<name>` | `@skills-house/script-fixture-helper` |
-| Build | `internal-scripts/build/` | `@skills-house/build` | `@skills-house/build` |
+| Context | Pattern | Example |
+|---------|---------|---------|
+| Workspace skill package | `@skills-house/<dir-name>` (private) | `@skills-house/skill-auditor` in `skills/skill-auditor/` |
+| Published dist package | `@skills-house/skill-<dir-name>` | `@skills-house/skill-skill-auditor` |
+| Scripts workspace | `@skills-house/script-<name>` (private) | `@skills-house/script-fixture-helper` |
+
+The `skill-` prefix on **published** npm packages distinguishes dist artifacts from workspace package names.
 
 ## Skill `name` field (Agent Skills spec)
 
@@ -29,11 +30,9 @@ The `name` in `SKILL.md` frontmatter must:
 - Be lowercase alphanumeric + hyphens only
 - Max 64 characters
 
-This applies to **dist** output. Source package directory should align for consistency.
+Applies to source and dist. Build enforces name ↔ directory match.
 
 ## Script namespace exports
-
-Script packages declare namespaces in `package.json` `exports`:
 
 ```json
 {
@@ -44,19 +43,17 @@ Script packages declare namespaces in `package.json` `exports`:
 }
 ```
 
-Referenced in skills as a markdown link:
+Referenced in skills as:
 
 ```markdown
 [Run helper](fixture-helper/hello)
 ```
 
-The `fixture-helper` segment is the **short name** (directory under `scripts/`), not the full npm scope. The build tool maps it to `@skills-house/script-fixture-helper`.
+`fixture-helper` is the **short name** (directory under `scripts/`).
 
 ## Short-name uniqueness
 
-Package link targets use the **directory short name** (e.g. `fixture-helper`, `skill-auditor`), not the npm scope name.
-
-**Rule:** A short name must exist in only one workspace. Do not create both `skills/foo/` and `scripts/foo/` — the build looks up `scripts/` first, then `skills/`, and ambiguous names cause confusing resolution.
+A short name must exist in only one workspace. Do not create both `skills/foo/` and `scripts/foo/`.
 
 | Short name | Workspace | Directory |
 |------------|-----------|-----------|
@@ -67,4 +64,5 @@ Package link targets use the **directory short name** (e.g. `fixture-helper`, `s
 ## Related
 
 - [Monorepo overview](../architecture/monorepo-overview.md)
+- [Distribution](../architecture/distribution.md)
 - [Marker spec](../markers/marker-spec.md)

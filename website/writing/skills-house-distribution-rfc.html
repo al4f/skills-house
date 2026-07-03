@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RFC: skills-house Distribution Model — al4f</title>
-  <meta name="description" content="Public RFC for npx skills add and per-skill npm distribution.">
+  <meta name="description" content="Adopted distribution model: skills.sh primary, npm dist secondary.">
   <link rel="canonical" href="https://al4f.dev/writing/skills-house-distribution-rfc.html">
   <link rel="stylesheet" href="../styles.css">
 </head>
@@ -22,76 +22,61 @@
     <header class="article-header">
       <p class="eyebrow">RFC</p>
       <h1>RFC: skills-house Distribution Model</h1>
-      <p class="article-meta">Jul 2026 · Status: Draft for feedback</p>
+      <p class="article-meta">Jul 2026 · Status: <strong>Adopted</strong></p>
     </header>
 
     <article class="article-content">
       <p>
         <strong>Author:</strong> al4f<br>
         <strong>Repo:</strong> <a href="https://github.com/al4f/skills-house">skills-house</a><br>
-        <strong>Goal:</strong> Define how skills-house distributes built Agent Skills via npm and CLI
+        <strong>Spec:</strong> <a href="https://github.com/al4f/skills-house/blob/main/specs/architecture/distribution.md">specs/architecture/distribution.md</a>
       </p>
 
       <h2>Summary</h2>
 
       <p>
-        Today, skills-house is clone-and-build. This RFC proposes <code>npx skills add &lt;name&gt;</code>
-        to install individual skills from npm without cloning the monorepo.
+        skills-house is a <strong>framework for authors</strong>, not a skill catalog.
+        Distribution uses two channels:
       </p>
 
-      <h2>Non-goals (v1 distribution)</h2>
+      <ol>
+        <li><strong>Primary — skills.sh:</strong> <code>npx skills add al4f/skills-house --skill &lt;name&gt;</code></li>
+        <li><strong>Secondary — npm:</strong> built dist packages <code>@skills-house/skill-&lt;name&gt;</code> via git tags</li>
+      </ol>
+
+      <h2>Primary: skills.sh</h2>
+
+      <p>Uses the official <a href="https://www.skills.sh/docs/cli">skills.sh CLI</a>. Clones the public GitHub repo; no custom skills-house npm CLI required.</p>
+
+      <pre><code>npx skills add al4f/skills-house --list
+npx skills add al4f/skills-house --skill skill-auditor -a cursor -y</code></pre>
+
+      <h2>Secondary: npm dist</h2>
+
+      <p>Per-skill packages contain built <code>skills-dist/&lt;name&gt;/</code> only. Published by GitHub Actions on tags like <code>v0.0.1-skill-auditor</code>.</p>
+
+      <pre><code>@skills-house/skill-skill-auditor</code></pre>
+
+      <h2>Non-goals</h2>
 
       <ul>
         <li>Skills marketplace UI</li>
         <li>Private registry support</li>
-        <li>Version pinning across skill dependency graphs</li>
+        <li>Skill catalog in this repo (one example only)</li>
+        <li>Custom <code>@skills-house/cli</code> as consumer install path</li>
       </ul>
-
-      <h2>Package model</h2>
-
-      <p>Each published skill is an npm package:</p>
-
-      <pre><code>@skills-house/skill-skill-auditor
-@skills-house/skill-my-skill</code></pre>
-
-      <p>Package contents = built <code>skills-dist/&lt;name&gt;/</code> layout only. No source, no build tooling.</p>
-
-      <h2>CLI: <code>npx skills add</code></h2>
-
-      <pre><code>npx skills add skill-auditor
-npx skills add my-skill --agent cursor --scope project</code></pre>
-
-      <p>Behavior:</p>
-
-      <ol>
-        <li>Download <code>@skills-house/skill-&lt;name&gt;</code> from npm</li>
-        <li>Extract to temp directory</li>
-        <li>Install to agent paths (reuse <code>install-skills.sh</code> logic)</li>
-        <li>Print success + link to skill docs</li>
-      </ol>
 
       <h2>Metrics philosophy</h2>
 
       <p>
-        Per-skill npm packages enable weekly download counts — useful signal, not a success metric.
-        Reputation comes from educational content and DX, not download leaderboards.
+        npm downloads and skills.sh install telemetry are useful signals — not success metrics.
+        Reputation comes from educational content and DX.
       </p>
-
-      <h2>Sequencing</h2>
-
-      <p>Ship distribution only after:</p>
-
-      <ul>
-        <li>Flagship article + al4f.dev authority hub live</li>
-        <li>CI on PRs</li>
-        <li>At least two reference skills in catalog</li>
-      </ul>
 
       <h2>Feedback</h2>
 
       <p>
-        Open a <a href="https://github.com/al4f/skills-house/issues">GitHub issue</a> with tag <code>distribution-rfc</code>
-        or reply on the announcement thread.
+        Open a <a href="https://github.com/al4f/skills-house/issues">GitHub issue</a> with tag <code>distribution-rfc</code>.
       </p>
     </article>
 

@@ -138,7 +138,7 @@ skills-house/
 ├── scripts/                 # Shared script packages (package.json exports)
 ├── internal-scripts/
 │   ├── build/               # @skills-house/build — skill compiler
-│   ├── cli/                 # @skills-house/cli — skills add
+│   ├── cli/                 # optional dev CLI (pnpm skills)
 │   └── install/             # install-skills.sh, remove-skills.sh
 ├── skills-dist/             # Built Agent Skills output
 └── specs/                   # Architecture & design docs
@@ -231,13 +231,12 @@ Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCR
 
 ## Roadmap
 
-- [ ] Publish `@skills-house/cli` to npm — tag `v0.0.1-cli` ([setup](./content/publish/NPM-SETUP.md), [tags](./content/publish/PUBLISHING.md))
-- [ ] Publish `@skills-house/skill-skill-auditor` to npm
 - [x] Nested `@include` support
+- [x] skills.sh consumer install (`npx skills add al4f/skills-house`)
+- [x] npm dist publish workflow + `@skills-house/skill-skill-auditor`
+- [x] CI, al4f.dev, custom domain
 
-- [x] CI for build + test on PRs
-- [x] al4f.dev static site + GitHub Pages deploy
-- [x] al4f.dev custom domain live
+Optional: [PROGRESS.md](./content/publish/PROGRESS.md) — brand content, demo, ecosystem.
 
 ---
 

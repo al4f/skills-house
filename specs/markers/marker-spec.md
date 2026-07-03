@@ -1,7 +1,7 @@
 # SKILL.md Authoring Spec
 
 **Date:** 2026-07-03  
-**Status:** Draft
+**Status:** Adopted
 
 Source `SKILL.md` (after YAML frontmatter) uses one build marker and standard markdown links. The parser and builder handle everything else.
 
