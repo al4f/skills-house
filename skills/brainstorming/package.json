@@ -1,0 +1,10 @@
+{
+  "name": "@skills-house/brainstorming",
+  "private": true,
+  "scripts": {
+    "build": "skills-house-build ."
+  },
+  "devDependencies": {
+    "@skills-house/build": "workspace:*"
+  }
+}
