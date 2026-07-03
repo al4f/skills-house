@@ -1,0 +1,22 @@
+{
+  "name": "@skills-house/build",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "skills-house-build": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "validate": "tsc --noEmit"
+  },
+  "dependencies": {
+    "esbuild": "^0.25.0",
+    "yaml": "^2.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.0"
+  }
+}
