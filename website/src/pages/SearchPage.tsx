@@ -1,30 +1,45 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useEffect, useMemo } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Layout } from "@/components/Layout";
+import { RegistrySearch } from "@/components/RegistrySearch";
 import { PageMeta, Section, Badge } from "@/components/ui";
 import { searchIndex } from "@/lib/registry";
+import { filterSearchIndex, groupSearchResults } from "@/lib/search";
+
+const groupLabels: Record<string, string> = {
+  skill: "Skills",
+  script: "Scripts",
+  tag: "Tags",
+  author: "Authors",
+};
 
 export function SearchPage() {
-  const [searchParams] = useSearchParams();
-  const initialQuery = searchParams.get("q") ?? "";
-  const [query, setQuery] = useState(initialQuery);
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("q") ?? "";
+
+  const results = useMemo(() => filterSearchIndex(searchIndex, query), [query]);
+  const grouped = useMemo(() => groupSearchResults(results), [results]);
+
+  const handleQueryChange = (nextQuery: string) => {
+    const trimmed = nextQuery.trim();
+    if (trimmed) {
+      setSearchParams({ q: trimmed }, { replace: true });
+    } else {
+      setSearchParams({}, { replace: true });
+    }
+  };
 
   useEffect(() => {
-    setQuery(searchParams.get("q") ?? "");
-  }, [searchParams]);
-
-  const results = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
-    return searchIndex
-      .filter(
-        (item) =>
-          item.title.toLowerCase().includes(q) ||
-          item.description.toLowerCase().includes(q) ||
-          (item.tags ?? []).some((t) => t.toLowerCase().includes(q)),
-      )
-      .slice(0, 40);
-  }, [query]);
+    const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        navigate("/search");
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [navigate]);
 
   return (
     <Layout active="search">
@@ -35,51 +50,46 @@ export function SearchPage() {
         <p>Search skills, scripts, tags, and authors across the registry.</p>
       </Section>
 
-      <form className="search-form" role="search" onSubmit={(e) => e.preventDefault()}>
-        <div className="search-input-wrap">
-          <svg className="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M21 21l-4.35-4.35M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search skills, scripts, tags, authors…"
-            autoComplete="off"
-            aria-label="Search registry"
-            autoFocus
-          />
-          {query && (
-            <button type="button" className="search-clear" onClick={() => setQuery("")} aria-label="Clear search">
-              ×
-            </button>
-          )}
-        </div>
-        <p className="search-hint">
-          <kbd>⌘</kbd> <kbd>K</kbd> style search — type to filter instantly
-        </p>
-      </form>
+      <RegistrySearch
+        variant="page"
+        initialQuery={query}
+        onQueryChange={handleQueryChange}
+        autoFocus
+        showResults={false}
+      />
 
       <div className="search-results">
         {!query.trim() ? (
-          <p className="muted search-empty">Start typing to search the registry.</p>
+          <div className="empty-state">
+            <strong>Start typing to search</strong>
+            <p>Try a skill name, tag like “validation”, or an author.</p>
+          </div>
         ) : results.length === 0 ? (
-          <p className="muted">No results for "{query}".</p>
+          <div className="empty-state">
+            <strong>No results for “{query}”</strong>
+            <p>
+              Browse <Link to="/skills">skills</Link> or <Link to="/scripts">scripts</Link> directly.
+            </p>
+          </div>
         ) : (
-          results.map((item) => (
-            <article key={`${item.type}-${item.id}`} className="search-hit">
-              <Badge>{item.type}</Badge>
-              <Link to={`/${item.url.replace(/\/$/, "")}`}>
-                <strong>{item.title}</strong>
-              </Link>
-              <p>{item.description}</p>
-            </article>
-          ))
+          (["skill", "script", "tag", "author"] as const).map((type) => {
+            const items = grouped[type];
+            if (!items.length) return null;
+            return (
+              <div key={type} className="search-results-group">
+                <h2>{groupLabels[type]}</h2>
+                {items.map((item) => (
+                  <article key={`${item.type}-${item.id}`} className="search-hit">
+                    <Badge>{item.type}</Badge>{" "}
+                    <Link to={`/${item.url.replace(/\/$/, "")}`}>
+                      <strong>{item.title}</strong>
+                    </Link>
+                    <p>{item.description}</p>
+                  </article>
+                ))}
+              </div>
+            );
+          })
         )}
       </div>
     </Layout>
