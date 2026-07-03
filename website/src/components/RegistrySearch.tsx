@@ -57,10 +57,6 @@ export function RegistrySearch({
   const results = useMemo(() => filterSearchIndex(searchIndex, query, variant === "header" ? 6 : 40), [query, variant]);
 
   useEffect(() => {
-    onQueryChange?.(query);
-  }, [query, onQueryChange]);
-
-  useEffect(() => {
     if (variant !== "header") return;
     const onPointerDown = (event: MouseEvent) => {
       if (!wrapRef.current?.contains(event.target as Node)) setOpen(false);
@@ -79,6 +75,7 @@ export function RegistrySearch({
 
   const handleChange = (value: string) => {
     setQuery(value);
+    onQueryChange?.(value);
     if (variant === "header") setOpen(Boolean(value.trim()));
   };
 
@@ -102,7 +99,7 @@ export function RegistrySearch({
               type="button"
               className="search-clear"
               onClick={() => {
-                setQuery("");
+                handleChange("");
                 setOpen(false);
               }}
               aria-label="Clear search"
