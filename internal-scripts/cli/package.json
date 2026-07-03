@@ -3,13 +3,24 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "description": "Install Agent Skills built with skills-house",
+  "description": "Install Agent Skills built with skills-house — npx @skills-house/cli add <name>",
+  "author": "al4f <https://al4f.dev>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/al4f/skills-house.git",
+    "directory": "internal-scripts/cli"
+  },
+  "homepage": "https://al4f.dev",
+  "keywords": ["agent-skills", "skills-house", "cursor", "claude", "codex"],
+  "files": ["dist"],
   "bin": {
     "skills": "./dist/cli.js"
   },
   "scripts": {
     "build": "tsup",
-    "validate": "tsc --noEmit"
+    "validate": "tsc --noEmit",
+    "test": "node --test test/cli.test.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",

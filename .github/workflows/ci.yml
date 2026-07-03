@@ -39,5 +39,8 @@ jobs:
       - name: Test
         run: pnpm test
 
+      - name: Pack skill-auditor (smoke)
+        run: node scripts/pack-skill.mjs skill-auditor
+
       - name: Validate skill-auditor
         run: bash scripts/skill-auditor-tools/scripts/validate.sh skills/skill-auditor
