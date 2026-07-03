@@ -44,6 +44,6 @@ Repeat for each skill you want distributable outside the monorepo.
 
 Per the distribution RFC — publish with an article, not a bare registry drop:
 
-1. Update [distribution RFC](https://al4f.github.io/skills-house/writing/skills-house-distribution-rfc.html) status
+1. Update [distribution RFC](https://al4f.dev/writing/skills-house-distribution-rfc.html) status
 2. Post X thread 6 from `content/social/x-threads.md`
 3. Link from README once packages are live

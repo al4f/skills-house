@@ -2,7 +2,7 @@
 
 **Building infrastructure for Agent Skills.**
 
-I author [skills-house](https://github.com/al4f/skills-house) — an open-source toolkit for writing, building, and distributing [Agent Skills](https://agentskills.io) across Cursor, Claude Code, Codex, and more.
+I author [skills-house](https://github.com/al4f/skills-house) — an open-source **framework** for writing, building, and distributing [Agent Skills](https://agentskills.io) across Cursor, Claude Code, Codex, and more.
 
 **→ [al4f.dev](https://al4f.dev)** — architecture articles and build logs
 
@@ -16,7 +16,7 @@ I author [skills-house](https://github.com/al4f/skills-house) — an open-source
 
 | Project | Description |
 |---------|-------------|
-| [skills-house](https://github.com/al4f/skills-house) | Author, build, and ship Agent Skills from one monorepo |
+| [skills-house](https://github.com/al4f/skills-house) | Framework for authoring, building, and shipping Agent Skills |
 
 ---
 

@@ -1,6 +1,6 @@
 # Brand Plan Progress
 
-Last updated after plan resume (post PR #5).
+Last updated: al4f.dev live.
 
 ## Done (in repo)
 
@@ -12,9 +12,11 @@ Last updated after plan resume (post PR #5).
 | al4f.dev static site | Done |
 | GitHub Pages deploy workflow | Done |
 | Website paths fix (github.io/skills-house) | Done |
+| al4f.dev custom domain (DNS) | Done |
 | Flagship + supporting articles | Done |
 | X thread series (draft) | `content/social/x-threads.md` |
 | LinkedIn posts (draft) | `content/linkedin/posts.md` |
+| Ready-to-post copies | `content/publish/thread-1-ready.md`, `linkedin-1-ready.md` |
 | CI + CONTRIBUTING + issue templates | Done |
 | skill-auditor example skill | Done |
 | Spec v2 article + ecosystem notes | Done |
@@ -22,17 +24,18 @@ Last updated after plan resume (post PR #5).
 | Demo video script | `content/demo-video/SCRIPT.md` |
 | CLI scaffold (`pnpm skills add`) | Done |
 | npm pack script | `scripts/pack-skill.mjs` |
+| Context handoff doc | `content/publish/CONTEXT-HANDOFF.md` |
 
 ## Live URLs
 
 | URL | Purpose |
 |-----|---------|
-| https://al4f.github.io/skills-house/ | Site (working) |
-| https://al4f.dev | Custom domain — configure DNS + Pages settings |
+| https://al4f.dev | **Canonical** — authority hub |
+| https://al4f.github.io/skills-house/ | GitHub Pages mirror (same site) |
 
 ## Your manual checklist
 
-- [ ] **DNS** — point `al4f.dev` to GitHub Pages (see `website/README.md`)
+- [x] **DNS** — `al4f.dev` → GitHub Pages (Cloudflare CNAME flattening)
 - [ ] **GitHub profile** — `content/github-profile/SETUP.md`
 - [ ] **Publish thread 1** — `content/publish/thread-1-ready.md`
 - [ ] **Publish LinkedIn post 1** — `content/publish/linkedin-1-ready.md`
