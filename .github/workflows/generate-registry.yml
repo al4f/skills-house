@@ -1,0 +1,58 @@
+name: Generate Registry
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'skills/**'
+      - 'scripts/**'
+      - 'internal-scripts/registry/**'
+      - 'specs/schema/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build compiler and registry
+        run: |
+          pnpm --filter @skills-house/build build
+          pnpm --filter @skills-house/registry build
+
+      - name: Build skills
+        run: |
+          for skill in skills/*/; do
+            node internal-scripts/build/dist/cli.js "$skill"
+          done
+
+      - name: Generate registry and website data
+        run: pnpm generate
+
+      - name: Commit generated artifacts
+        run: |
+          git config user.name "skills-house-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add generated website/data website/skills website/scripts website/graph website/search website/platform website/platform.css
+          if git diff --staged --quiet; then
+            echo "No generated changes."
+          else
+            git commit -m "chore: regenerate registry and website data [skip ci]"
+            git push
+          fi

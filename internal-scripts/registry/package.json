@@ -1,21 +1,19 @@
 {
-  "name": "@skills-house/build",
-  "version": "0.0.1",
+  "name": "@skills-house/registry",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
-  "exports": {
-    ".": "./dist/lib.js"
-  },
   "bin": {
-    "skills-house-build": "./dist/cli.js"
+    "skills-house-registry": "./dist/cli.js"
   },
   "scripts": {
     "build": "tsup",
     "validate": "tsc --noEmit",
-    "test": "node --test test/build.test.mjs"
+    "test": "pnpm build && node --test test/registry.test.mjs"
   },
   "dependencies": {
-    "esbuild": "^0.25.0",
+    "@skills-house/build": "workspace:*",
+    "ajv": "^8.17.1",
     "yaml": "^2.7.0"
   },
   "devDependencies": {

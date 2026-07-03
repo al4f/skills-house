@@ -2,7 +2,7 @@
   "name": "skills-house",
   "private": true,
   "version": "0.1.0",
-  "description": "Framework for authoring, building, and shipping Agent Skills — not a skill catalog.",
+  "description": "Platform for publishing, discovering, and reusing AI Skills — by al4f.",
   "author": "al4f <https://al4f.dev>",
   "homepage": "https://al4f.dev",
   "repository": {
@@ -17,9 +17,11 @@
     "install:skills": "bash internal-scripts/install/install-skills.sh",
     "remove:skills": "bash internal-scripts/install/remove-skills.sh",
     "skills": "node internal-scripts/cli/dist/cli.js",
-    "test": "pnpm --filter @skills-house/build test && pnpm --filter @skills-house/cli test && node --test scripts/pack.test.mjs scripts/parse-release-tag.test.mjs",
+    "test": "pnpm --filter @skills-house/build test && pnpm --filter @skills-house/cli test && pnpm --filter @skills-house/registry test && node --test scripts/pack.test.mjs scripts/parse-release-tag.test.mjs",
     "pack:cli": "node scripts/pack-cli.mjs",
     "pack:skill": "node scripts/pack-skill.mjs",
-    "validate": "pnpm --filter \"./skills/*\" run validate --if-present && pnpm --filter \"./scripts/*\" run validate --if-present && pnpm --filter @skills-house/build validate"
+    "validate": "pnpm --filter \"./skills/*\" run validate --if-present && pnpm --filter \"./scripts/*\" run validate --if-present && pnpm --filter @skills-house/build validate && pnpm --filter @skills-house/registry validate",
+    "generate": "pnpm --filter @skills-house/registry build && node internal-scripts/registry/dist/cli.js",
+    "generate:check": "pnpm generate && git diff --exit-code -- generated website/data website/skills website/scripts website/graph website/search website/platform website/platform.css"
   }
 }

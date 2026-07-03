@@ -47,3 +47,9 @@ jobs:
 
       - name: Validate skill-auditor
         run: bash scripts/skill-auditor-tools/scripts/validate.sh skills/skill-auditor
+
+      - name: Build registry generator
+        run: pnpm --filter @skills-house/registry build
+
+      - name: Generate and verify registry output
+        run: pnpm generate:check

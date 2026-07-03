@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search — Skills House by al4f</title>
+  <meta name="description" content="Search the Skills House registry">
+  <meta property="og:title" content="Search — Skills House">
+  <meta property="og:description" content="Search the Skills House registry">
+  <meta property="og:url" content="https://al4f.dev/">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../platform.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">al4f</a>
+    <nav>
+      <a href="../platform/">Skills House</a>
+      <a href="../skills/">Skills</a>
+      <a href="../scripts/">Scripts</a>
+      <a href="../graph/">Graph</a>
+      <a href="../search/" aria-current="page">Search</a>
+      <a href="../writing/">Writing</a>
+      <a href="https://github.com/al4f/skills-house">GitHub</a>
+    </nav>
+  </header>
+  <main class="platform-main">
+    <section class="page-header">
+      <h1>Search</h1>
+      <p>Search skills, scripts, tags, and authors across the registry.</p>
+    </section>
+    <form class="search-form" role="search" onsubmit="return false;">
+      <input type="search" id="search-input" placeholder="Search skills, scripts, tags, authors…" autocomplete="off" aria-label="Search registry">
+    </form>
+    <div id="search-results" class="search-results"></div>
+    <script src="../search/search.js"></script>
+  </main>
+  <footer class="site-footer platform-footer">
+    <p>
+      <strong>Skills House</strong> by <a href="https://al4f.dev">al4f</a>
+      · <a href="https://github.com/al4f/skills-house">GitHub</a>
+      · <a href="https://github.com/al4f/skills-house/tree/main/specs">Documentation</a>
+      · <a href="../feed.xml">RSS</a>
+    </p>
+  </footer>
+</body>
+</html>

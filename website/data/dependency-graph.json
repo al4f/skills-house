@@ -1,0 +1,15 @@
+{
+  "skillsToScripts": {
+    "skill-auditor": [
+      "skill-auditor-tools"
+    ]
+  },
+  "scriptsToSkills": {
+    "skill-auditor-tools": [
+      "skill-auditor"
+    ]
+  },
+  "skillsToSkills": {
+    "skill-auditor": []
+  }
+}

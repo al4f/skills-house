@@ -9,7 +9,9 @@
 
 **Author, build, and ship [Agent Skills](https://agentskills.io) for Cursor, Claude Code, Codex, and more — from one monorepo.**
 
-skills-house is an open-source **framework** for skill authors — not a skill catalog. Write your own skills with modular markdown and shared scripts; the build pipeline produces spec-compliant artifacts ready to install into any supported agent.
+Skills House is the official platform to **publish, discover, and reuse AI Skills** — built by [al4f](https://al4f.dev). GitHub stores the source; **[al4f.dev](https://al4f.dev)** is the experience.
+
+Browse the registry: **[Skills Explorer](https://al4f.dev/skills/)** · **[Scripts Explorer](https://al4f.dev/scripts/)** · **[Dependency Graph](https://al4f.dev/graph/)** · **[Search](https://al4f.dev/search/)**
 
 **Built by [al4f](https://github.com/al4f)** — Agent Skills tooling engineer. Follow build logs and architecture notes at **[al4f.dev](https://al4f.dev)** · [Agent Skills at Scale](https://al4f.dev/writing/agent-skills-at-scale.html)
 
@@ -88,13 +90,13 @@ pnpm remove:skills --agent cursor --skill skill-auditor
 
 ## Example skill
 
-The repo includes one **example** skill to demonstrate the framework — not a curated catalog:
+The registry includes published skills. The reference example demonstrates the framework:
 
-| Example | Description |
-|---------|-------------|
-| [skill-auditor](./skills/skill-auditor/) | Validates Agent Skills before publish — shows `@include`, references, and shared scripts |
+| Skill | Description |
+|-------|-------------|
+| [skill-auditor](https://al4f.dev/skills/skill-auditor/) | Validates Agent Skills before publish — shows `@include`, references, and shared scripts |
 
-Add your own skills under `skills/<name>/`. See [Contributing](#contributing).
+Publish your own skill under `skills/<name>/`. Skill PRs auto-merge when validation passes. See [Contributing](#contributing).
 
 ---
 
@@ -152,7 +154,9 @@ skills-house/
 |---------|-------------|
 | `pnpm build` | Build compiler + all skills |
 | `pnpm test` | Run build pipeline tests |
-| `pnpm validate` | Run per-package validate scripts |
+| `pnpm validate` | Run per-package validate scripts + registry typecheck |
+| `pnpm generate` | Generate registry index, search index, dependency graph, website data |
+| `pnpm generate:check` | Regenerate and fail if output is stale |
 | `pnpm install:skills` | Install built dist skills to agent directories (monorepo dev) |
 | `npx skills add al4f/skills-house --skill <name>` | Install from GitHub via [skills.sh](https://www.skills.sh/docs/cli) ([guide](./content/publish/INSTALL.md)) |
 | `pnpm remove:skills` | Remove installed skills (monorepo script) |
@@ -215,13 +219,12 @@ Deep dive: **[specs/architecture/monorepo-overview.md](./specs/architecture/mono
 
 ## Contributing
 
-1. Read the specs in [`specs/`](./specs/)
-2. Add a skill under `skills/<name>/` with `SKILL.md` + `package.json`
-3. Add shared scripts under `scripts/<name>/` if needed
-4. Run `pnpm build && pnpm test`
-5. Open a PR
+Skills House has two contribution types:
 
-Skill `name` in frontmatter must match the directory name (enforced by the build).
+1. **Skill contributions** — content under `skills/<name>/` auto-merges when schema, lint, docs, and dependency checks pass
+2. **Platform contributions** — website, CLI, generators, CI require maintainer review
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full workflow.
 
 ---
 
@@ -235,6 +238,9 @@ Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCR
 - [x] skills.sh consumer install (`npx skills add al4f/skills-house`)
 - [x] npm dist publish workflow + `@skills-house/skill-skill-auditor`
 - [x] CI, al4f.dev, custom domain
+- [x] Registry generator (index, search, dependency graph, website data)
+- [x] Skills Explorer, Scripts Explorer, Dependency Graph, Search on al4f.dev
+- [x] Auto-merge for skill contributions
 
 Optional: [PROGRESS.md](./content/publish/PROGRESS.md) — brand content, demo, ecosystem.
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dependency Graph — Skills House by al4f</title>
+  <meta name="description" content="Visualize skill and script relationships">
+  <meta property="og:title" content="Dependency Graph — Skills House">
+  <meta property="og:description" content="Visualize skill and script relationships">
+  <meta property="og:url" content="https://al4f.dev/">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../platform.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">al4f</a>
+    <nav>
+      <a href="../platform/">Skills House</a>
+      <a href="../skills/">Skills</a>
+      <a href="../scripts/">Scripts</a>
+      <a href="../graph/" aria-current="page">Graph</a>
+      <a href="../search/">Search</a>
+      <a href="../writing/">Writing</a>
+      <a href="https://github.com/al4f/skills-house">GitHub</a>
+    </nav>
+  </header>
+  <main class="platform-main">
+    <section class="page-header">
+      <h1>Dependency Graph</h1>
+      <p>Bidirectional relationships between skills and scripts. Click a node to explore connections.</p>
+    </section>
+    <div id="graph-root" class="graph-container" aria-label="Dependency graph visualization"></div>
+    <section id="graph-detail" class="graph-detail" hidden>
+      <h2 id="graph-detail-title"></h2>
+      <ul id="graph-detail-list"></ul>
+    </section>
+    <script type="application/json" id="graph-data">{"graph":{"skillsToScripts":{"skill-auditor":["skill-auditor-tools"]},"scriptsToSkills":{"skill-auditor-tools":["skill-auditor"]},"skillsToSkills":{"skill-auditor":[]}},"skills":[{"id":"skill-auditor","name":"skill-auditor"}],"scripts":[{"id":"fixture-helper","name":"fixture-helper"},{"id":"skill-auditor-tools","name":"skill-auditor-tools"}]}</script>
+    <script src="../graph/graph.js"></script>
+  </main>
+  <footer class="site-footer platform-footer">
+    <p>
+      <strong>Skills House</strong> by <a href="https://al4f.dev">al4f</a>
+      · <a href="https://github.com/al4f/skills-house">GitHub</a>
+      · <a href="https://github.com/al4f/skills-house/tree/main/specs">Documentation</a>
+      · <a href="../feed.xml">RSS</a>
+    </p>
+  </footer>
+</body>
+</html>
