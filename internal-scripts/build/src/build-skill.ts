@@ -8,6 +8,7 @@ import {
 import { resolveIncludes } from "./resolve-includes.js";
 import { resolveFileLinks } from "./resolve-file-links.js";
 import { resolvePackageLinks } from "./resolve-package-link.js";
+import { validateSkillName } from "./validate-skill-name.js";
 
 export type BuildSkillOptions = {
   skillDir: string;
@@ -19,10 +20,7 @@ export function skillNameFrom(
   frontmatter: Record<string, unknown>,
   skillDir: string,
 ): string {
-  if (typeof frontmatter.name === "string" && frontmatter.name.trim()) {
-    return frontmatter.name.trim();
-  }
-  return path.basename(path.resolve(skillDir));
+  return validateSkillName(frontmatter, skillDir);
 }
 
 export async function buildSkill(options: BuildSkillOptions): Promise<void> {
@@ -30,6 +28,8 @@ export async function buildSkill(options: BuildSkillOptions): Promise<void> {
   const skillMdPath = path.join(skillDir, "SKILL.md");
   const raw = await fs.readFile(skillMdPath, "utf-8");
   const parsed = parseSkillMd(raw);
+
+  validateSkillName(parsed.frontmatter, skillDir);
 
   let body = await resolveIncludes(parsed.body, skillDir);
   const links = findLinks(body);
