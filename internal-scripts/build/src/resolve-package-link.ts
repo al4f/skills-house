@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import * as esbuild from "esbuild";
 import { classifyHref } from "./classify-href.js";
 import type { SkillLink } from "./parse-skill-md.js";
 
@@ -46,47 +45,6 @@ function resolveExportTarget(
   return target;
 }
 
-async function bundleScriptExport(
-  sourcePath: string,
-  outDir: string,
-  basename: string,
-): Promise<string> {
-  const ext = path.extname(sourcePath).toLowerCase();
-  const destRelative = path.join("scripts", basename);
-
-  await fs.mkdir(path.join(outDir, "scripts"), { recursive: true });
-
-  if (ext === ".sh" || ext === ".bash") {
-    await fs.copyFile(sourcePath, path.join(outDir, destRelative));
-    return destRelative;
-  }
-
-  if (ext === ".js" || ext === ".ts" || ext === ".mjs" || ext === ".cjs") {
-    const outPath = path.join(outDir, destRelative);
-    const source = await fs.readFile(sourcePath, "utf-8");
-    const hasImports = /^\s*import\s/m.test(source) || /\brequire\s*\(/.test(source);
-
-    if (hasImports) {
-      const outExt = ext === ".ts" ? ".js" : ext;
-      const bundleDest = path.join(outDir, "scripts", path.basename(basename, ext) + outExt);
-      await esbuild.build({
-        entryPoints: [sourcePath],
-        bundle: true,
-        platform: "node",
-        outfile: bundleDest,
-        format: ext === ".cjs" || ext === ".js" ? "cjs" : "esm",
-      });
-      return path.join("scripts", path.basename(bundleDest));
-    }
-
-    await fs.copyFile(sourcePath, outPath);
-    return destRelative;
-  }
-
-  await fs.copyFile(sourcePath, path.join(outDir, destRelative));
-  return destRelative;
-}
-
 function rewriteLink(
   body: string,
   label: string,
@@ -94,6 +52,30 @@ function rewriteLink(
   newHref: string,
 ): string {
   return body.replace(`[${label}](${oldHref})`, `[${label}](${newHref})`);
+}
+
+async function copyScriptPackage(
+  pkgDir: string,
+  outDir: string,
+  copied: Set<string>,
+  pkg: string,
+): Promise<void> {
+  if (copied.has(pkg)) return;
+
+  const scriptsSrc = path.join(pkgDir, "scripts");
+  const scriptsDest = path.join(outDir, "scripts");
+  await fs.mkdir(scriptsDest, { recursive: true });
+
+  const entries = await fs.readdir(scriptsSrc, { withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isFile()) continue;
+    await fs.copyFile(
+      path.join(scriptsSrc, entry.name),
+      path.join(scriptsDest, entry.name),
+    );
+  }
+
+  copied.add(pkg);
 }
 
 function replaceWithDependencyNote(
@@ -114,6 +96,7 @@ export async function resolvePackageLinks(
   dependencies: string[],
 ): Promise<string> {
   let result = body;
+  const copiedScriptPackages = new Set<string>();
 
   for (const link of links) {
     const classified = classifyHref(link.href);
@@ -133,9 +116,8 @@ export async function resolvePackageLinks(
       continue;
     }
 
-    const sourcePath = path.join(dir, exportTarget);
-    const basename = path.basename(exportTarget);
-    const destRelative = await bundleScriptExport(sourcePath, outDir, basename);
+    await copyScriptPackage(dir, outDir, copiedScriptPackages, pkg);
+    const destRelative = path.join("scripts", path.basename(exportTarget));
     result = rewriteLink(result, link.label, link.href, destRelative);
   }
 
