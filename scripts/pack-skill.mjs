@@ -64,7 +64,7 @@ function main() {
     license: "MIT",
     repository: {
       type: "git",
-      url: "https://github.com/al4f/skills-house.git",
+      url: "git+https://github.com/al4f/skills-house.git",
       directory: `skills/${skill}`,
     },
     homepage: "https://al4f.dev",

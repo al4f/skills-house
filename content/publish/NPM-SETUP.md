@@ -13,12 +13,14 @@ If the name is taken, pick an alternative and update package names in `internal-
 
 ## 2. Create an automation token
 
-Use an **Automation** token (CI-friendly; bypasses 2FA for publish):
+Use an **Automation** token (required for CI — bypasses 2FA on publish):
 
 1. npm → **Access Tokens** → **Generate New Token**
 2. Type: **Granular Access Token** (recommended) or **Classic** → **Automation**
-3. Packages: read + write for `@skills-house/*`
+3. For granular: enable **Bypass 2FA** and grant read + write on `@skills-house/*`
 4. Copy the token — shown once
+
+Do **not** use a "Publish" classic token — CI will fail with `403 Forbidden ... bypass 2fa enabled is required`.
 
 ## 3. Add the token to GitHub
 
@@ -83,7 +85,8 @@ npx @skills-house/cli add skill-auditor --dry-run
 |-------|-----|
 | Workflow skipped / no publish | Tag must match `v<semver>-cli` or `v<semver>-<skill-name>` |
 | `NPM_TOKEN` missing | Add repository secret (step 3) |
-| `403 Forbidden` | Token needs publish access to `@skills-house` scope |
+| `403 Forbidden` ... `bypass 2fa` | Regenerate token as **Automation** (not Publish); update `NPM_TOKEN` secret |
+| `403 Forbidden` (other) | Token needs publish access to `@skills-house` scope |
 | `402 Payment Required` | Confirm org exists; workflow uses `--access public` |
 | Version already published | Bump semver in the tag (npm rejects duplicate versions) |
 
