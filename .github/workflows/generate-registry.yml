@@ -49,7 +49,7 @@ jobs:
         run: |
           git config user.name "skills-house-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add generated website/data website/skills website/scripts website/graph website/search website/platform website/platform.css
+          git add generated website/public/data
           if git diff --staged --quiet; then
             echo "No generated changes."
           else

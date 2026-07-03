@@ -1,0 +1,52 @@
+<p>
+        <strong>Author:</strong> al4f<br>
+        <strong>Repo:</strong> <a href="https://github.com/al4f/skills-house">skills-house</a><br>
+        <strong>Spec:</strong> <a href="https://github.com/al4f/skills-house/blob/main/specs/architecture/distribution.md">specs/architecture/distribution.md</a>
+      </p>
+
+      <h2>Summary</h2>
+
+      <p>
+        skills-house is a <strong>framework for authors</strong>, not a skill catalog.
+        Distribution uses two channels:
+      </p>
+
+      <ol>
+        <li><strong>Primary — skills.sh:</strong> <code>npx skills add al4f/skills-house --skill &lt;name&gt;</code></li>
+        <li><strong>Secondary — npm:</strong> built dist packages <code>@skills-house/skill-&lt;name&gt;</code> via git tags</li>
+      </ol>
+
+      <h2>Primary: skills.sh</h2>
+
+      <p>Uses the official <a href="https://www.skills.sh/docs/cli">skills.sh CLI</a>. Clones the public GitHub repo; no custom skills-house npm CLI required.</p>
+
+      <pre><code>npx skills add al4f/skills-house --list
+npx skills add al4f/skills-house --skill skill-auditor -a cursor -y</code></pre>
+
+      <h2>Secondary: npm dist</h2>
+
+      <p>Per-skill packages contain built <code>skills-dist/&lt;name&gt;/</code> only. Published by GitHub Actions on tags like <code>v0.0.1-skill-auditor</code>.</p>
+
+      <pre><code>@skills-house/skill-skill-auditor</code></pre>
+
+      <h2>Non-goals</h2>
+
+      <ul>
+        <li>Skills marketplace UI</li>
+        <li>Private registry support</li>
+        <li>Skill catalog in this repo (one example only)</li>
+        <li>Custom <code>@skills-house/cli</code> as consumer install path</li>
+      </ul>
+
+      <h2>Metrics philosophy</h2>
+
+      <p>
+        npm downloads and skills.sh install telemetry are useful signals — not success metrics.
+        Reputation comes from educational content and DX.
+      </p>
+
+      <h2>Feedback</h2>
+
+      <p>
+        Open a <a href="https://github.com/al4f/skills-house/issues">GitHub issue</a> with tag <code>distribution-rfc</code>.
+      </p>
