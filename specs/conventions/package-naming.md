@@ -53,6 +53,18 @@ Referenced in skills as a markdown link:
 
 The `visual-companion` segment is the **short name** (directory under `scripts/`), not the full npm scope. The build tool maps it to `@skills-house/script-visual-companion`.
 
+## Short-name uniqueness
+
+Package link targets use the **directory short name** (e.g. `visual-companion`, `brainstorming`), not the npm scope name.
+
+**Rule:** A short name must exist in only one workspace. Do not create both `skills/foo/` and `scripts/foo/` — the build looks up `scripts/` first, then `skills/`, and ambiguous names cause confusing resolution.
+
+| Short name | Workspace | Directory |
+|------------|-----------|-----------|
+| `brainstorming` | skills | `skills/brainstorming/` |
+| `visual-companion` | scripts | `scripts/visual-companion/` |
+| `fixture-helper` | scripts | `scripts/fixture-helper/` |
+
 ## Related
 
 - [Monorepo overview](../architecture/monorepo-overview.md)
