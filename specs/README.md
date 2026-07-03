@@ -9,7 +9,6 @@ Architecture and design docs for the skills-house monorepo. **Paper first, code 
 | [architecture/monorepo-overview.md](./architecture/monorepo-overview.md) | Workspaces, build flow, dist contract, goals |
 | [markers/marker-spec.md](./markers/marker-spec.md) | `@include` marker and markdown link resolution |
 | [conventions/package-naming.md](./conventions/package-naming.md) | npm scope and package naming |
-| [conventions/publishing-skills.md](./conventions/publishing-skills.md) | Tag-based publish to skills.sh |
 | [plans/2026-07-03-implementation-plan.md](./plans/2026-07-03-implementation-plan.md) | Phased build plan |
 
 ## Status
@@ -19,7 +18,6 @@ Architecture and design docs for the skills-house monorepo. **Paper first, code 
 | Monorepo architecture | Draft — 2026-07-03 |
 | Marker spec | Draft — 2026-07-03 |
 | Package naming | Draft — 2026-07-03 |
-| Publishing to skills.sh | Draft — 2026-07-03 |
 | Implementation plan | Ready — 2026-07-03 |
 
 ## Principles
