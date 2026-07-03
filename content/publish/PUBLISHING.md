@@ -1,6 +1,12 @@
 # Publishing skills-house packages
 
-Publishing is **tag-driven via GitHub Actions**. Do not run `npm publish` locally.
+**Primary consumer install:** [skills.sh](https://www.skills.sh/docs/cli) — public GitHub repo, no publish step:
+
+```bash
+npx skills add al4f/skills-house --skill skill-auditor
+```
+
+**Secondary channel:** per-skill npm packages for registry metrics. Publishing is **tag-driven via GitHub Actions** — do not run `npm publish` locally.
 
 **First time?** Complete [NPM-SETUP.md](./NPM-SETUP.md) — create the `@skills-house` org and add `NPM_TOKEN` to GitHub Secrets.
 
@@ -32,11 +38,7 @@ git tag v0.0.1-cli
 git push origin v0.0.1-cli
 ```
 
-After the workflow succeeds:
-
-```bash
-npx @skills-house/cli add skill-auditor --dry-run
-```
+After the workflow succeeds, consumers can still use `npx skills add al4f/skills-house` (Git). The npm CLI package is optional.
 
 ## Publish a skill
 

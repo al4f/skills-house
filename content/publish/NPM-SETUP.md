@@ -75,14 +75,21 @@ Watch the run: [Actions → Publish npm](https://github.com/al4f/skills-house/ac
 
 ## 6. Smoke test
 
-**Install in any repo with `skills.sh`** (no CLI npm package needed):
+**Consumer install** (official [skills.sh CLI](https://www.skills.sh/docs/cli)):
 
 ```bash
 cd /path/to/your-repo
-curl -fsSL https://raw.githubusercontent.com/al4f/skills-house/main/skills.sh | bash -s -- add skill-auditor --scope project --dry-run
+npx skills add al4f/skills-house --list
+npx skills add al4f/skills-house --skill skill-auditor -a cursor -y
 ```
 
-See [INSTALL.md](./INSTALL.md) for full usage.
+See [INSTALL.md](./INSTALL.md).
+
+**npm channel** (optional, for registry metrics):
+
+```bash
+npm view @skills-house/skill-skill-auditor version
+```
 
 ## Troubleshooting
 

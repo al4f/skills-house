@@ -1,76 +1,71 @@
-# Install published skills in any repo
+# Install skills in any repo
 
-Use **`skills.sh`** — no npm CLI package required. Skills install from `@skills-house/skill-*` packages on npm.
+Use the official **[skills.sh](https://www.skills.sh) CLI** — same UX as [vercel-labs/agent-skills](https://www.skills.sh/docs/cli).
 
-## Quick start (another repo)
+## Quick start
 
-From the **project root** (e.g. `snappfood-vendor`):
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/al4f/skills-house/main/skills.sh | bash -s -- add skill-auditor --scope project --dry-run
-```
-
-Install for real:
+From your project root (e.g. `snappfood-vendor`):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/al4f/skills-house/main/skills.sh | bash -s -- add skill-auditor --scope project --agent cursor
+# List skills in the repo
+npx skills add al4f/skills-house --list
+
+# Install skill-auditor for Cursor (project scope)
+npx skills add al4f/skills-house --skill skill-auditor -a cursor -y
+
+# All agents, project scope
+npx skills add al4f/skills-house --skill skill-auditor -y
 ```
 
-Or download once and reuse:
+Global install:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/al4f/skills-house/main/skills.sh -o skills.sh
-chmod +x skills.sh
-./skills.sh add skill-auditor --scope project --agent cursor
+npx skills add al4f/skills-house --skill skill-auditor -g -a cursor -y
 ```
 
-## What it does
+## How it works
 
-1. Downloads `@skills-house/skill-<name>` from npm (`npm pack`)
-2. Installs into agent paths via `install-skills.sh`
+The [`skills`](https://www.npmjs.com/package/skills) CLI (by Vercel) clones the public GitHub repo and wires skills into agent directories — no skills-house npm packages required.
 
-| Scope | Cursor paths |
-|-------|----------------|
-| `project` | `.agents/skills/<name>`, `.cursor/skills/<name>` |
-| `global` | `~/.agents/skills/<name>`, `~/.cursor/skills/<name>` |
+| Flag | Meaning |
+|------|---------|
+| `--skill <name>` | Install one skill from a multi-skill repo |
+| `-a, --agent cursor` | Target Cursor (also: `claude`, `codex`, `*`) |
+| `-g, --global` | Install to user home instead of project |
+| `-y, --yes` | Non-interactive |
+| `--copy` | Copy files instead of symlinking |
+| `--list` | Show available skills without installing |
 
-## Commands
+Installed paths (project):
 
-```bash
-skills.sh add <name> [--scope project] [--agent cursor] [--copy] [--dry-run]
-skills.sh add <name> --from ./skills-dist          # local dist (monorepo dev)
-skills.sh remove <name> [--scope project] [--agent cursor] [--dry-run]
-```
-
-## Requirements
-
-- `bash`, `curl`, `npm` (for registry download), `tar`
-- Published skill on npm: `npm view @skills-house/skill-skill-auditor version`
+- `.agents/skills/skill-auditor`
+- `.cursor/skills/skill-auditor` (when using Cursor agent)
 
 ## Remove
 
 ```bash
-./skills.sh remove skill-auditor --scope project
+npx skills remove skill-auditor
 ```
 
-## Gitignore (optional)
+## Monorepo dev (skills-house)
 
-```gitignore
-.agents/skills/
-.cursor/skills/
-.claude/skills/
-```
-
-## Monorepo dev
-
-From skills-house itself:
+Build + install from local dist:
 
 ```bash
 pnpm build
-./skills.sh add skill-auditor --from ./skills-dist --scope project
+pnpm install:skills --scope project --skill skill-auditor
+```
+
+## npm channel (optional)
+
+Per-skill npm packages (`@skills-house/skill-*`) are an alternate distribution path for download metrics. Primary install for consumers is **Git + skills.sh**:
+
+```bash
+npx skills add al4f/skills-house --skill skill-auditor
 ```
 
 ## Related
 
-- [NPM-SETUP.md](./NPM-SETUP.md) — org + publish tags
-- [PUBLISHING.md](./PUBLISHING.md) — release workflow
+- [skills.sh CLI docs](https://www.skills.sh/docs/cli)
+- [PUBLISHING.md](./PUBLISHING.md) — npm tags (secondary channel)
+- [NPM-SETUP.md](./NPM-SETUP.md) — npm org setup

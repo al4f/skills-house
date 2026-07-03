@@ -36,7 +36,7 @@ Last updated after npm package configuration (PR #10).
 ## Your manual checklist
 
 - [ ] **npm org + `NPM_TOKEN` secret** — `content/publish/NPM-SETUP.md`
-- [ ] **Push release tags** — `content/publish/PUBLISHING.md` (`v0.0.1-cli`, `v0.0.1-skill-auditor`)
+- [ ] **Consumer install** — `npx skills add al4f/skills-house --skill skill-auditor` ([INSTALL.md](./content/publish/INSTALL.md))
 - [ ] **GitHub profile** — `content/github-profile/SETUP.md`
 - [ ] **Publish thread 1** — `content/publish/thread-1-ready.md`
 - [ ] **Publish LinkedIn post 1** — `content/publish/linkedin-1-ready.md`

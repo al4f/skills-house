@@ -13,6 +13,12 @@ skills-house is an open-source **framework** for skill authors — not a skill c
 
 **Built by [al4f](https://github.com/al4f)** — Agent Skills tooling engineer. Follow build logs and architecture notes at **[al4f.dev](https://al4f.dev)** · [Agent Skills at Scale](https://al4f.dev/writing/agent-skills-at-scale.html)
 
+**Install a skill in any repo** ([skills.sh CLI](https://www.skills.sh/docs/cli)):
+
+```bash
+npx skills add al4f/skills-house --skill skill-auditor -a cursor -y
+```
+
 ---
 
 ## Why skills-house?
@@ -147,10 +153,9 @@ skills-house/
 | `pnpm build` | Build compiler + all skills |
 | `pnpm test` | Run build pipeline tests |
 | `pnpm validate` | Run per-package validate scripts |
-| `pnpm install:skills` | Install dist skills to agent directories |
-| `./skills.sh add <name>` | Install a published skill from npm ([guide](./content/publish/INSTALL.md)) |
-| `pnpm skills add <name>` | Install via Node CLI (optional; requires `@skills-house/cli` on npm) |
-| `pnpm remove:skills` | Remove installed skills |
+| `pnpm install:skills` | Install built dist skills to agent directories (monorepo dev) |
+| `npx skills add al4f/skills-house --skill <name>` | Install from GitHub via [skills.sh](https://www.skills.sh/docs/cli) ([guide](./content/publish/INSTALL.md)) |
+| `pnpm remove:skills` | Remove installed skills (monorepo script) |
 
 Build a single skill:
 
