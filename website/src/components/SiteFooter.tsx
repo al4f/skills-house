@@ -6,12 +6,17 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="site-footer-inner">
         <p>
-          <strong>{BRAND.site}</strong> by <a href={BRAND.authorUrl}>{BRAND.author}</a>
+          <strong>{BRAND.site}</strong> — Agent Skills registry by{" "}
+          <a href={BRAND.authorUrl}>{BRAND.author}</a>
         </p>
         <p className="footer-links">
-          <a href={BRAND.repo}>GitHub</a>
+          <Link to="/">Home</Link>
           <span aria-hidden="true">·</span>
-          <a href={BRAND.docs}>Documentation</a>
+          <Link to="/skills">Skills</Link>
+          <span aria-hidden="true">·</span>
+          <Link to="/search">Search</Link>
+          <span aria-hidden="true">·</span>
+          <a href={BRAND.repo}>GitHub</a>
           <span aria-hidden="true">·</span>
           <a href="./feed.xml">RSS</a>
         </p>

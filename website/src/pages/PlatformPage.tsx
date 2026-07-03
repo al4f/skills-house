@@ -8,27 +8,26 @@ export function PlatformPage() {
   return (
     <Layout active="platform">
       <PageMeta
-        title="Skills House"
-        description="Official platform for publishing and discovering AI Skills"
+        title="Platform overview"
+        description="How Skills House works — publish, validate, and distribute Agent Skills from GitHub to the registry."
         path="/platform"
       />
 
       <Section className="hero hero-compact">
-        <p className="eyebrow">Official Skills House ecosystem</p>
+        <p className="eyebrow">Platform overview</p>
         <h1 className="hero-title">
-          Publish, discover, and <span className="gradient-text">reuse AI Skills</span>
+          GitHub is the source. <span className="gradient-text">This site is the registry.</span>
         </h1>
         <p className="lead">
-          GitHub is the source of truth. This site is the experience — browse{" "}
-          <strong>{registry.skills.length}</strong> skills and <strong>{registry.scripts.length}</strong> shared
-          scripts, explore dependencies, and install with one command.
+          Skills House connects repository metadata to a browsable catalog. Contributors author skills in GitHub; CI
+          validates and auto-merges; this site regenerates on every merge.
         </p>
         <div className="hero-actions">
           <Link to="/skills" className="btn btn-primary">
             Browse Skills
           </Link>
-          <Link to="/graph" className="btn btn-secondary">
-            Dependency Graph
+          <Link to="/" className="btn btn-secondary">
+            Getting started guide
           </Link>
           <a href={BRAND.repo} className="btn btn-ghost">
             Contribute on GitHub
@@ -37,7 +36,36 @@ export function PlatformPage() {
       </Section>
 
       <Section>
-        <h2>Latest Skills</h2>
+        <div className="feature-card">
+          <div className="feature-card-media">
+            <img src="./assets/diagram-pipeline.svg" alt="skills-house pipeline diagram" width={720} height={240} />
+          </div>
+          <div className="feature-card-body">
+            <h3>Author → Build → Registry → Install</h3>
+            <p>
+              Skills are modular markdown packages with shared scripts. The build pipeline produces spec-compliant
+              artifacts; the registry exposes them for discovery and one-command install.
+            </p>
+            <ul className="feature-list">
+              <li>
+                <Link to="/skills">Skills Explorer</Link>
+              </li>
+              <li>
+                <Link to="/scripts">Scripts Explorer</Link>
+              </li>
+              <li>
+                <Link to="/graph">Dependency Graph</Link>
+              </li>
+              <li>
+                <Link to="/search">Global Search</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </Section>
+
+      <Section>
+        <h2>Published skills</h2>
         <div className="registry-grid">
           {registry.skills.length ? (
             registry.skills.map((skill) => (
@@ -57,7 +85,10 @@ export function PlatformPage() {
               </article>
             ))
           ) : (
-            <p>No skills published yet.</p>
+            <div className="empty-state">
+              <strong>No skills published yet</strong>
+              <p>Contribute a skill on GitHub to populate the registry.</p>
+            </div>
           )}
         </div>
         <p className="section-cta">
@@ -66,7 +97,7 @@ export function PlatformPage() {
       </Section>
 
       <Section>
-        <h2>How it works</h2>
+        <h2>Contribution workflow</h2>
         <ol className="steps-list">
           <li>
             Author a skill in <code>skills/&lt;name&gt;/</code> on GitHub

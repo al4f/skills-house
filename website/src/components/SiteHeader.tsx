@@ -1,12 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
+import { RegistrySearch } from "@/components/RegistrySearch";
 import { BRAND } from "@/lib/types";
 
 const navItems = [
-  { href: "/platform", label: "Skills House", key: "platform" },
+  { href: "/platform", label: "Overview", key: "platform" },
   { href: "/skills", label: "Skills", key: "skills" },
   { href: "/scripts", label: "Scripts", key: "scripts" },
   { href: "/graph", label: "Graph", key: "graph" },
-  { href: "/search", label: "Search", key: "search" },
   { href: "/writing", label: "Writing", key: "writing" },
 ];
 
@@ -19,14 +19,14 @@ export function SiteHeader({ active }: SiteHeaderProps) {
   const current =
     active ??
     navItems.find((item) => location.pathname.startsWith(item.href))?.key ??
-    (location.pathname === "/" ? "home" : undefined);
+    (location.pathname === "/" ? "home" : location.pathname.startsWith("/search") ? "search" : undefined);
 
   return (
     <header className="site-header">
       <div className="site-header-inner">
         <Link to="/" className="logo">
           <span className="logo-mark" aria-hidden="true" />
-          al4f
+          Skills House
         </Link>
         <nav className="site-nav" aria-label="Main">
           {navItems.map((item) => (
@@ -43,6 +43,9 @@ export function SiteHeader({ active }: SiteHeaderProps) {
             GitHub
           </a>
         </nav>
+        <div className="site-header-actions">
+          <RegistrySearch variant="header" placeholder="Search registry…" />
+        </div>
       </div>
     </header>
   );
