@@ -29,6 +29,14 @@ importers:
 
   scripts/fixture-helper: {}
 
+  scripts/visual-companion: {}
+
+  skills/brainstorming:
+    devDependencies:
+      '@skills-house/build':
+        specifier: workspace:*
+        version: link:../../internal-scripts/build
+
 packages:
 
   '@esbuild/aix-ppc64@0.25.12':
