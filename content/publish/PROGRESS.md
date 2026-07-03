@@ -1,6 +1,6 @@
 # Brand Plan Progress
 
-Last updated: al4f.dev live.
+Last updated after nested `@include` support (post PR #6).
 
 ## Done (in repo)
 
@@ -47,4 +47,4 @@ Last updated: al4f.dev live.
 
 - [ ] Publish `@skills-house/cli` to npm
 - [ ] Publish `@skills-house/skill-skill-auditor` to npm
-- [ ] Nested `@include` support
+- [x] Nested `@include` support

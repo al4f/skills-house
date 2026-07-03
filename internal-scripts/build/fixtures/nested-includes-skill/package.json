@@ -1,0 +1,7 @@
+{
+  "name": "@skills-house/nested-includes-skill",
+  "private": true,
+  "scripts": {
+    "build": "skills-house-build ."
+  }
+}

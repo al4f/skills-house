@@ -101,7 +101,7 @@ Each skill package defines its own `build` script. Root delegates via `--filter`
 
 1. **Discover** — locate `skills/<name>/SKILL.md` and `package.json`.
 2. **Parse** — find `@include` markers and markdown links `[label](target)` in the body (after frontmatter).
-3. **Resolve `@include`** — read markdown fragments, merge into `SKILL.md` body (nested includes: TBD for v1).
+3. **Resolve `@include`** — read markdown fragments, merge into `SKILL.md` body; fragments may contain nested `@include` (cycles are rejected).
 4. **Resolve in-package links** — href starts with `/`; copy file to dist; rewrite to spec-relative href.
 5. **Resolve package links** — href has no leading `/`:
    - `package` → default export (`exports["."]`)

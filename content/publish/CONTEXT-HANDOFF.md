@@ -85,7 +85,7 @@ node scripts/pack-skill.mjs skill-auditor   # npm-ready package
 
 - [ ] Publish `@skills-house/cli` to npm (`npx @skills-house/cli add <name>`)
 - [ ] Publish `@skills-house/skill-skill-auditor` to npm
-- [ ] Nested `@include` support
+- [x] Nested `@include` support
 
 ## Important decisions made
 
