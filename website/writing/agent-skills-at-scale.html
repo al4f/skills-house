@@ -9,13 +9,13 @@
   <meta property="og:description" content="Why a source-to-dist build step matters when authoring Agent Skills at scale.">
   <meta property="og:url" content="https://al4f.dev/writing/agent-skills-at-scale.html">
   <meta property="og:image" content="https://al4f.dev/assets/diagram-pipeline.svg">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <header class="site-header">
-    <a href="/" class="logo">al4f</a>
+    <a href="../" class="logo">al4f</a>
     <nav>
-      <a href="/writing/">Writing</a>
+      <a href="./">Writing</a>
       <a href="https://github.com/al4f/skills-house">skills-house</a>
       <a href="https://github.com/al4f">GitHub</a>
     </nav>
@@ -76,7 +76,7 @@
         skills-house splits authoring from distribution:
       </p>
 
-      <img src="/assets/diagram-pipeline.svg" alt="skills-house pipeline: source, build, dist, install">
+      <img src="../assets/diagram-pipeline.svg" alt="skills-house pipeline: source, build, dist, install">
 
       <ul>
         <li><strong>Source</strong> (<code>skills/</code>) — freeform layout. Only <code>SKILL.md</code> is required.</li>
@@ -91,7 +91,7 @@
 
       <h2>One marker philosophy: <code>@include</code> only</h2>
 
-      <img src="/assets/diagram-authoring.svg" alt="skills-house authoring model: @include and link resolution">
+      <img src="../assets/diagram-authoring.svg" alt="skills-house authoring model: @include and link resolution">
 
       <p>
         skills-house uses exactly one build marker: <code>@include /path/to/fragment.md</code>. Everything else is a
@@ -144,7 +144,7 @@ pnpm install:skills                     # all agents, global</code></pre>
 
       <h2>How we built skills-house</h2>
 
-      <img src="/assets/diagram-monorepo.svg" alt="skills-house monorepo workspace layout">
+      <img src="../assets/diagram-monorepo.svg" alt="skills-house monorepo workspace layout">
 
       <p>Honest architecture decisions:</p>
 
@@ -177,19 +177,19 @@ pnpm install:skills                     # all agents, global</code></pre>
 
       <blockquote>
         <p>
-          <strong>Next:</strong> <a href="/writing/how-i-built-skill-auditor.html">How I built skill-auditor</a> —
+          <strong>Next:</strong> <a href="how-i-built-skill-auditor.html">How I built skill-auditor</a> —
           a walkthrough of authoring a second reference skill in the monorepo.
         </p>
       </blockquote>
     </article>
 
     <nav class="article-nav">
-      <p><a href="https://github.com/al4f/skills-house">skills-house on GitHub</a> · <a href="/writing/">More writing</a></p>
+      <p><a href="https://github.com/al4f/skills-house">skills-house on GitHub</a> · <a href="./">More writing</a></p>
     </nav>
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 al4f · <a href="https://github.com/al4f">GitHub</a> · <a href="/feed.xml">RSS</a></p>
+    <p>© 2026 al4f · <a href="https://github.com/al4f">GitHub</a> · <a href="../feed.xml">RSS</a></p>
   </footer>
 </body>
 </html>
