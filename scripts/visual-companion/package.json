@@ -1,0 +1,9 @@
+{
+  "name": "@skills-house/script-visual-companion",
+  "private": true,
+  "exports": {
+    "./start-server": "./scripts/start-server.sh",
+    "./stop-server": "./scripts/stop-server.sh",
+    "./server": "./scripts/server.cjs"
+  }
+}
