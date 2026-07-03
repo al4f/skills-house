@@ -24,6 +24,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 DIST_DIR="$REPO_ROOT/skills-dist"
+# shellcheck source=lib/agent-targets.sh
+source "$SCRIPT_DIR/lib/agent-targets.sh"
 
 SCOPE="global"
 MODE="symlink"
@@ -44,58 +46,6 @@ run() {
     "$@"
   fi
 }
-
-# Append unique path to TARGET_PATHS and parallel label to TARGET_LABELS.
-add_target() {
-  local label="$1"
-  local path="$2"
-  local existing
-  for existing in "${TARGET_PATHS[@]:-}"; do
-    [[ "$existing" == "$path" ]] && return
-  done
-  TARGET_PATHS+=("$path")
-  TARGET_LABELS+=("$label")
-}
-
-# Resolve install directories for an agent. Multiple paths when an agent reads
-# more than one location (e.g. cursor project: open standard + cursor-specific).
-resolve_agent_targets() {
-  local agent="$1"
-  case "$SCOPE" in
-    global)
-      case "$agent" in
-        agents) add_target "agents" "$HOME/.agents/skills" ;;
-        codex)  add_target "codex" "$HOME/.codex/skills" ;;
-        cursor) add_target "cursor" "$HOME/.cursor/skills" ;;
-        claude) add_target "claude" "$HOME/.claude/skills" ;;
-        *) echo "Unknown agent: $agent" >&2; return 1 ;;
-      esac
-      ;;
-    project)
-      case "$agent" in
-        agents) add_target "agents (project)" "$REPO_ROOT/.agents/skills" ;;
-        codex)
-          # Codex project skills use the open-standard .agents/skills path.
-          add_target "codex → .agents/skills (project)" "$REPO_ROOT/.agents/skills"
-          ;;
-        cursor)
-          add_target "cursor → .agents/skills (project)" "$REPO_ROOT/.agents/skills"
-          add_target "cursor (project)" "$REPO_ROOT/.cursor/skills"
-          ;;
-        claude) add_target "claude (project)" "$REPO_ROOT/.claude/skills" ;;
-        *) echo "Unknown agent: $agent" >&2; return 1 ;;
-      esac
-      ;;
-    *)
-      echo "Unknown scope: $SCOPE" >&2
-      return 1
-      ;;
-  esac
-}
-
-ALL_AGENTS=(agents codex cursor claude)
-TARGET_PATHS=()
-TARGET_LABELS=()
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -134,28 +84,15 @@ else
   agents=("${ALL_AGENTS[@]}")
 fi
 
-for agent in "${agents[@]}"; do
-  resolve_agent_targets "$agent" || exit 1
-done
+resolve_targets "$SCOPE" "$REPO_ROOT" "${agents[@]}" || exit 1
 
 if [[ ${#TARGET_PATHS[@]} -eq 0 ]]; then
   echo "No install targets resolved." >&2
   exit 1
 fi
 
-skills=()
-for dir in "$DIST_DIR"/*; do
-  [[ -d "$dir" ]] || continue
-  name="$(basename "$dir")"
-  [[ -f "$dir/SKILL.md" ]] || continue
-  if [[ "$INCLUDE_ALL" != true && "$name" == "minimal-skill" ]]; then
-    continue
-  fi
-  if [[ -n "$SKILL_FILTER" && "$name" != "$SKILL_FILTER" ]]; then
-    continue
-  fi
-  skills+=("$name")
-done
+collect_dist_skills "$DIST_DIR" "$SKILL_FILTER" "$INCLUDE_ALL"
+skills=("${SKILLS_LIST[@]}")
 
 if [[ ${#skills[@]} -eq 0 ]]; then
   echo "No skills to install in $DIST_DIR" >&2
