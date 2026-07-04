@@ -2,7 +2,7 @@
   "name": "skills-house",
   "private": true,
   "version": "0.1.0",
-  "description": "Platform for publishing, discovering, and reusing AI Skills — by al4f.",
+  "description": "Framework for building agentic, skill-based software with Agent Skills — by al4f.",
   "author": "al4f <https://al4f.dev>",
   "homepage": "https://al4f.dev",
   "repository": {

@@ -7,13 +7,13 @@
 ![CI](https://github.com/al4f/skills-house/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/github/license/al4f/skills-house)
 
-**Author, build, and ship [Agent Skills](https://agentskills.io) for Cursor, Claude Code, Codex, and more — from one monorepo.**
+**Author, build, and ship agentic software with [Agent Skills](https://agentskills.io) — from one framework.**
 
-Skills House is the official platform to **publish, discover, and reuse AI Skills** — built by [al4f](https://al4f.dev). GitHub stores the source; **[al4f.dev](https://al4f.dev)** is the experience.
+skills-house is an open-source **framework** for building skill-based agent apps — built by [al4f](https://al4f.dev). Scaffold a project, define skills, compile to spec-compliant output, and ship to Cursor, Claude, Codex, mobile agents, and more.
 
-Browse the registry: **[Skills Explorer](https://al4f.dev/skills/)** · **[Scripts Explorer](https://al4f.dev/scripts/)** · **[Dependency Graph](https://al4f.dev/graph/)** · **[Search](https://al4f.dev/search/)**
+**Framework docs:** **[al4f.dev](https://al4f.dev)** · [Architecture specs](./specs/) · [Agent Skills at Scale](https://al4f.dev/writing/agent-skills-at-scale.html)
 
-**Built by [al4f](https://github.com/al4f)** — Agent Skills tooling engineer. Follow build logs and architecture notes at **[al4f.dev](https://al4f.dev)** · [Agent Skills at Scale](https://al4f.dev/writing/agent-skills-at-scale.html)
+**Built by [al4f](https://github.com/al4f)** — Agent Skills infrastructure engineer.
 
 **Install a skill in any repo** ([skills.sh CLI](https://www.skills.sh/docs/cli)):
 
@@ -32,7 +32,7 @@ Agent Skills are powerful, but authoring them at scale gets messy fast:
 - Manual copying into `~/.cursor/skills`, `.agents/skills`, `.claude/skills`, …
 - No shared build step between source and what agents actually load
 
-skills-house fixes that with a clear split:
+skills-house fixes that with a clear split — for developers and non-developers building agentic apps with Cursor, Claude, mobile agents, and more:
 
 | Layer | What it is |
 |-------|------------|
@@ -55,6 +55,15 @@ skills-house fixes that with a clear split:
 ---
 
 ## Quick start
+
+**Target DX** (planned — like `create-next-app`):
+
+```bash
+npx create-skills-house my-app
+cd my-app && pnpm dev
+```
+
+**Today** — work from this reference monorepo (contributors and early adopters):
 
 **Requirements:** Node.js LTS (see `.nvmrc`), [pnpm](https://pnpm.io)
 
@@ -90,13 +99,13 @@ pnpm remove:skills --agent cursor --skill skill-auditor
 
 ## Example skill
 
-The registry includes published skills. The reference example demonstrates the framework:
+One reference skill ships with the framework to demonstrate patterns — not a catalog:
 
 | Skill | Description |
 |-------|-------------|
-| [skill-auditor](https://al4f.dev/skills/skill-auditor/) | Validates Agent Skills before publish — shows `@include`, references, and shared scripts |
+| [skill-auditor](./skills/skill-auditor/) | Validates Agent Skills before ship — shows `@include`, references, and shared scripts |
 
-Publish your own skill under `skills/<name>/`. Skill PRs auto-merge when validation passes. See [Contributing](#contributing).
+Add your own skills under `skills/<name>/`. Skill PRs auto-merge when validation passes. See [Contributing](#contributing).
 
 ---
 
@@ -219,10 +228,10 @@ Deep dive: **[specs/architecture/monorepo-overview.md](./specs/architecture/mono
 
 ## Contributing
 
-Skills House has two contribution types:
+skills-house has two contribution types:
 
 1. **Skill contributions** — content under `skills/<name>/` auto-merges when schema, lint, docs, and dependency checks pass
-2. **Platform contributions** — website, CLI, generators, CI require maintainer review
+2. **Framework contributions** — build system, CLI, generators, website, CI require maintainer review
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full workflow.
 
@@ -234,12 +243,13 @@ Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCR
 
 ## Roadmap
 
+- [ ] `create-skills-house` scaffolder (one-command project setup)
 - [x] Nested `@include` support
 - [x] skills.sh consumer install (`npx skills add al4f/skills-house`)
 - [x] npm dist publish workflow + `@skills-house/skill-skill-auditor`
 - [x] CI, al4f.dev, custom domain
-- [x] Registry generator (index, search, dependency graph, website data)
-- [x] Skills Explorer, Scripts Explorer, Dependency Graph, Search on al4f.dev
+- [x] Registry generator (metadata, search, dependency graph — internal tooling)
+- [x] Framework docs site on al4f.dev
 - [x] Auto-merge for skill contributions
 
 Optional: [PROGRESS.md](./content/publish/PROGRESS.md) — brand content, demo, ecosystem.

@@ -5,7 +5,7 @@
 
 ## Purpose
 
-skills-house is an open-source **framework** for authoring, building, and distributing [Agent Skills](https://agentskills.io). Authors write modular source skills; the build pipeline produces spec-compliant dist artifacts.
+skills-house is an open-source **framework** for building **agentic, skill-based software** with [Agent Skills](https://agentskills.io). Authors write modular source skills; the build pipeline produces spec-compliant dist artifacts. See [framework-vision.md](./framework-vision.md) for the canonical definition.
 
 **Not a skill catalog** — ships one example skill (`skill-auditor`) to demonstrate patterns.
 

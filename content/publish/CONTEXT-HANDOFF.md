@@ -7,7 +7,9 @@ Short pointer for new AI sessions. **Full status:** [PROGRESS.md](./PROGRESS.md)
 ## Mission
 
 - **al4f** — Agent Skills **infrastructure** authority (not a skill marketplace).
-- **skills-house** — framework for skill **authors**; one example skill (`skill-auditor`).
+- **skills-house** — framework for building **agentic, skill-based software**; one example skill (`skill-auditor`).
+
+Canonical definition: [specs/architecture/framework-vision.md](../../specs/architecture/framework-vision.md)
 
 ## Repo
 
@@ -51,7 +53,8 @@ git tag v0.0.1-skill-auditor && git push origin v0.0.1-skill-auditor  # npm dist
 
 - Influence > vanity metrics
 - Educational content > promotion
-- skills-house = **Vite for Agent Skills**
+- skills-house = **create-next-app for Agent Skills** — scaffold, author, build, ship
+- Website = how to use the framework + use cases — **not** skill catalog UI
 
 ## Agent role
 
