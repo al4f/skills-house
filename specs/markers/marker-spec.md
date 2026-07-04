@@ -128,28 +128,64 @@ Uses [other-skill](other-skill) as a dependency.
 ```markdown
 > **Depends on:** `other-skill`
 > If this skill is not available in the workspace, suggest the user install it:
-> `npx skills add other-skill`
+> `npx skills add owner/repo --skill other-skill -a cursor -y`
 ```
+
+Use the real GitHub slug for the current repo (e.g. `al4f/skills-house`), not the skill name alone.
+
+---
+
+### Form 4: Cross-repo skill dependency
+
+**Status:** Proposed — see [cross-repo plan](../plans/2026-07-04-cross-repo-dependencies-plan.md).
+
+For Option C (framework in author repos): depend on a skill published in **another** repository.
+
+```markdown
+Uses [lint-helper](alice/skills/lint-helper) as a dependency.
+```
+
+**Href shape:** `{github-owner}/{github-repo}/{skill-dir}` — exactly two slashes, three segments.
+
+**Behavior (build-time only):**
+
+1. Record structured dependency in dist metadata (`repository` + `skill`).
+2. Replace link with agent-facing install note using skills.sh.
+3. No file copy; no fetch from remote repo.
+
+**Example (dist):**
+
+```markdown
+> **Depends on:** `lint-helper` from `alice/skills`
+> If this skill is not available in the workspace, suggest the user install it:
+> `npx skills add alice/skills --skill lint-helper -a cursor -y`
+```
+
+Version pinning in install commands is a **non-goal** for v1. Authors may document a tested version in frontmatter metadata (prose only).
 
 ---
 
 ## Link target disambiguation
 
-One rule for all references. No special cases per package type at parse time.
+One rule for all references. Slash count disambiguates package refs vs cross-repo skill deps.
 
 ```
-href starts with /     → in-package file path
-href has no leading /  → package reference (resolved via package.json exports)
+href starts with /              → in-package file path
+href has two slashes (3 parts)  → cross-repo skill dependency (Form 4)
+href has one slash (2 parts)    → script package named export (Form 2)
+href has no slash               → local package default export (Form 2 or 3)
 ```
 
-**Package references:**
+**Reference table:**
 
 | href | Meaning |
 |------|---------|
-| `other-skill` | Package default export (`exports["."]` or package main) |
-| `fixture-helper/hello` | Package named export (`exports["./hello"]`) |
+| `/references/guide.md` | In-package file |
+| `alice/skills/lint-helper` | Cross-repo skill dependency |
+| `fixture-helper/hello` | Script package named export |
+| `other-skill` | Local skill or script default export |
 
-The builder looks up the short package name in `skills/` and `scripts/` workspaces, reads `package.json` `exports`, and applies the appropriate output behavior (bundle files, inject skill-dependency note, etc.) based on which workspace the package lives in.
+The builder looks up local package names in `skills/` and `scripts/` workspaces, reads `package.json` `exports`, and applies the appropriate output behavior (bundle files, inject skill-dependency note, etc.). Cross-repo hrefs skip local lookup entirely.
 
 **In-package file example:**
 
@@ -174,9 +210,11 @@ The builder looks up the short package name in `skills/` and `scripts/` workspac
 | `@include` | `@include /sections/foo.md` | Merge markdown into body |
 | Markdown link | `[label](/references/foo.md)` | In-package file (href starts with `/`) |
 | Markdown link | `[label](package-name)` | Package default export |
-| Markdown link | `[label](package-name/export-name)` | Package named export |
+| Markdown link | `[label](package-name/export-name)` | Script package named export |
+| Markdown link | `[label](owner/repo/skill-name)` | Cross-repo skill dependency |
 
 ## Related
 
+- [Cross-repo dependencies plan](../plans/2026-07-04-cross-repo-dependencies-plan.md)
 - [Monorepo overview](../architecture/monorepo-overview.md)
 - [Agent Skills spec](https://agentskills.io)

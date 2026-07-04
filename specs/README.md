@@ -10,6 +10,7 @@ Architecture and design docs. **Paper first, code second.**
 | [architecture/monorepo-overview.md](./architecture/monorepo-overview.md) | Workspaces, build flow, source vs dist |
 | [architecture/distribution.md](./architecture/distribution.md) | skills.sh + npm channels, install commands |
 | [markers/marker-spec.md](./markers/marker-spec.md) | `@include` marker and markdown link resolution |
+| [plans/2026-07-04-cross-repo-dependencies-plan.md](./plans/2026-07-04-cross-repo-dependencies-plan.md) | Cross-repo skill deps (Option C / Plan B) |
 | [conventions/package-naming.md](./conventions/package-naming.md) | Workspace and published npm naming |
 | [plans/2026-07-03-implementation-plan.md](./plans/2026-07-03-implementation-plan.md) | Original phased plan (completed) |
 
@@ -19,7 +20,8 @@ Architecture and design docs. **Paper first, code second.**
 |------|--------|
 | Monorepo architecture | Adopted |
 | Distribution | Adopted |
-| Marker spec | Adopted |
+| Marker spec | Adopted (Form 4 cross-repo proposed) |
+| Cross-repo dependencies | Proposed |
 | Package naming | Adopted |
 | Platform vision | Adopted |
 | Skill frontmatter schema | Adopted (`specs/schema/skill-frontmatter.schema.json`) |
