@@ -2,6 +2,13 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { parseReleaseTag } from "./parse-release-tag.mjs";
 
+test("parseReleaseTag parses build tags", () => {
+  assert.deepEqual(parseReleaseTag("v0.0.1-build"), {
+    type: "build",
+    version: "0.0.1",
+  });
+});
+
 test("parseReleaseTag parses CLI tags", () => {
   assert.deepEqual(parseReleaseTag("v0.0.1-cli"), {
     type: "cli",

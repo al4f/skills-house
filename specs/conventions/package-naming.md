@@ -8,8 +8,10 @@
 Published packages use `@skills-house`:
 
 ```
-@skills-house/skill-skill-auditor    # published dist (npm channel)
-@skills-house/build                  # build tool (private monorepo)
+@skills-house/build                  # build tool (published)
+@skills-house/cli                    # install CLI (published)
+@skills-house/create                 # scaffold CLI (published)
+@skills-house/skill-skill-auditor    # published skill dist (npm channel)
 ```
 
 ## Workspace vs published names
@@ -17,6 +19,7 @@ Published packages use `@skills-house`:
 | Context | Pattern | Example |
 |---------|---------|---------|
 | Workspace skill package | `@skills-house/<dir-name>` (private) | `@skills-house/skill-auditor` in `skills/skill-auditor/` |
+| Framework tool | `@skills-house/<tool>` | `@skills-house/build`, `@skills-house/cli`, `@skills-house/create` |
 | Published dist package | `@skills-house/skill-<dir-name>` | `@skills-house/skill-skill-auditor` |
 | Scripts workspace | `@skills-house/script-<name>` (private) | `@skills-house/script-fixture-helper` |
 

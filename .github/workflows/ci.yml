@@ -45,6 +45,9 @@ jobs:
       - name: Test
         run: pnpm test
 
+      - name: Pack build (smoke)
+        run: node scripts/pack-build.mjs
+
       - name: Pack skill-auditor (smoke)
         run: node scripts/pack-skill.mjs skill-auditor
 

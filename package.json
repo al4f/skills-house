@@ -18,6 +18,7 @@
     "remove:skills": "bash internal-scripts/install/remove-skills.sh",
     "skills": "node internal-scripts/cli/dist/cli.js",
     "test": "pnpm --filter @skills-house/build test && pnpm --filter @skills-house/cli test && pnpm --filter @skills-house/create test && pnpm --filter @skills-house/registry test && node --test scripts/pack.test.mjs scripts/parse-release-tag.test.mjs",
+    "pack:build": "node scripts/pack-build.mjs",
     "pack:cli": "node scripts/pack-cli.mjs",
     "pack:create": "node scripts/pack-create.mjs",
     "sync:create-template": "node scripts/sync-create-template.mjs",

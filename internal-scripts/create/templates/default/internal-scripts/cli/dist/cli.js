@@ -34,7 +34,7 @@ Examples:
   skills add skill-auditor --from ./skills-dist
 
 npm distribution:
-  npx skills add al4f/skills-house --skill skill-auditor
+  npx @skills-house/cli add skill-auditor
 `);
 }
 function parseArgs(argv) {
@@ -135,7 +135,7 @@ function resolveDistDir(options) {
   console.error(
     `  \u2022 Clone skills-house and run: pnpm build && skills add ${options.skill} --from ./skills-dist`
   );
-  console.error(`  \u2022 npx skills add al4f/skills-house --skill ${options.skill}`);
+  console.error(`  \u2022 npx @skills-house/cli add ${options.skill}`);
   console.error(`  \u2022 npm package: ${npmPackageForSkill(options.skill)}`);
   process.exit(1);
 }

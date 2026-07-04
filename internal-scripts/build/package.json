@@ -3,11 +3,35 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
+  "description": "Compile skills-house source skills to spec-compliant dist — npx @skills-house/build <skill-dir>",
+  "author": "al4f <https://al4f.dev>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/al4f/skills-house.git",
+    "directory": "internal-scripts/build"
+  },
+  "homepage": "https://al4f.dev",
+  "keywords": [
+    "agent-skills",
+    "skills-house",
+    "build",
+    "compiler"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": "./dist/lib.js"
   },
+  "files": [
+    "dist"
+  ],
   "bin": {
-    "skills-house-build": "./dist/cli.js"
+    "build": "./dist/cli.js"
   },
   "scripts": {
     "build": "tsup",

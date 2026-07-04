@@ -36,6 +36,10 @@ jobs:
       - name: Build compiler
         run: pnpm --filter @skills-house/build build
 
+      - name: Build @skills-house/build
+        if: steps.release.outputs.type == 'build'
+        run: pnpm --filter @skills-house/build build
+
       - name: Build CLI
         if: steps.release.outputs.type == 'cli'
         run: pnpm --filter @skills-house/cli build
@@ -51,6 +55,26 @@ jobs:
       - name: Build skill
         if: steps.release.outputs.type == 'skill'
         run: node internal-scripts/build/dist/cli.js "skills/${{ steps.release.outputs.skill }}"
+
+      - name: Set @skills-house/build version from tag
+        if: steps.release.outputs.type == 'build'
+        run: |
+          node -e "
+            const fs = require('node:fs');
+            const path = 'internal-scripts/build/package.json';
+            const pkg = JSON.parse(fs.readFileSync(path, 'utf8'));
+            pkg.version = '${{ steps.release.outputs.version }}';
+            fs.writeFileSync(path, JSON.stringify(pkg, null, 2) + '\n');
+          "
+
+      - name: Pack and publish @skills-house/build
+        if: steps.release.outputs.type == 'build'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          pnpm pack:build
+          cd packages/publish/build
+          npm publish --access public
 
       - name: Set CLI version from tag
         if: steps.release.outputs.type == 'cli'

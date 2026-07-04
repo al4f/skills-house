@@ -2,7 +2,7 @@
   "name": "@skills-house/skill-auditor",
   "private": true,
   "scripts": {
-    "build": "skills-house-build .",
+    "build": "build .",
     "validate": "bash ../../scripts/skill-auditor-tools/scripts/validate.sh ."
   },
   "devDependencies": {

@@ -34,7 +34,7 @@ Your skill PR must pass:
 5. Use `@include /sections/...` for modular markdown
 6. Use `[label](/references/...)` for in-package files
 7. Use `[label](script-package/export)` for shared scripts in `scripts/`
-8. Add `"build": "skills-house-build ."` and a `validate` script to `package.json`
+8. Add `"build": "build ."` and a `validate` script to `package.json`
 9. Run `pnpm build && pnpm test && pnpm generate`
 10. Open a PR that **only** changes files under `skills/<name>/` (and the matching `skills-dist/<name>/` build output)
 

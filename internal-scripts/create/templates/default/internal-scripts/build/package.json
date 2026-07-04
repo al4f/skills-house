@@ -7,7 +7,7 @@
     ".": "./dist/lib.js"
   },
   "bin": {
-    "skills-house-build": "./dist/cli.js"
+    "build": "./dist/cli.js"
   },
   "dependencies": {
     "esbuild": "^0.25.0",

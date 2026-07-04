@@ -5,10 +5,10 @@ import { buildSkill, skillNameFrom } from "./build-skill.js";
 import { parseSkillMd } from "./parse-skill-md.js";
 
 function printHelp(): void {
-  console.log(`skills-house-build — compile a source skill to skills-dist/
+  console.log(`@skills-house/build — compile a source skill to skills-dist/
 
 Usage:
-  skills-house-build <skill-dir> [--out <dir>] [--repo-root <path>]
+  npx @skills-house/build <skill-dir> [--out <dir>] [--repo-root <path>]
 
 Options:
   --out        Output directory (default: <repo-root>/skills-dist/<skill-name>)

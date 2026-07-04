@@ -38,7 +38,7 @@ skills-house/
 |-----------|------|-----------|
 | `skills/` | Skill authoring. Freeform layout; entry = `SKILL.md`. | Via skills.sh (Git) + optional npm dist |
 | `scripts/` | Reusable execution logic referenced via markdown links. | Private monorepo |
-| `internal-scripts/build/` | Marker parser, bundler, dist writer. | Private (`@skills-house/build`) |
+| `internal-scripts/build/` | Marker parser, bundler, dist writer. | Published (`@skills-house/build`) |
 | `skills-dist/` | Transpiled Agent Skills artifacts. | Packed into npm dist packages |
 
 ### `internal-scripts` scope

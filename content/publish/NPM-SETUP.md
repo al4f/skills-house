@@ -36,10 +36,12 @@ No local `npm login` is required for publishing.
 ```bash
 nvm use
 pnpm build
+pnpm pack:build
 pnpm pack:cli
 pnpm pack:create
 
-cd packages/publish/cli && npm pack --dry-run
+cd packages/publish/build && npm pack --dry-run
+cd ../cli && npm pack --dry-run
 cd ../create && npm pack --dry-run
 cd ../skill-skill-auditor && npm pack --dry-run
 ```
@@ -56,18 +58,24 @@ Push a tag to `main`. GitHub Actions (`.github/workflows/publish-npm.yml`) build
 
 | Tag | Publishes |
 |-----|-----------|
+| `v0.0.1-build` | `@skills-house/build@0.0.1` |
+| `v0.0.1-cli` | `@skills-house/cli@0.0.1` |
 | `v0.0.1-skill-auditor` | `@skills-house/skill-skill-auditor@0.0.1` |
 | `v0.1.1-create` | `@skills-house/create@0.1.1` |
 
 ```bash
+git tag v0.0.1-build
+git push origin v0.0.1-build
+
+git tag v0.0.1-cli
+git push origin v0.0.1-cli
+
 git tag v0.0.1-skill-auditor
 git push origin v0.0.1-skill-auditor
 
 git tag v0.1.1-create
 git push origin v0.1.1-create
 ```
-
-Optional (not needed for consumers): `v0.0.1-cli` → `@skills-house/cli`
 
 Watch the run: [Actions → Publish npm](https://github.com/al4f/skills-house/actions/workflows/publish-npm.yml)
 
@@ -93,7 +101,7 @@ npm view @skills-house/skill-skill-auditor version
 
 | Error | Fix |
 |-------|-----|
-| Workflow skipped / no publish | Tag must match `v<semver>-cli`, `v<semver>-create`, or `v<semver>-<skill-name>` |
+| Workflow skipped / no publish | Tag must match `v<semver>-build`, `v<semver>-cli`, `v<semver>-create`, or `v<semver>-<skill-name>` |
 | `NPM_TOKEN` missing | Add repository secret (step 3) |
 | `403 Forbidden` ... `bypass 2fa` | Regenerate token as **Automation** (not Publish); update `NPM_TOKEN` secret |
 | `403 Forbidden` (other) | Token needs publish access to `@skills-house` scope |

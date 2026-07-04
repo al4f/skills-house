@@ -236,10 +236,10 @@ ${body}`;
 
 // src/cli.ts
 function printHelp() {
-  console.log(`skills-house-build \u2014 compile a source skill to skills-dist/
+  console.log(`@skills-house/build \u2014 compile a source skill to skills-dist/
 
 Usage:
-  skills-house-build <skill-dir> [--out <dir>] [--repo-root <path>]
+  npx @skills-house/build <skill-dir> [--out <dir>] [--repo-root <path>]
 
 Options:
   --out        Output directory (default: <repo-root>/skills-dist/<skill-name>)
