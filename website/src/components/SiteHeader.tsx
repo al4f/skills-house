@@ -5,6 +5,7 @@ import { BRAND } from "@/lib/types";
 const navItems = [
   { href: "/platform", label: "Framework", key: "platform" },
   { href: "/learn", label: "Learn", key: "learn" },
+  { href: "/skills/skill-auditor", label: "Skills", key: "skills" },
   { href: "/writing", label: "Writing", key: "writing" },
 ];
 
@@ -19,6 +20,7 @@ export function SiteHeader({ active, variant = "default" }: SiteHeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const current =
     active ??
+    (location.pathname.startsWith("/skills") ? "skills" : undefined) ??
     navItems.find((item) => location.pathname.startsWith(item.href))?.key ??
     (location.pathname === "/" ? "home" : undefined);
 

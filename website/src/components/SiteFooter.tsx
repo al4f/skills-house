@@ -6,9 +6,10 @@ type SiteFooterProps = {
 };
 
 export function SiteFooter({ variant = "default" }: SiteFooterProps) {
+  const isLanding = variant === "landing";
   return (
-    <footer className={`site-footer${variant === "landing" ? " site-footer-landing" : ""}`}>
-      <div className={variant === "landing" ? "landing-container site-footer-inner" : "site-footer-inner"}>
+    <footer className={`site-footer site-footer-modern${isLanding ? " site-footer-landing" : ""}`}>
+      <div className={isLanding ? "landing-container site-footer-inner" : "site-footer-inner site-footer-inner-wide"}>
         <div className="site-footer-top">
           <div className="site-footer-brand">
             <Link to="/" className="logo logo-footer">

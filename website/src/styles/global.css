@@ -3084,3 +3084,137 @@ pre code {
   }
 }
 
+/* ═══════════════════════════════════════════════════════════
+   Inner pages — shared design system with landing
+   ═══════════════════════════════════════════════════════════ */
+
+.page-hero {
+  margin-bottom: 3.5rem;
+  max-width: 720px;
+}
+
+.page-hero-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.25rem;
+}
+
+.page-hero-lead {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 56ch;
+  margin-bottom: 1.75rem;
+}
+
+.page-hero .code-snippet {
+  margin-bottom: 1.5rem;
+  max-width: 520px;
+}
+
+.page-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.page-section-band {
+  margin-inline: -1.5rem;
+  padding-inline: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .page-section-band {
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+  }
+}
+
+.landing-bento-commands {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.landing-bento-commands .landing-bento-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.landing-bento-commands .code-snippet {
+  box-shadow: none;
+}
+
+.command-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.feature-card-modern {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.registry-card-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.registry-card-modern .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.landing-cta-card-compact {
+  text-align: left;
+  padding: 2rem 2.25rem;
+}
+
+.landing-cta-card-compact h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.landing-cta-card-compact > p {
+  text-align: left;
+  margin: 0 0 1.5rem;
+  max-width: none;
+}
+
+.landing-resource-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.landing-resource-links a {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.landing-resource-links a:hover {
+  color: var(--accent-hover);
+}
+
+.site-footer-modern .site-footer-inner-wide {
+  max-width: var(--wide-width);
+  padding: 3rem 1.5rem 2rem;
+  text-align: left;
+}
+
+.page-learn .learn-demo-command,
+.page-learn .code-snippet {
+  margin: 1rem 0 1.5rem;
+  max-width: 520px;
+}
+
+

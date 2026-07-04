@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+import { CodeSnippet } from "@/components/CodeSnippet";
 import { Layout } from "@/components/Layout";
+import { PageHero } from "@/components/PageHero";
 import { PageMeta, Section } from "@/components/ui";
 
 const steps = [
@@ -69,17 +71,16 @@ export function LearnPage() {
         path="/learn"
       />
 
-      <Section className="hero hero-compact">
-        <p className="eyebrow">Getting started guide</p>
-        <h1 className="hero-title">
-          Teach your AI assistant <span className="gradient-text">new skills</span>
-        </h1>
-        <p className="lead">
-          You do not need a programming background. Skills House helps you write instructions that coding agents
-          follow to do real work — and ships them with a single framework. Skills are not demos or samples; they
-          are the agentic capabilities your project runs on.
-        </p>
-      </Section>
+      <PageHero
+        eyebrow="Getting started guide"
+        title={
+          <>
+            Teach your AI assistant <span className="landing-gradient">new skills</span>
+          </>
+        }
+        lead="You do not need a programming background. Skills House helps you write instructions that coding agents follow to do real work — and ships them with a single framework. Skills are not demos or samples; they are the agentic capabilities your project runs on."
+        command="npx create-skills-house my-app"
+      />
 
       <Section>
         <div className="learn-callout">
@@ -116,9 +117,7 @@ export function LearnPage() {
           One command scaffolds a complete agentic skill project. Here is the folder structure you get — with
           plain-language labels for each part.
         </p>
-        <pre className="hero-code learn-demo-command">
-          <code>npx create-skills-house my-app</code>
-        </pre>
+        <CodeSnippet code="npx create-skills-house my-app" label="Scaffold command" />
 
         <div className="scaffold-demo">
           <div className="scaffold-demo-header">
@@ -192,15 +191,13 @@ description: What this skill does — agents read this to decide when to use it.
       </Section>
 
       <Section className="cta-section">
-        <div className="cta-panel">
-          <div className="cta-panel-copy">
-            <h2>Ready to scaffold your first project?</h2>
-            <p>
-              Start with the framework overview for the full pipeline, or jump straight to the reference skill to
-              see agentic work in action.
-            </p>
-          </div>
-          <div className="hero-actions">
+        <div className="landing-cta-card landing-cta-card-compact">
+          <h2>Ready to scaffold your first project?</h2>
+          <p>
+            Start with the framework overview for the full pipeline, or jump straight to the reference skill to see
+            agentic work in action.
+          </p>
+          <div className="landing-cta-links">
             <Link to="/platform" className="btn btn-primary">
               Framework overview
             </Link>
