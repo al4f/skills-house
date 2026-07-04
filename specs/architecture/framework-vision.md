@@ -48,7 +48,7 @@ Same as any open-source repository:
 | Scaffold CLI | `internal-scripts/create/` (`@skills-house/create`) | One-command project setup |
 | Build pipeline | `internal-scripts/build/` (`@skills-house/build`) | Compile skills, resolve links, bundle scripts into dist |
 | Shared scripts | `scripts/<name>/` | Reusable execution packages referenced from skills |
-| Install scripts | `internal-scripts/install/` | Prepare the repo so other agents can consume built skills locally |
+| Install tool | `internal-scripts/install/` (`@skills-house/install`) | Install built dist into agent skill directories |
 | Framework skill | `skills/skill-auditor/` | Canonical framework documentation — not a demo |
 
 ### Framework skill (`skill-auditor`)
@@ -64,9 +64,9 @@ It documents:
 
 It is **not** an example or optional add-on. It is the operational manual for the framework inside Agent Skills format.
 
-### Install scripts
+### Install tool
 
-`internal-scripts/install/` copies built dist into agent skill directories so **other agents** (not just the authoring agent) can load and use skills from this repo during development.
+`@skills-house/install` copies built dist into agent skill directories so **other agents** (not just the authoring agent) can load and use skills from this repo during development. It includes a Node CLI (`install-skills add`) and shell scripts (`install-skills.sh`, `remove-skills.sh`).
 
 ## Generated artifacts
 

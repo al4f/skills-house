@@ -41,8 +41,8 @@ Framework tooling is published to npm for authors who scaffold and build outside
 | Package | Purpose |
 |---------|---------|
 | `@skills-house/build` | Skill compiler |
+| `@skills-house/install` | Install built skills into agent directories |
 | `@skills-house/create` | Project scaffold |
-| `@skills-house/cli` | Optional dev CLI |
 
 Published via GitHub Actions on git tags. Requires `@skills-house` npm org + `NPM_TOKEN` GitHub secret.
 
@@ -61,7 +61,7 @@ These are **not** consumer distribution channels:
 
 - `pnpm build` → `skills-dist/` — local dist for install scripts
 - `pnpm install:skills` / `install-skills.sh` — copy dist into local agent directories for dogfooding
-- `pnpm skills add` — optional Node CLI wrapper (not published; not required)
+- `pnpm install:cli add` / `install-skills add` — Node CLI wrapper for local dist install (not required)
 
 ## Skill dependency notes (build output)
 

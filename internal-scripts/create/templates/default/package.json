@@ -12,7 +12,7 @@
     "dev": "pnpm build && pnpm install:skills --scope project",
     "install:skills": "bash internal-scripts/install/install-skills.sh",
     "remove:skills": "bash internal-scripts/install/remove-skills.sh",
-    "skills": "node internal-scripts/cli/dist/cli.js",
+    "install:cli": "node internal-scripts/install/dist/cli.js",
     "validate": "pnpm --filter \"./skills/*\" run validate --if-present"
   }
 }

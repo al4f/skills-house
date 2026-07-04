@@ -7,16 +7,9 @@ import { fileURLToPath } from "url";
 var moduleDir = dirname(fileURLToPath(import.meta.url));
 var PACKAGE_ROOT = resolve(moduleDir, "..");
 function resolveInstallScript() {
-  const packaged = join(PACKAGE_ROOT, "install", "install-skills.sh");
+  const packaged = join(PACKAGE_ROOT, "install-skills.sh");
   if (existsSync(packaged)) {
     return packaged;
-  }
-  const monorepo = resolve(
-    PACKAGE_ROOT,
-    "../../internal-scripts/install/install-skills.sh"
-  );
-  if (existsSync(monorepo)) {
-    return monorepo;
   }
   return null;
 }

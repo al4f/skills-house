@@ -27,8 +27,8 @@ jobs:
       - name: Build compiler
         run: pnpm --filter @skills-house/build build
 
-      - name: Build CLI
-        run: pnpm --filter @skills-house/cli build
+      - name: Build @skills-house/install
+        run: pnpm --filter @skills-house/install build
 
       - name: Build @skills-house/create
         run: pnpm --filter @skills-house/create build
@@ -51,8 +51,8 @@ jobs:
       - name: Pack skill-auditor (smoke)
         run: node scripts/pack-skill.mjs skill-auditor
 
-      - name: Pack CLI (smoke)
-        run: node scripts/pack-cli.mjs
+      - name: Pack install (smoke)
+        run: node scripts/pack-install.mjs
 
       - name: Validate skill-auditor
         run: bash scripts/skill-auditor-tools/scripts/validate.sh skills/skill-auditor

@@ -2,9 +2,9 @@
 /**
  * Sync vendored framework packages into @skills-house/create templates.
  *
- * Run after building @skills-house/build and @skills-house/cli:
+ * Run after building @skills-house/build and @skills-house/install:
  *   pnpm --filter @skills-house/build build
- *   pnpm --filter @skills-house/cli build
+ *   pnpm --filter @skills-house/install build
  *   node scripts/sync-create-template.mjs
  */
 
@@ -24,7 +24,6 @@ const TEMPLATE_ROOT = join(
 );
 
 const BUILD_SRC = join(REPO_ROOT, "internal-scripts", "build");
-const CLI_SRC = join(REPO_ROOT, "internal-scripts", "cli");
 const INSTALL_SRC = join(REPO_ROOT, "internal-scripts", "install");
 
 function assertBuilt(distPath, label) {
@@ -49,8 +48,8 @@ function writeBuildPackage(destDir) {
   writeFileSync(join(destDir, "package.json"), JSON.stringify(pkg, null, 2) + "\n");
 }
 
-function writeCliPackage(destDir) {
-  const source = JSON.parse(readFileSync(join(CLI_SRC, "package.json"), "utf-8"));
+function writeInstallPackage(destDir) {
+  const source = JSON.parse(readFileSync(join(INSTALL_SRC, "package.json"), "utf-8"));
   const pkg = {
     name: source.name,
     version: source.version,
@@ -71,17 +70,14 @@ function syncPackage({ src, dest, distLabel, writePackage }) {
   console.log(`Synced ${distLabel} → ${dest}`);
 }
 
-function syncInstall() {
-  const dest = join(TEMPLATE_ROOT, "install");
-  rmSync(dest, { recursive: true, force: true });
-  mkdirSync(join(dest, "lib"), { recursive: true });
-  cpSync(join(INSTALL_SRC, "install-skills.sh"), join(dest, "install-skills.sh"));
-  cpSync(join(INSTALL_SRC, "remove-skills.sh"), join(dest, "remove-skills.sh"));
+function syncInstallScripts(destDir) {
+  mkdirSync(join(destDir, "lib"), { recursive: true });
+  cpSync(join(INSTALL_SRC, "install-skills.sh"), join(destDir, "install-skills.sh"));
+  cpSync(join(INSTALL_SRC, "remove-skills.sh"), join(destDir, "remove-skills.sh"));
   cpSync(
     join(INSTALL_SRC, "lib", "agent-targets.sh"),
-    join(dest, "lib", "agent-targets.sh"),
+    join(destDir, "lib", "agent-targets.sh"),
   );
-  console.log(`Synced install scripts → ${dest}`);
 }
 
 function main() {
@@ -91,13 +87,17 @@ function main() {
     distLabel: "@skills-house/build",
     writePackage: writeBuildPackage,
   });
+
+  const installDest = join(TEMPLATE_ROOT, "install");
   syncPackage({
-    src: CLI_SRC,
-    dest: join(TEMPLATE_ROOT, "cli"),
-    distLabel: "@skills-house/cli",
-    writePackage: writeCliPackage,
+    src: INSTALL_SRC,
+    dest: installDest,
+    distLabel: "@skills-house/install",
+    writePackage: writeInstallPackage,
   });
-  syncInstall();
+  syncInstallScripts(installDest);
+  console.log(`Synced install shell scripts → ${installDest}`);
+
   console.log("@skills-house/create template vendor sync complete.");
 }
 

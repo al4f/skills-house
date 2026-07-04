@@ -7,7 +7,7 @@ import {
   defaultRepoRoot,
   monorepoDistDir,
   resolveInstallScript
-} from "./chunk-R4VHVVPK.js";
+} from "./chunk-DHUBBM23.js";
 
 // src/cli.ts
 import { spawnSync } from "child_process";
@@ -15,10 +15,10 @@ import { existsSync, mkdtempSync, readdirSync } from "fs";
 import { tmpdir } from "os";
 import { join, resolve } from "path";
 function usage() {
-  console.log(`skills-house CLI \u2014 install Agent Skills
+  console.log(`@skills-house/install \u2014 install Agent Skills from dist
 
 Usage:
-  skills add <name> [options]
+  install-skills add <name> [options]
 
 Options:
   --agent <name>     agents | codex | cursor | claude
@@ -29,12 +29,13 @@ Options:
   --help             Show this help
 
 Examples:
-  skills add skill-auditor
-  skills add skill-auditor --agent cursor --scope project
-  skills add skill-auditor --from ./skills-dist
+  install-skills add skill-auditor
+  install-skills add skill-auditor --agent cursor --scope project
+  install-skills add skill-auditor --from ./skills-dist
+  pnpm install:skills --scope project --skill skill-auditor
 
-npm distribution:
-  npx @skills-house/cli add skill-auditor
+Consumer distribution (skills.sh):
+  npx skills add al4f/skills-house --skill skill-auditor
 `);
 }
 function parseArgs(argv) {
@@ -133,16 +134,16 @@ function resolveDistDir(options) {
   console.error("");
   console.error("Options:");
   console.error(
-    `  \u2022 Clone skills-house and run: pnpm build && skills add ${options.skill} --from ./skills-dist`
+    `  \u2022 Clone skills-house and run: pnpm build && install-skills add ${options.skill} --from ./skills-dist`
   );
-  console.error(`  \u2022 npx @skills-house/cli add ${options.skill}`);
+  console.error(`  \u2022 npx skills add al4f/skills-house --skill ${options.skill}`);
   console.error(`  \u2022 npm package: ${npmPackageForSkill(options.skill)}`);
   process.exit(1);
 }
 function runInstall(distDir, options) {
   const installScript = resolveInstallScript();
   if (!installScript) {
-    console.error("install-skills.sh not found in CLI package.");
+    console.error("install-skills.sh not found in @skills-house/install package.");
     process.exit(1);
   }
   const installArgs = [

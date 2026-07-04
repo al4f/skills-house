@@ -22,10 +22,10 @@ type AddOptions = {
 };
 
 function usage(): void {
-  console.log(`skills-house CLI — install Agent Skills
+  console.log(`@skills-house/install — install Agent Skills from dist
 
 Usage:
-  skills add <name> [options]
+  install-skills add <name> [options]
 
 Options:
   --agent <name>     agents | codex | cursor | claude
@@ -36,11 +36,12 @@ Options:
   --help             Show this help
 
 Examples:
-  skills add skill-auditor
-  skills add skill-auditor --agent cursor --scope project
-  skills add skill-auditor --from ./skills-dist
+  install-skills add skill-auditor
+  install-skills add skill-auditor --agent cursor --scope project
+  install-skills add skill-auditor --from ./skills-dist
+  pnpm install:skills --scope project --skill skill-auditor
 
-npm distribution:
+Consumer distribution (skills.sh):
   npx skills add al4f/skills-house --skill skill-auditor
 `);
 }
@@ -163,7 +164,7 @@ function resolveDistDir(options: AddOptions): string {
   console.error("");
   console.error("Options:");
   console.error(
-    `  • Clone skills-house and run: pnpm build && skills add ${options.skill} --from ./skills-dist`,
+    `  • Clone skills-house and run: pnpm build && install-skills add ${options.skill} --from ./skills-dist`,
   );
   console.error(`  • npx skills add al4f/skills-house --skill ${options.skill}`);
   console.error(`  • npm package: ${npmPackageForSkill(options.skill)}`);
@@ -173,7 +174,7 @@ function resolveDistDir(options: AddOptions): string {
 function runInstall(distDir: string, options: AddOptions): void {
   const installScript = resolveInstallScript();
   if (!installScript) {
-    console.error("install-skills.sh not found in CLI package.");
+    console.error("install-skills.sh not found in @skills-house/install package.");
     process.exit(1);
   }
 
