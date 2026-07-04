@@ -2318,11 +2318,23 @@ pre code {
 
 .landing-hero-cta {
   width: 100%;
-  max-width: 560px;
+  max-width: 640px;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
   margin-bottom: 3rem;
+}
+
+.command-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.command-stack-hero {
+  margin-bottom: 1.5rem;
+  max-width: 640px;
 }
 
 .landing-hero-actions {
@@ -3224,6 +3236,10 @@ pre code {
 }
 
 .page-learn .learn-demo-command,
+.page-learn .command-stack {
+  margin-bottom: 1.5rem;
+}
+
 .page-learn .code-snippet {
   margin: 1rem 0 1.5rem;
   max-width: 520px;
