@@ -56,14 +56,13 @@ skills-house fixes that with a clear split — for developers and non-developers
 
 ## Quick start
 
-**Target DX** (planned — like `create-next-app`):
-
 ```bash
 npx create-skills-house my-app
-cd my-app && pnpm dev
+cd my-app
+pnpm dev          # build + install skills to this project
 ```
 
-**Today** — work from this reference monorepo (contributors and early adopters):
+**Contributors** — work from this reference monorepo:
 
 **Requirements:** Node.js LTS (see `.nvmrc`), [pnpm](https://pnpm.io)
 
@@ -149,6 +148,7 @@ skills-house/
 ├── scripts/                 # Shared script packages (package.json exports)
 ├── internal-scripts/
 │   ├── build/               # @skills-house/build — skill compiler
+│   ├── create/              # create-skills-house scaffolder
 │   ├── cli/                 # optional dev CLI (pnpm skills)
 │   └── install/             # install-skills.sh, remove-skills.sh
 ├── skills-dist/             # Built Agent Skills output
@@ -168,6 +168,7 @@ skills-house/
 | `pnpm generate:check` | Regenerate and fail if output is stale |
 | `pnpm install:skills` | Install built dist skills to agent directories (monorepo dev) |
 | `npx skills add al4f/skills-house --skill <name>` | Install from GitHub via [skills.sh](https://www.skills.sh/docs/cli) ([guide](./content/publish/INSTALL.md)) |
+| `npx create-skills-house <dir>` | Scaffold a new skills-house project |
 | `pnpm remove:skills` | Remove installed skills (monorepo script) |
 
 Build a single skill:
@@ -243,7 +244,8 @@ Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCR
 
 ## Roadmap
 
-- [ ] `create-skills-house` scaffolder (one-command project setup)
+- [ ] Publish `create-skills-house` to npm
+- [x] `create-skills-house` scaffolder (one-command project setup)
 - [x] Nested `@include` support
 - [x] skills.sh consumer install (`npx skills add al4f/skills-house`)
 - [x] npm dist publish workflow + `@skills-house/skill-skill-auditor`

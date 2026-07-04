@@ -13,12 +13,14 @@
     "url": "https://github.com/al4f/skills-house/issues"
   },
   "scripts": {
-    "build": "pnpm --filter @skills-house/build build && pnpm --filter @skills-house/cli build && pnpm --filter \"./skills/*\" build",
+    "build": "pnpm --filter @skills-house/build build && pnpm --filter @skills-house/cli build && pnpm --filter create-skills-house build && pnpm --filter \"./skills/*\" build",
     "install:skills": "bash internal-scripts/install/install-skills.sh",
     "remove:skills": "bash internal-scripts/install/remove-skills.sh",
     "skills": "node internal-scripts/cli/dist/cli.js",
-    "test": "pnpm --filter @skills-house/build test && pnpm --filter @skills-house/cli test && pnpm --filter @skills-house/registry test && node --test scripts/pack.test.mjs scripts/parse-release-tag.test.mjs",
+    "test": "pnpm --filter @skills-house/build test && pnpm --filter @skills-house/cli test && pnpm --filter create-skills-house test && pnpm --filter @skills-house/registry test && node --test scripts/pack.test.mjs scripts/parse-release-tag.test.mjs",
     "pack:cli": "node scripts/pack-cli.mjs",
+    "pack:create": "node scripts/pack-create.mjs",
+    "sync:create-template": "node scripts/sync-create-template.mjs",
     "pack:skill": "node scripts/pack-skill.mjs",
     "validate": "pnpm --filter \"./skills/*\" run validate --if-present && pnpm --filter \"./scripts/*\" run validate --if-present && pnpm --filter @skills-house/build validate && pnpm --filter @skills-house/registry validate",
     "generate": "pnpm --filter @skills-house/registry build && node internal-scripts/registry/dist/cli.js",

@@ -6,7 +6,7 @@ Architecture and design docs. **Paper first, code second.**
 
 | Document | Description |
 |----------|-------------|
-| [architecture/framework-vision.md](./architecture/framework-vision.md) | Canonical framework definition, DX, website role, contribution model |
+| [architecture/framework-vision.md](./architecture/framework-vision.md) | Canonical framework definition, DX, website role, `create-skills-house` |
 | [architecture/monorepo-overview.md](./architecture/monorepo-overview.md) | Workspaces, build flow, source vs dist |
 | [architecture/distribution.md](./architecture/distribution.md) | skills.sh + npm channels, install commands |
 | [markers/marker-spec.md](./markers/marker-spec.md) | `@include` marker and markdown link resolution |
