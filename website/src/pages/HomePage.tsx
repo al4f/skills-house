@@ -28,9 +28,9 @@ const exploreLinks = [
     label: "GitHub",
     desc: "Source & specs",
     accent: "neutral",
-    external: true,
+    external: true as const,
   },
-] as const;
+];
 
 export function HomePage() {
   return (
@@ -72,7 +72,7 @@ export function HomePage() {
       <Section className="explore-section">
         <div className="explore-grid">
           {exploreLinks.map((item) =>
-            item.external ? (
+            "external" in item && item.external ? (
               <a
                 key={item.label}
                 href={item.to}
