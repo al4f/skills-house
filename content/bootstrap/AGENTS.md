@@ -16,10 +16,10 @@ Install the [skills-house](https://github.com/al4f/skills-house) framework so th
 2. **Scaffold the framework** into the current directory:
 
    ```bash
-   npx create-skills-house .
+   npx @skills-house/create .
    ```
 
-   If `npx create-skills-house` is not yet on npm, use:
+   If `npx @skills-house/create` is not yet on npm, use:
 
    ```bash
    git clone https://github.com/al4f/skills-house.git /tmp/skills-house

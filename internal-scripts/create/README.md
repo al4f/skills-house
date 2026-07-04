@@ -1,9 +1,9 @@
-# create-skills-house
+# @skills-house/create
 
 Scaffold a new skills-house project:
 
 ```bash
-npx create-skills-house my-app
+npx @skills-house/create my-app
 cd my-app && pnpm dev
 ```
 
@@ -27,8 +27,8 @@ git push origin v0.1.0-create
 ## Monorepo development
 
 ```bash
-pnpm --filter create-skills-house build
-pnpm --filter create-skills-house test
+pnpm --filter @skills-house/create build
+pnpm --filter @skills-house/create test
 ```
 
 After changing `@skills-house/build` or `@skills-house/cli`, refresh vendored template files:

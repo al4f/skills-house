@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Pack create-skills-house into an npm-ready directory.
+ * Pack @skills-house/create into an npm-ready directory.
  *
  * Usage:
  *   node scripts/pack-create.mjs
@@ -29,7 +29,7 @@ function main() {
   const { outDir } = parseArgs(process.argv);
 
   if (!existsSync(DIST)) {
-    console.error(`create-skills-house dist not found: ${DIST} — run pnpm build first.`);
+    console.error(`@skills-house/create dist not found: ${DIST} — run pnpm build first.`);
     process.exit(1);
   }
 
@@ -41,14 +41,14 @@ function main() {
   const sourcePkg = JSON.parse(
     readFileSync(join(CREATE_SRC, "package.json"), "utf-8"),
   );
-  const dest = join(outDir, "create-skills-house");
+  const dest = join(outDir, "create");
 
   mkdirSync(dest, { recursive: true });
   cpSync(join(CREATE_SRC, "dist"), join(dest, "dist"), { recursive: true });
   cpSync(TEMPLATES, join(dest, "templates"), { recursive: true });
 
   const packageJson = {
-    name: "create-skills-house",
+    name: sourcePkg.name,
     version: sourcePkg.version,
     description: sourcePkg.description,
     author: sourcePkg.author,
@@ -65,7 +65,7 @@ function main() {
 
   writeFileSync(join(dest, "package.json"), JSON.stringify(packageJson, null, 2) + "\n");
 
-  console.log(`Packed create-skills-house@${sourcePkg.version} → ${dest}`);
+  console.log(`Packed ${sourcePkg.name}@${sourcePkg.version} → ${dest}`);
   console.log(`Publish: cd ${dest} && npm publish --access public`);
 }
 

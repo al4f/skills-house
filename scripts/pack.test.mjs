@@ -30,6 +30,20 @@ test("pack-cli emits publish-ready package.json", () => {
   assert.ok(fs.existsSync(path.join(outDir, "cli", "install", "lib", "agent-targets.sh")));
 });
 
+test("pack-create emits publish-ready package.json", () => {
+  const outDir = fs.mkdtempSync(path.join(os.tmpdir(), "skills-house-pack-create-"));
+  runPack(path.join(repoRoot, "scripts/pack-create.mjs"), ["--out", outDir]);
+
+  const pkgPath = path.join(outDir, "create", "package.json");
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+
+  assert.equal(pkg.name, "@skills-house/create");
+  assert.equal(pkg.publishConfig.access, "public");
+  assert.equal(pkg.bin.create, "./dist/cli.js");
+  assert.ok(fs.existsSync(path.join(outDir, "create", "dist", "cli.js")));
+  assert.ok(fs.existsSync(path.join(outDir, "create", "templates")));
+});
+
 test("pack-skill emits publish-ready package.json", () => {
   const outDir = fs.mkdtempSync(path.join(os.tmpdir(), "skills-house-pack-skill-"));
   runPack(path.join(repoRoot, "scripts/pack-skill.mjs"), [

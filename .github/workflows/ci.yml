@@ -30,10 +30,10 @@ jobs:
       - name: Build CLI
         run: pnpm --filter @skills-house/cli build
 
-      - name: Build create-skills-house
-        run: pnpm --filter create-skills-house build
+      - name: Build @skills-house/create
+        run: pnpm --filter @skills-house/create build
 
-      - name: Sync create-skills-house template
+      - name: Sync @skills-house/create template
         run: node scripts/sync-create-template.mjs
 
       - name: Build skills

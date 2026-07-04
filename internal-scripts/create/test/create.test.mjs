@@ -31,13 +31,13 @@ test("normalizeGitHubRepositoryUrl strips credentials", async () => {
   );
 });
 
-test("create-skills-house --help exits 0", () => {
-  assert.ok(existsSync(CLI), "build create-skills-house first");
+test("@skills-house/create --help exits 0", () => {
+  assert.ok(existsSync(CLI), "build @skills-house/create first");
   const result = spawnSync(process.execPath, [CLI, "--help"], {
     encoding: "utf-8",
   });
   assert.equal(result.status, 0);
-  assert.match(result.stdout, /create-skills-house/);
+  assert.match(result.stdout, /@skills-house\/create/);
 });
 
 test("scaffolds a project with starter skill", () => {

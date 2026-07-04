@@ -13,7 +13,7 @@ const steps = [
   {
     num: "2",
     title: "Scaffold a project with one command",
-    body: "Run create-skills-house to get a ready-made folder structure. The framework sets up build tools, install scripts, and a starter skill you can edit immediately.",
+    body: "Run @skills-house/create to get a ready-made folder structure. The framework sets up build tools, install scripts, and a starter skill you can edit immediately.",
   },
   {
     num: "3",
@@ -79,7 +79,7 @@ export function LearnPage() {
           </>
         }
         lead="You do not need a programming background. Skills House helps you write instructions that coding agents follow to do real work — and ships them with a single framework. Skills are not demos or samples; they are the agentic capabilities your project runs on."
-        command="npx create-skills-house my-app"
+        command="npx @skills-house/create my-app"
       />
 
       <Section>
@@ -112,12 +112,12 @@ export function LearnPage() {
       </Section>
 
       <Section id="demo">
-        <h2 className="section-heading">Demo: what create-skills-house builds</h2>
+        <h2 className="section-heading">Demo: what @skills-house/create builds</h2>
         <p className="section-intro">
           One command scaffolds a complete agentic skill project. Here is the folder structure you get — with
           plain-language labels for each part.
         </p>
-        <CodeSnippet code="npx create-skills-house my-app" label="Scaffold command" />
+        <CodeSnippet code="npx @skills-house/create my-app" label="Scaffold command" />
 
         <div className="scaffold-demo">
           <div className="scaffold-demo-header">

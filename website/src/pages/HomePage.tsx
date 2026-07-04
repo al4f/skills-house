@@ -103,7 +103,7 @@ export function HomePage() {
           </p>
 
           <div className="landing-hero-cta">
-            <CodeSnippet code="npx create-skills-house my-app" label="Get started" />
+            <CodeSnippet code="npx @skills-house/create my-app" label="Get started" />
             <div className="landing-hero-actions">
               <Link to="/platform" className="btn btn-primary btn-lg">
                 How it works
@@ -258,7 +258,7 @@ export function HomePage() {
                   <code>
                     <span className="t-dim"># Scaffold a new project</span>
                     {"\n"}
-                    <span className="t-prompt">$</span> npx create-skills-house my-app
+                    <span className="t-prompt">$</span> npx @skills-house/create my-app
                     {"\n\n"}
                     <span className="t-dim"># Build all skills</span>
                     {"\n"}
@@ -323,7 +323,7 @@ Run [hello](fixture-helper/hello).`}</code>
               Scaffold a project, author your first skill, and ship it to every agent — in minutes, not days.
             </p>
             <div className="landing-cta-actions">
-              <CodeSnippet code="npx create-skills-house my-app" />
+              <CodeSnippet code="npx @skills-house/create my-app" />
               <div className="landing-cta-links">
                 <Link to="/learn" className="btn btn-primary btn-lg">
                   Start learning

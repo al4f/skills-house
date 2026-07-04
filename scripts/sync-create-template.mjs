@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Sync vendored framework packages into create-skills-house templates.
+ * Sync vendored framework packages into @skills-house/create templates.
  *
  * Run after building @skills-house/build and @skills-house/cli:
  *   pnpm --filter @skills-house/build build
@@ -98,7 +98,7 @@ function main() {
     writePackage: writeCliPackage,
   });
   syncInstall();
-  console.log("create-skills-house template vendor sync complete.");
+  console.log("@skills-house/create template vendor sync complete.");
 }
 
 main();

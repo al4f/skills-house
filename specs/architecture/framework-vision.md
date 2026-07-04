@@ -17,7 +17,7 @@ skills-house is an open-source **framework** for building **agentic, skill-based
 
 ## Principles
 
-1. **One-command onboarding** — target DX: `npx create-skills-house` (or equivalent) scaffolds a ready-to-build project.
+1. **One-command onboarding** — target DX: `npx @skills-house/create` scaffolds a ready-to-build project.
 2. **Source is freeform** — only `SKILL.md` is required; `@include` and markdown links compose larger skills.
 3. **Build produces spec-compliant dist** — `@skills-house/build` is the framework core.
 4. **Authors bring skills; the framework handles compile and ship** — validation, metadata generation, and install paths are provided.
@@ -45,7 +45,7 @@ This reference repo ships **one example skill** (`skill-auditor`). Fork authors 
 
 | Component | Path | Role |
 |-----------|------|------|
-| Scaffold CLI | `internal-scripts/create/` (`create-skills-house`) | One-command project setup |
+| Scaffold CLI | `internal-scripts/create/` (`@skills-house/create`) | One-command project setup |
 | Build pipeline | `internal-scripts/build/` | `@skills-house/build` — markers, links, dist writer |
 | Shared scripts | `scripts/<name>/` | Reusable execution packages referenced from skills |
 | Metadata generator | `@skills-house/registry` (`pnpm generate`) | Skill + script metadata for CI and internal tooling |

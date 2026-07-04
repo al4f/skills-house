@@ -9,7 +9,7 @@ import { BRAND } from "@/lib/types";
 
 const commands = [
   {
-    cmd: "npx create-skills-house my-app",
+    cmd: "npx @skills-house/create my-app",
     desc: "Scaffold a new project with build tooling and a starter skill",
   },
   {
@@ -45,7 +45,7 @@ export function PlatformPage() {
           </>
         }
         lead="skills-house is not a skill catalog. Authors scaffold a project, write modular agentic work skills, and let the build pipeline produce Agent Skills–compliant dist. Consumers install from GitHub with the official skills.sh CLI."
-        command="npx create-skills-house my-app"
+        command="npx @skills-house/create my-app"
       >
         <Link to="/learn" className="btn btn-primary">
           Learn guide

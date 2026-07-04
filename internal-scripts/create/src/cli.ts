@@ -21,10 +21,10 @@ type CliOptions = {
 };
 
 function usage(): void {
-  console.log(`create-skills-house — scaffold an agentic skill-based app
+  console.log(`@skills-house/create — scaffold an agentic skill-based app
 
 Usage:
-  npx create-skills-house <project-directory> [options]
+  npx @skills-house/create <project-directory> [options]
 
 Options:
   --skill <name>     Starter skill directory name (default: derived from project)
@@ -32,9 +32,9 @@ Options:
   --help             Show this help
 
 Examples:
-  npx create-skills-house my-app
-  npx create-skills-house my-app --skill onboarding
-  npx create-skills-house .              # bootstrap into an existing Git repo
+  npx @skills-house/create my-app
+  npx @skills-house/create my-app --skill onboarding
+  npx @skills-house/create .             # bootstrap into an existing Git repo
 
 Learn more: https://al4f.dev
 `);

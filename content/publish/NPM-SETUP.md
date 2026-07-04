@@ -37,9 +37,10 @@ No local `npm login` is required for publishing.
 nvm use
 pnpm build
 pnpm pack:cli
-pnpm pack:skill skill-auditor
+pnpm pack:create
 
 cd packages/publish/cli && npm pack --dry-run
+cd ../create && npm pack --dry-run
 cd ../skill-skill-auditor && npm pack --dry-run
 ```
 
@@ -56,7 +57,7 @@ Push a tag to `main`. GitHub Actions (`.github/workflows/publish-npm.yml`) build
 | Tag | Publishes |
 |-----|-----------|
 | `v0.0.1-skill-auditor` | `@skills-house/skill-skill-auditor@0.0.1` |
-| `v0.1.0-create` | `create-skills-house@0.1.0` |
+| `v0.1.0-create` | `@skills-house/create@0.1.0` |
 
 ```bash
 git tag v0.0.1-skill-auditor

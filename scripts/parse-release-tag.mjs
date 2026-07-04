@@ -4,7 +4,7 @@
  *
  * Formats:
  *   v0.0.1-cli           → @skills-house/cli
- *   v0.0.1-create        → create-skills-house
+ *   v0.0.1-create        → @skills-house/create
  *   v0.0.1-skill-auditor → @skills-house/skill-skill-auditor
  *
  * Usage:

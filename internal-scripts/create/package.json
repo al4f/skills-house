@@ -1,9 +1,9 @@
 {
-  "name": "create-skills-house",
+  "name": "@skills-house/create",
   "version": "0.1.0",
   "private": false,
   "type": "module",
-  "description": "Scaffold a skills-house project — npx create-skills-house my-app",
+  "description": "Scaffold a skills-house project — npx @skills-house/create my-app",
   "author": "al4f <https://al4f.dev>",
   "license": "MIT",
   "repository": {
@@ -16,7 +16,7 @@
     "agent-skills",
     "skills-house",
     "scaffold",
-    "create-skills-house"
+    "@skills-house/create"
   ],
   "engines": {
     "node": ">=20"
@@ -29,7 +29,7 @@
     "templates"
   ],
   "bin": {
-    "create-skills-house": "./dist/cli.js"
+    "create": "./dist/cli.js"
   },
   "scripts": {
     "build": "tsup",
