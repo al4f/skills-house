@@ -1,0 +1,7 @@
+{
+  "name": "@{{projectName}}/script-fixture-helper",
+  "private": true,
+  "exports": {
+    "./hello": "./scripts/hello.sh"
+  }
+}

@@ -2,7 +2,7 @@
 
 skills-house is an open-source **framework** for building agentic, skill-based software with [Agent Skills](https://agentskills.io) — built by [al4f](https://al4f.dev).
 
-Like `create-next-app` for web apps, the framework targets one-command project setup, freeform skill authoring, and automated compile-and-ship. The audience is not only developers: skills work across Cursor, Claude Code, Codex, mobile agents, and similar tools.
+Like `create-next-app` for web apps, scaffold a project with `npx create-skills-house` — freeform skill authoring and automated compile-and-ship. The audience is not only developers: skills work across Cursor, Claude Code, Codex, mobile agents, and similar tools.
 
 **[al4f.dev](https://al4f.dev)** documents how to work with the framework and what you can build with it — not a skill catalog or marketplace.
 
@@ -69,6 +69,7 @@ pnpm build
 pnpm test
 pnpm generate    # metadata + website data
 pnpm generate:check  # fail if generated output is stale
+node scripts/sync-create-template.mjs  # after build/cli changes — refresh create-skills-house vendor
 ```
 
 ## Pull request checklist
