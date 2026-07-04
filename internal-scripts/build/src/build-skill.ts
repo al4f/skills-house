@@ -8,7 +8,7 @@ import {
 import { resolveIncludes } from "./resolve-includes.js";
 import { resolveFileLinks } from "./resolve-file-links.js";
 import { resolvePackageLinks } from "./resolve-package-link.js";
-import { getRepoSlug } from "./get-repo-slug.js";
+import { tryGetRepoSlug } from "./get-repo-slug.js";
 import { validateSkillName } from "./validate-skill-name.js";
 
 export type BuildSkillOptions = {
@@ -37,7 +37,7 @@ export async function buildSkill(options: BuildSkillOptions): Promise<void> {
   const dependencies: string[] = [];
 
   body = await resolveFileLinks(body, links, skillDir, outDir);
-  const repoSlug = await getRepoSlug(repoRoot);
+  const repoSlug = await tryGetRepoSlug(repoRoot);
   body = await resolvePackageLinks(
     body,
     links,

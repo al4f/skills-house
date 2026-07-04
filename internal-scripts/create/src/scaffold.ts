@@ -1,3 +1,4 @@
+import { spawnSync } from "node:child_process";
 import {
   cpSync,
   existsSync,
@@ -12,11 +13,22 @@ import { fileURLToPath } from "node:url";
 
 const SKILL_PLACEHOLDER_DIR = "__SKILL__";
 
+/** Entries allowed in a target dir when bootstrapping into an existing Git repo. */
+const BOOTSTRAP_ALLOWLIST = new Set([
+  ".git",
+  "AGENTS.md",
+  "README.md",
+  ".gitignore",
+  "LICENSE",
+  "LICENSE.md",
+]);
+
 export type ScaffoldOptions = {
   targetDir: string;
   projectName: string;
   skillName: string;
   templateRoot: string;
+  repositoryUrl?: string;
 };
 
 function mapEntryName(name: string, skillName: string): string {
@@ -31,10 +43,55 @@ function shouldTransform(filePath: string): boolean {
 }
 
 function applyPlaceholders(content: string, options: ScaffoldOptions): string {
+  const repositoryUrl =
+    options.repositoryUrl ??
+    `https://github.com/YOUR_ORG/${options.projectName}.git`;
+
   return content
     .replaceAll("{{projectName}}", options.projectName)
     .replaceAll("{{skillName}}", options.skillName)
+    .replaceAll("{{repositoryUrl}}", repositoryUrl)
     .replaceAll("__SKILL__", options.skillName);
+}
+
+function blockingEntries(targetDir: string): string[] {
+  return readdirSync(targetDir).filter((name) => !BOOTSTRAP_ALLOWLIST.has(name));
+}
+
+export function normalizeGitHubRepositoryUrl(raw: string): string | undefined {
+  const trimmed = raw.trim();
+  if (!trimmed) return undefined;
+
+  if (trimmed.startsWith("git@github.com:")) {
+    const slug = trimmed.slice("git@github.com:".length).replace(/\.git$/, "");
+    return `https://github.com/${slug}.git`;
+  }
+
+  try {
+    const parsed = new URL(trimmed);
+    if (parsed.hostname !== "github.com") return trimmed;
+
+    parsed.username = "";
+    parsed.password = "";
+    let pathname = parsed.pathname.replace(/\/$/, "");
+    if (!pathname.endsWith(".git")) {
+      pathname += ".git";
+    }
+    return `https://github.com${pathname}`;
+  } catch {
+    return trimmed;
+  }
+}
+
+export function detectGitRepositoryUrl(targetDir: string): string | undefined {
+  const result = spawnSync("git", ["remote", "get-url", "origin"], {
+    cwd: targetDir,
+    encoding: "utf-8",
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  if (result.status !== 0) return undefined;
+
+  return normalizeGitHubRepositoryUrl(result.stdout);
 }
 
 function copyFile(
@@ -86,10 +143,10 @@ export function packageRootFromImportMeta(importMetaUrl: string): string {
 
 export function scaffoldProject(options: ScaffoldOptions): void {
   if (existsSync(options.targetDir)) {
-    const entries = readdirSync(options.targetDir);
-    if (entries.length > 0) {
+    const blocking = blockingEntries(options.targetDir);
+    if (blocking.length > 0) {
       throw new Error(
-        `Target directory is not empty: ${options.targetDir}`,
+        `Target directory is not empty: ${options.targetDir} (found: ${blocking.join(", ")})`,
       );
     }
   } else {

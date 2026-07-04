@@ -5,7 +5,14 @@ type RootPackageJson = {
   repository?: string | { url?: string };
 };
 
-export async function getRepoSlug(repoRoot: string): Promise<string> {
+function parseRepoSlug(url: string): string | null {
+  const match = url.match(/github\.com[/:]([^/]+\/[^/.]+)/);
+  return match?.[1] ?? null;
+}
+
+export async function tryGetRepoSlug(
+  repoRoot: string,
+): Promise<string | null> {
   const raw = await fs.readFile(path.join(repoRoot, "package.json"), "utf-8");
   const pkg = JSON.parse(raw) as RootPackageJson;
 
@@ -13,16 +20,18 @@ export async function getRepoSlug(repoRoot: string): Promise<string> {
     typeof pkg.repository === "string"
       ? pkg.repository
       : pkg.repository?.url;
-  if (!url) {
+  if (!url) return null;
+
+  return parseRepoSlug(url);
+}
+
+export async function getRepoSlug(repoRoot: string): Promise<string> {
+  const slug = await tryGetRepoSlug(repoRoot);
+  if (!slug) {
     throw new Error(
       "Cannot resolve repo slug: root package.json has no repository URL",
     );
   }
 
-  const match = url.match(/github\.com[/:]([^/]+\/[^/.]+)/);
-  if (!match) {
-    throw new Error(`Cannot parse GitHub repo slug from: ${url}`);
-  }
-
-  return match[1]!;
+  return slug;
 }

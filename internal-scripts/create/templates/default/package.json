@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.1.0",
   "description": "Agentic skill-based app built with skills-house",
+  "repository": {
+    "type": "git",
+    "url": "{{repositoryUrl}}"
+  },
   "scripts": {
     "build": "pnpm --filter \"./skills/*\" build",
     "dev": "pnpm build && pnpm install:skills --scope project",

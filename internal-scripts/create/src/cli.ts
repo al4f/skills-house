@@ -2,6 +2,7 @@ import { spawnSync } from "node:child_process";
 import { existsSync, readdirSync } from "node:fs";
 import { basename, resolve } from "node:path";
 import {
+  detectGitRepositoryUrl,
   packageRootFromImportMeta,
   resolveTemplateRoot,
   scaffoldProject,
@@ -33,7 +34,7 @@ Options:
 Examples:
   npx create-skills-house my-app
   npx create-skills-house my-app --skill onboarding
-  npx create-skills-house .
+  npx create-skills-house .              # bootstrap into an existing Git repo
 
 Learn more: https://al4f.dev
 `);
@@ -141,12 +142,14 @@ function main(): void {
 
     const packageRoot = packageRootFromImportMeta(import.meta.url);
     const templateRoot = resolveTemplateRoot(packageRoot);
+    const repositoryUrl = detectGitRepositoryUrl(options.targetDir);
 
     scaffoldProject({
       targetDir: options.targetDir,
       projectName: options.projectName,
       skillName: options.skillName,
       templateRoot,
+      repositoryUrl,
     });
 
     let installed = false;

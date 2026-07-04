@@ -56,6 +56,16 @@ skills-house fixes that with a clear split — for developers and non-developers
 
 ## Quick start
 
+**New GitHub repo** — copy [`content/bootstrap/AGENTS.md`](./content/bootstrap/AGENTS.md) into your empty repo, open it in Cursor (or any agent), and let the agent scaffold the framework:
+
+```bash
+npx create-skills-house .
+cd my-app   # if you scaffolded into a subdirectory
+pnpm dev
+```
+
+**New project directory:**
+
 ```bash
 npx create-skills-house my-app
 cd my-app
@@ -97,7 +107,6 @@ pnpm install:skills
 Uninstall:
 
 ```bash
-pnpm remove:skills --scope project
 pnpm remove:skills --scope project
 pnpm remove:skills --agent cursor --skill skill-auditor
 ```
