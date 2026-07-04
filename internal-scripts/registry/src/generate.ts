@@ -1,13 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { getRepoSlug } from "@skills-house/build";
-import {
-  buildDependencyGraph,
-  findRepoRoot,
-  scanScripts,
-  scanSkills,
-} from "./scan.js";
-import { buildSearchIndex, loadSkillSchema, validateRegistry, hasValidationErrors, formatValidationIssues } from "./validate.js";
+import { findRepoRoot, scanScripts, scanSkills } from "./scan.js";
+import { loadSkillSchema, validateRegistry, hasValidationErrors, formatValidationIssues } from "./validate.js";
 import { writeGeneratedJson } from "./generate-website.js";
 import type { Registry } from "./types.js";
 
@@ -27,18 +22,13 @@ export async function generateRegistry(options: GenerateOptions = {}): Promise<R
   const repoSlug = await getRepoSlug(repoRoot);
   const skills = await scanSkills(repoRoot, authorDefault, repoSlug);
   const scripts = await scanScripts(repoRoot, skills, authorDefault);
-  const graph = buildDependencyGraph(skills);
 
-  const partial: Omit<Registry, "searchIndex"> = {
+  const registry: Registry = {
     generatedAt: new Date().toISOString(),
     repository: `https://github.com/${repoSlug}`,
     skills,
     scripts,
-    graph,
   };
-
-  const searchIndex = buildSearchIndex(partial);
-  const registry: Registry = { ...partial, searchIndex };
 
   if (!options.skipValidation) {
     const schema = await loadSkillSchema(repoRoot);

@@ -51,7 +51,7 @@ Published via GitHub Actions on git tags. Requires `@skills-house` npm org + `NP
 git tag v0.1.0-build && git push origin v0.1.0-build
 ```
 
-Guides: [NPM-SETUP.md](../../content/publish/NPM-SETUP.md), [PUBLISHING.md](../../content/publish/PUBLISHING.md)
+Guide: [NPM-SETUP.md](../../content/publish/NPM-SETUP.md)
 
 Tag naming and publish workflow: see `publish-npm.yml` and [package-naming.md](../conventions/package-naming.md).
 

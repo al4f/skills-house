@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { CodeSnippet } from "@/components/CodeSnippet";
-import { LayerDiagram } from "@/components/LayerDiagram";
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
 import { PageMeta, Section } from "@/components/ui";
@@ -8,22 +7,10 @@ import { registry } from "@/lib/registry";
 import { BRAND } from "@/lib/types";
 
 const commands = [
-  {
-    cmd: "npx @skills-house/create my-app",
-    desc: "Scaffold a new project with build tooling and a starter skill",
-  },
-  {
-    cmd: "pnpm build",
-    desc: "Compile all skills to spec-compliant skills-dist/",
-  },
-  {
-    cmd: "pnpm install:skills",
-    desc: "Monorepo dev only — install dist to local agent directories",
-  },
-  {
-    cmd: "npx skills add owner/repo --skill name",
-    desc: "Primary consumer install via skills.sh CLI",
-  },
+  { cmd: "npx @skills-house/create my-app", desc: "Scaffold a new project" },
+  { cmd: "pnpm build", desc: "Compile skills to skills-dist/" },
+  { cmd: "npx skills add owner/repo --skill name", desc: "Install a skill (consumer)" },
+  { cmd: "pnpm install:skills", desc: "Install dist locally (monorepo dev)" },
 ];
 
 export function PlatformPage() {
@@ -31,47 +18,26 @@ export function PlatformPage() {
     <Layout active="platform" className="page-platform">
       <PageMeta
         title="Framework overview"
-        description="How skills-house works — scaffold, author, build, and ship agentic work skills. GitHub is source of truth; skills.sh is the primary consumer install path."
+        description="Scaffold, author, build, and ship Agent Skills."
         path="/platform"
       />
 
       <PageHero
-        eyebrow="Framework overview"
-        title={
-          <>
-            GitHub is the source.
-            <br />
-            <span className="landing-gradient">The framework compiles and ships.</span>
-          </>
-        }
-        lead="skills-house is not a skill catalog. Authors scaffold a project, write modular agentic work skills, and let the build pipeline produce Agent Skills–compliant dist. Consumers install from GitHub with the official skills.sh CLI."
+        eyebrow="Framework"
+        title="Source → build → install"
+        lead="Not a skill catalog. Fork the framework, author your own skills, ship from your repo."
         command="npx @skills-house/create my-app"
       >
         <Link to="/learn" className="btn btn-primary">
-          Learn guide
+          Getting started
         </Link>
         <a href={BRAND.repo} className="btn btn-ghost" target="_blank" rel="noreferrer">
-          Contribute on GitHub
+          GitHub
         </a>
       </PageHero>
 
       <Section>
-        <div className="landing-section-header">
-          <p className="landing-eyebrow">Architecture</p>
-          <h2 className="landing-section-title">The layer in your stack</h2>
-          <p className="landing-section-desc">
-            Source authoring stays freeform. The framework handles composition, validation, and delivery to agent
-            runtimes.
-          </p>
-        </div>
-        <LayerDiagram />
-      </Section>
-
-      <Section className="landing-section-subtle page-section-band">
-        <div className="landing-section-header">
-          <p className="landing-eyebrow">Pipeline</p>
-          <h2 className="landing-section-title">Scaffold → Author → Build → Install</h2>
-        </div>
+        <h2 className="section-heading">Commands</h2>
         <div className="landing-bento landing-bento-commands">
           {commands.map((item) => (
             <article key={item.cmd} className="landing-bento-card landing-bento-framework">
@@ -85,79 +51,44 @@ export function PlatformPage() {
       <Section>
         <div className="feature-card feature-card-modern">
           <div className="feature-card-media">
-            <img src="./assets/diagram-pipeline.svg" alt="skills-house pipeline diagram" width={720} height={240} />
+            <img src="./assets/diagram-pipeline.svg" alt="skills-house pipeline" width={720} height={240} />
           </div>
           <div className="feature-card-body">
-            <h3>Freeform source, deterministic output</h3>
+            <h3>Authoring</h3>
             <p>
-              Write under <code>skills/</code>, share logic via <code>scripts/</code>, compile with{" "}
-              <code>@skills-house/build</code>. Only <code>@include</code> is a build marker — everything else uses
-              standard markdown links.
+              Only <code>SKILL.md</code> is required. Use <code>@include</code> for fragments and markdown links
+              for references (<code>/references/foo.md</code>), scripts (<code>package/export</code>), and skill
+              dependencies.
             </p>
             <ul className="link-list">
               <li>
-                <code>/references/foo.md</code> → copied to dist
+                <a href={`${BRAND.repo}/tree/main/specs`} target="_blank" rel="noreferrer">
+                  Architecture specs
+                </a>
               </li>
               <li>
-                <code>package/export</code> → shared script package
-              </li>
-              <li>
-                <code>other-skill</code> → skill dependency with install note
+                <a href={`${BRAND.repo}/blob/main/content/publish/INSTALL.md`} target="_blank" rel="noreferrer">
+                  Install guide
+                </a>
               </li>
             </ul>
           </div>
         </div>
       </Section>
 
-      <Section>
-        <div className="landing-section-header">
-          <p className="landing-eyebrow">Example</p>
-          <h2 className="landing-section-title">Agentic work skills on this framework</h2>
-          <p className="landing-section-desc">
-            Skills are live agentic capabilities — instructions the agent loads and executes when a task matches.
-            This reference repo ships one skill to demonstrate the pattern.
-          </p>
-        </div>
-        {registry.skills.length > 0 && (
-          <div className="registry-grid">
-            {registry.skills.map((skill) => (
-              <article key={skill.id} className="registry-card registry-card-modern">
-                <h3>
-                  <Link to={`/skills/${skill.id}`}>{skill.name}</Link>
-                </h3>
-                <p>{skill.description}</p>
-                <Link to={`/skills/${skill.id}`} className="btn btn-ghost btn-sm">
-                  View skill →
-                </Link>
-              </article>
-            ))}
-          </div>
-        )}
-      </Section>
-
-      <Section>
-        <div className="landing-cta-card landing-cta-card-compact">
-          <h2>Specs & resources</h2>
-          <ul className="landing-resource-links">
-            <li>
-              <Link to="/learn">Getting started guide (plain language)</Link>
-            </li>
-            <li>
-              <a href={`${BRAND.repo}/tree/main/specs`} target="_blank" rel="noreferrer">
-                Architecture & authoring specs
-              </a>
-            </li>
-            <li>
-              <a href={`${BRAND.repo}/blob/main/content/publish/INSTALL.md`} target="_blank" rel="noreferrer">
-                Consumer install guide
-              </a>
-            </li>
-            <li>
-              <Link to="/writing">Articles & build logs</Link>
-            </li>
-          </ul>
-        </div>
-      </Section>
+      {registry.skills.length > 0 && (
+        <Section>
+          <h2 className="section-heading">Example skill</h2>
+          {registry.skills.map((skill) => (
+            <article key={skill.id} className="registry-card registry-card-modern">
+              <h3>
+                <Link to={`/skills/${skill.id}`}>{skill.name}</Link>
+              </h3>
+              <p>{skill.description}</p>
+            </article>
+          ))}
+        </Section>
+      )}
     </Layout>
   );
 }

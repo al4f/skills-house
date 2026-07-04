@@ -17,8 +17,7 @@ export function SiteFooter({ variant = "default" }: SiteFooterProps) {
               Skills House
             </Link>
             <p className="site-footer-tagline">
-              The framework layer for Agent Skills — by{" "}
-              <a href={BRAND.authorUrl}>{BRAND.author}</a>
+              Framework for Agent Skills — by <a href={BRAND.authorUrl}>{BRAND.author}</a>
             </p>
           </div>
           <div className="site-footer-columns">

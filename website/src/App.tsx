@@ -12,10 +12,9 @@ export function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/learn" element={<LearnPage />} />
       <Route path="/platform" element={<PlatformPage />} />
-      <Route path="/skills" element={<Navigate to="/platform" replace />} />
       <Route path="/skills/:id" element={<SkillDetailPage />} />
-      <Route path="/scripts" element={<Navigate to="/platform" replace />} />
-      <Route path="/scripts/:id" element={<Navigate to="/platform" replace />} />
+      <Route path="/skills" element={<Navigate to="/platform" replace />} />
+      <Route path="/scripts/*" element={<Navigate to="/platform" replace />} />
       <Route path="/graph" element={<Navigate to="/platform" replace />} />
       <Route path="/search" element={<Navigate to="/platform" replace />} />
       <Route path="/writing" element={<WritingIndexPage />} />

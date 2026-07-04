@@ -42,27 +42,11 @@ export type ScriptEntry = {
   url: string;
 };
 
-export type SearchEntry = {
-  id: string;
-  type: "skill" | "script" | "tag" | "author";
-  title: string;
-  description: string;
-  url: string;
-  tags?: string[];
-};
-
-export type DependencyGraph = {
-  skillsToScripts: Record<string, string[]>;
-  scriptsToSkills: Record<string, string[]>;
-  skillsToSkills: Record<string, string[]>;
-};
-
 export type Registry = {
   generatedAt: string;
   repository: string;
   skills: SkillEntry[];
   scripts: ScriptEntry[];
-  graph: DependencyGraph;
 };
 
 export const BRAND = {

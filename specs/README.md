@@ -35,7 +35,3 @@ Architecture and design docs. **Paper first, code second.**
 6. **Framework packages publish via npm tags** — `@skills-house/build`, `@skills-house/create`, etc.
 7. **Framework skill is mandatory context** — `skill-auditor` documents how the repo works; every project installs and references it.
 8. **All contributions need maintainer approval** — open an issue first; no auto-merge.
-
-## Remaining work
-
-See [content/publish/PROGRESS.md](../content/publish/PROGRESS.md).

@@ -67,5 +67,4 @@ npx skills add al4f/skills-house --skill skill-auditor
 ## Related
 
 - [skills.sh CLI docs](https://www.skills.sh/docs/cli)
-- [PUBLISHING.md](./PUBLISHING.md) — npm tags (secondary channel)
 - [NPM-SETUP.md](./NPM-SETUP.md) — npm org setup

@@ -7,9 +7,7 @@ const websiteOnly = args.includes("--website-only");
 
 try {
   const registry = await generateRegistry({ skipValidation, websiteOnly });
-  console.log(
-    `Generated registry: ${registry.skills.length} skills, ${registry.scripts.length} scripts, ${registry.searchIndex.length} search entries.`,
-  );
+  console.log(`Generated registry: ${registry.skills.length} skills, ${registry.scripts.length} scripts.`);
 } catch (err) {
   console.error(err instanceof Error ? err.message : err);
   process.exit(1);

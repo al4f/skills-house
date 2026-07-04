@@ -2,7 +2,6 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import Ajv from "ajv";
 import { classifyHref } from "@skills-house/build";
-import type { Registry, SearchEntry } from "./types.js";
 import type { SkillEntry } from "./types.js";
 
 type ValidationIssue = {
@@ -17,58 +16,6 @@ const SKILL_NAME_RE = /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
 export async function loadSkillSchema(repoRoot: string): Promise<object> {
   const schemaPath = path.join(repoRoot, "specs/schema/skill-frontmatter.schema.json");
   return JSON.parse(await fs.readFile(schemaPath, "utf-8")) as object;
-}
-
-export function buildSearchIndex(registry: Omit<Registry, "searchIndex">): SearchEntry[] {
-  const entries: SearchEntry[] = [];
-  const seenTags = new Set<string>();
-  const seenAuthors = new Set<string>();
-
-  for (const skill of registry.skills) {
-    entries.push({
-      id: skill.id,
-      type: "skill",
-      title: skill.name,
-      description: skill.description,
-      url: skill.url,
-      tags: skill.tags,
-    });
-
-    for (const tag of skill.tags) {
-      if (seenTags.has(tag)) continue;
-      seenTags.add(tag);
-      entries.push({
-        id: `tag:${tag}`,
-        type: "tag",
-        title: tag,
-        description: `Skills tagged with ${tag}`,
-        url: `search/?q=${encodeURIComponent(tag)}`,
-      });
-    }
-
-    if (!seenAuthors.has(skill.author)) {
-      seenAuthors.add(skill.author);
-      entries.push({
-        id: `author:${skill.author}`,
-        type: "author",
-        title: skill.author,
-        description: `Skills by ${skill.author}`,
-        url: `search/?q=${encodeURIComponent(skill.author)}`,
-      });
-    }
-  }
-
-  for (const script of registry.scripts) {
-    entries.push({
-      id: script.id,
-      type: "script",
-      title: script.name,
-      description: script.description,
-      url: script.url,
-    });
-  }
-
-  return entries;
 }
 
 async function resolvePackageWorkspace(

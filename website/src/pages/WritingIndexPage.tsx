@@ -7,21 +7,9 @@ import { writingPosts } from "@/lib/writing";
 export function WritingIndexPage() {
   return (
     <Layout active="writing" className="page-writing">
-      <PageMeta
-        title="Writing — al4f.dev"
-        description="Technical articles on Agent Skills engineering by al4f."
-        path="/writing"
-      />
+      <PageMeta title="Writing" description="Articles on Agent Skills engineering." path="/writing" />
 
-      <PageHero
-        eyebrow="Writing"
-        title={
-          <>
-            Architecture notes & <span className="landing-gradient">build logs</span>
-          </>
-        }
-        lead="Deep dives on Agent Skills infrastructure — scaling authoring, distribution models, and lessons from building skills-house."
-      />
+      <PageHero eyebrow="Writing" title="Articles" lead="Notes on authoring, distribution, and building skills-house." />
 
       <Section>
         <div className="writing-grid">

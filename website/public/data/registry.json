@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-04T16:07:05.768Z",
+  "generatedAt": "2026-07-04T17:17:20.502Z",
   "repository": "https://github.com/al4f/skills-house",
   "skills": [
     {
@@ -88,20 +88,5 @@
       "path": "scripts/skill-auditor-tools",
       "url": "scripts/skill-auditor-tools/"
     }
-  ],
-  "graph": {
-    "skillsToScripts": {
-      "skill-auditor": [
-        "skill-auditor-tools"
-      ]
-    },
-    "scriptsToSkills": {
-      "skill-auditor-tools": [
-        "skill-auditor"
-      ]
-    },
-    "skillsToSkills": {
-      "skill-auditor": []
-    }
-  }
+  ]
 }

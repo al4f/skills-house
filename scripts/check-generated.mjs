@@ -2,14 +2,7 @@
 import { execSync } from "node:child_process";
 import fs from "node:fs";
 
-const JSON_PATHS = [
-  "generated/registry.json",
-  "generated/search-index.json",
-  "generated/dependency-graph.json",
-  "website/public/data/registry.json",
-  "website/public/data/search-index.json",
-  "website/public/data/dependency-graph.json",
-];
+const JSON_PATHS = ["generated/registry.json", "website/public/data/registry.json"];
 
 function stripGeneratedAt(value) {
   if (!value || typeof value !== "object" || Array.isArray(value)) return value;

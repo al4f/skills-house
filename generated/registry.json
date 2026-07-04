@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-04T16:07:05.768Z",
+  "generatedAt": "2026-07-04T17:17:20.502Z",
   "repository": "https://github.com/al4f/skills-house",
   "skills": [
     {
@@ -86,77 +86,6 @@
         "bash scripts/validate.sh skills/my-skill"
       ],
       "path": "scripts/skill-auditor-tools",
-      "url": "scripts/skill-auditor-tools/"
-    }
-  ],
-  "graph": {
-    "skillsToScripts": {
-      "skill-auditor": [
-        "skill-auditor-tools"
-      ]
-    },
-    "scriptsToSkills": {
-      "skill-auditor-tools": [
-        "skill-auditor"
-      ]
-    },
-    "skillsToSkills": {
-      "skill-auditor": []
-    }
-  },
-  "searchIndex": [
-    {
-      "id": "skill-auditor",
-      "type": "skill",
-      "title": "skill-auditor",
-      "description": "Use when reviewing, publishing, or contributing Agent Skills. Validates SKILL.md frontmatter, directory naming, in-package links, and Agent Skills layout conventions before merge or release.",
-      "url": "skills/skill-auditor/",
-      "tags": [
-        "validation",
-        "publishing",
-        "agent-skills"
-      ]
-    },
-    {
-      "id": "tag:validation",
-      "type": "tag",
-      "title": "validation",
-      "description": "Skills tagged with validation",
-      "url": "search/?q=validation"
-    },
-    {
-      "id": "tag:publishing",
-      "type": "tag",
-      "title": "publishing",
-      "description": "Skills tagged with publishing",
-      "url": "search/?q=publishing"
-    },
-    {
-      "id": "tag:agent-skills",
-      "type": "tag",
-      "title": "agent-skills",
-      "description": "Skills tagged with agent-skills",
-      "url": "search/?q=agent-skills"
-    },
-    {
-      "id": "author:al4f",
-      "type": "author",
-      "title": "al4f",
-      "description": "Skills by al4f",
-      "url": "search/?q=al4f"
-    },
-    {
-      "id": "fixture-helper",
-      "type": "script",
-      "title": "fixture-helper",
-      "description": "Shared script package: fixture-helper",
-      "url": "scripts/fixture-helper/"
-    },
-    {
-      "id": "skill-auditor-tools",
-      "type": "script",
-      "title": "skill-auditor-tools",
-      "description": "Bash validator for SKILL.md frontmatter, naming, and in-package link resolution.",
       "url": "scripts/skill-auditor-tools/"
     }
   ]
