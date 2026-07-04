@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - "v*-*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag (e.g. v0.0.1-install)"
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -29,9 +35,12 @@ jobs:
 
       - name: Parse release tag
         id: release
+        env:
+          RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
         run: |
-          JSON="$(node scripts/parse-release-tag.mjs "$GITHUB_REF_NAME")"
+          JSON="$(node scripts/parse-release-tag.mjs "$RELEASE_TAG")"
           echo "$JSON" | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> "$GITHUB_OUTPUT"
+          echo "tag=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
 
       - name: Build compiler
         run: pnpm --filter @skills-house/build build
@@ -129,4 +138,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
-          name: ${{ github.ref_name }}
+          tag_name: ${{ steps.release.outputs.tag }}
+          name: ${{ steps.release.outputs.tag }}
