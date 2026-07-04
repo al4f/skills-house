@@ -9,7 +9,7 @@ export function PlatformPage() {
     <Layout active="platform">
       <PageMeta
         title="Framework overview"
-        description="How skills-house works — scaffold, author, build, and ship Agent Skills. GitHub is source of truth; skills.sh is the primary consumer install path."
+        description="How skills-house works — scaffold, author, build, and ship agentic work skills. GitHub is source of truth; skills.sh is the primary consumer install path."
         path="/platform"
       />
 
@@ -19,11 +19,14 @@ export function PlatformPage() {
           GitHub is the source. <span className="gradient-text">The framework compiles and ships.</span>
         </h1>
         <p className="lead">
-          skills-house is not a skill catalog. Authors scaffold a project, write modular source skills, and let the
-          build pipeline produce Agent Skills–compliant dist. Consumers install from GitHub with the official
-          skills.sh CLI.
+          skills-house is not a skill catalog. Authors scaffold a project, write modular agentic work skills, and
+          let the build pipeline produce Agent Skills–compliant dist. Consumers install from GitHub with the
+          official skills.sh CLI.
         </p>
         <div className="hero-actions">
+          <Link to="/learn" className="btn btn-primary">
+            Learn guide
+          </Link>
           <pre>
             <code>npx create-skills-house my-app</code>
           </pre>
@@ -63,10 +66,12 @@ export function PlatformPage() {
       </Section>
 
       <Section>
-        <h2>Example skill in this repo</h2>
+        <h2>Agentic work skills on this framework</h2>
         <p>
-          The reference monorepo ships one example skill to demonstrate patterns — not an open catalog. Fork the
-          framework and add skills in your own repository.
+          Skills in skills-house are not static examples or demo snippets. Each skill is a{" "}
+          <strong>live agentic capability</strong> — instructions the agent loads and executes when a task matches.
+          The reference monorepo ships one skill to demonstrate the pattern; fork the framework and add your own
+          agentic work skills in your repository.
         </p>
         {registry.skills.length > 0 && (
           <div className="registry-grid">
@@ -85,6 +90,9 @@ export function PlatformPage() {
       <Section>
         <h2>Specs</h2>
         <ul className="link-list">
+          <li>
+            <Link to="/learn">Getting started guide (plain language)</Link>
+          </li>
           <li>
             <a href={`${BRAND.repo}/tree/main/specs`} target="_blank" rel="noreferrer">
               Architecture & authoring specs

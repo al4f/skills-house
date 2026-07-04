@@ -17,6 +17,7 @@ const writingSlugs = [
 function getStaticRoutes() {
   return [
     "/",
+    "/learn",
     "/platform",
     "/writing",
     ...registry.skills.map((s) => `/skills/${s.id}`),

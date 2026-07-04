@@ -3,9 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 import { BRAND } from "@/lib/types";
 
 const navItems = [
+  { href: "/learn", label: "Learn", key: "learn" },
   { href: "/platform", label: "Framework", key: "platform" },
+  { href: "/skills/skill-auditor", label: "Skills", key: "skills" },
   { href: "/writing", label: "Writing", key: "writing" },
-  { href: "/skills/skill-auditor", label: "Example", key: "skills" },
 ];
 
 type SiteHeaderProps = {
