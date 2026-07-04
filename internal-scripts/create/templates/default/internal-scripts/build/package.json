@@ -1,0 +1,16 @@
+{
+  "name": "@skills-house/build",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./dist/lib.js"
+  },
+  "bin": {
+    "skills-house-build": "./dist/cli.js"
+  },
+  "dependencies": {
+    "esbuild": "^0.25.0",
+    "yaml": "^2.7.0"
+  }
+}

@@ -42,7 +42,7 @@ skills-house is an open-source **framework** for building **agentic, skill-based
 
 | Component | Path | Role |
 |-----------|------|------|
-| Scaffold CLI | planned (`create-skills-house`) | One-command project setup |
+| Scaffold CLI | `internal-scripts/create/` (`create-skills-house`) | One-command project setup |
 | Build pipeline | `internal-scripts/build/` | `@skills-house/build` — markers, links, dist writer |
 | Shared scripts | `scripts/<name>/` | Reusable execution packages referenced from skills |
 | Metadata generator | `@skills-house/registry` (`pnpm generate`) | Skill + script metadata for CI and internal tooling |

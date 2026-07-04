@@ -1,6 +1,8 @@
 node_modules/
 packages/publish/
 dist/
+!internal-scripts/create/templates/**/dist/
+!internal-scripts/create/templates/**/dist/**
 .DS_Store
 *.log
 

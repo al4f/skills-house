@@ -1,0 +1,10 @@
+{
+  "name": "@{{projectName}}/__SKILL__",
+  "private": true,
+  "scripts": {
+    "build": "skills-house-build ."
+  },
+  "devDependencies": {
+    "@skills-house/build": "workspace:*"
+  }
+}
