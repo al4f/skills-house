@@ -1,8 +1,8 @@
 # al4f.dev — Static Site
 
-Modern React static site for al4f and Skills House. **Live at https://al4f.dev**
+Framework documentation site for al4f and skills-house. **Live at https://al4f.dev**
 
-Built with Vite + React and pre-rendered at build time. Deployed automatically via GitHub Pages on push to `main`.
+Explains how to work with the framework and what you can build with it — **not** a skill catalog or marketplace. Built with Vite + React and pre-rendered at build time. Deployed automatically via GitHub Pages on push to `main`.
 
 ## GitHub Pages setup (one-time)
 
@@ -47,9 +47,9 @@ website/
 └── dist/               # Build output (deployed to GitHub Pages)
 ```
 
-## Updating registry content
+## Updating generated data
 
-Skills and scripts pages are driven by generated JSON:
+Some site pages consume generated JSON from the monorepo (internal metadata, not a public catalog product):
 
 ```bash
 pnpm generate

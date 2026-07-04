@@ -5,7 +5,7 @@
 
 ## Positioning
 
-skills-house is a **framework for skill authors**, not a skill catalog. Distribution serves authors who publish their own skills and consumers who install them — without requiring the monorepo.
+skills-house is a **framework for building agentic, skill-based software** — not a skill catalog. Distribution serves authors who ship their own skills and consumers who install them — without requiring the monorepo. See [framework-vision.md](./framework-vision.md).
 
 ## Channels
 

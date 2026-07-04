@@ -1,6 +1,10 @@
 # Contributing to Skills House
 
-Skills House is the official platform for publishing, discovering, and reusing AI Skills — built by [al4f](https://al4f.dev). GitHub stores the source; [al4f.dev](https://al4f.dev) is the experience.
+skills-house is an open-source **framework** for building agentic, skill-based software with [Agent Skills](https://agentskills.io) — built by [al4f](https://al4f.dev).
+
+Like `create-next-app` for web apps, the framework targets one-command project setup, freeform skill authoring, and automated compile-and-ship. The audience is not only developers: skills work across Cursor, Claude Code, Codex, mobile agents, and similar tools.
+
+**[al4f.dev](https://al4f.dev)** documents how to work with the framework and what you can build with it — not a skill catalog or marketplace.
 
 There are **two contribution types** with different review policies.
 
@@ -17,7 +21,7 @@ Your skill PR must pass:
 - Documentation generation (`pnpm generate`)
 - Dependency validation (script refs, skill deps, broken links)
 
-### How to publish a skill
+### How to add a skill
 
 1. Read [specs/markers/marker-spec.md](./specs/markers/marker-spec.md)
 2. Create `skills/<name>/` with `SKILL.md` and `package.json`
@@ -30,16 +34,17 @@ Your skill PR must pass:
 9. Run `pnpm build && pnpm test && pnpm generate`
 10. Open a PR that **only** changes files under `skills/<name>/` (and the matching `skills-dist/<name>/` build output)
 
-The registry, search index, dependency graph, and website pages regenerate automatically on merge.
+Generated metadata and site data update automatically on merge.
 
-## 2. Platform contributions (manual review)
+## 2. Framework contributions (manual review)
 
 Everything **except** skill content requires maintainer review. These PRs are **never** auto-merged.
 
 Examples:
 
+- Scaffold CLI and developer experience
 - Website templates and styling
-- CLI and build system
+- Build system and optional dev CLI
 - Documentation and specs
 - Scripts, validators, generators
 - GitHub Actions and APIs
@@ -48,12 +53,12 @@ Open a normal PR and wait for maintainer approval.
 
 ## Adding shared scripts
 
-Script packages are platform contributions unless bundled as part of an approved platform change. To reference existing scripts from a skill:
+Script packages are framework contributions unless bundled as part of an approved framework change. To reference existing scripts from a skill:
 
 1. Use markdown links: `[run](<name>/export-name)`
 2. The build bundles resolved files into each skill's dist `scripts/`
 
-To add a new shared script package, open a **platform** PR under `scripts/<name>/` with `package.json` exports and optional `skills-house` metadata (`inputs`, `outputs`, `examples`, `maintainers`).
+To add a new shared script package, open a **framework** PR under `scripts/<name>/` with `package.json` exports and optional `skills-house` metadata (`inputs`, `outputs`, `examples`, `maintainers`).
 
 ## Local development
 
@@ -62,7 +67,7 @@ nvm use
 pnpm install
 pnpm build
 pnpm test
-pnpm generate    # registry + website data
+pnpm generate    # metadata + website data
 pnpm generate:check  # fail if generated output is stale
 ```
 
@@ -77,7 +82,7 @@ pnpm generate:check  # fail if generated output is stale
 - [ ] Frontmatter passes schema validation
 - [ ] No secrets or credentials in committed files
 
-### Platform PRs
+### Framework PRs
 
 - [ ] `pnpm build && pnpm test` pass
 - [ ] Describe impact on generators, website, or CI
@@ -85,4 +90,4 @@ pnpm generate:check  # fail if generated output is stale
 
 ## Questions
 
-Open a [GitHub issue](https://github.com/al4f/skills-house/issues) or read articles at [al4f.dev](https://al4f.dev).
+Open a [GitHub issue](https://github.com/al4f/skills-house/issues) or read framework docs at [al4f.dev](https://al4f.dev).
