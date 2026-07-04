@@ -21,8 +21,8 @@ skills-house/
 │       └── package.json            # exports → named namespaces
 ├── internal-scripts/
 │   ├── build/                      # @skills-house/build
-│   ├── cli/                        # optional dev CLI (pnpm skills)
-│   └── install/                    # install-skills.sh, remove-skills.sh
+│   ├── install/                    # @skills-house/install (CLI + shell scripts)
+│   └── create/                     # @skills-house/create
 ├── skills-dist/                    # generated Agent Skills output
 │   └── <skill-name>/
 ├── content/publish/                # install, npm, progress guides
@@ -39,6 +39,7 @@ skills-house/
 | `skills/` | Skill authoring. Freeform layout; entry = `SKILL.md`. | Via skills.sh (Git source) |
 | `scripts/` | Reusable execution logic referenced via markdown links. | Private monorepo |
 | `internal-scripts/build/` | Marker parser, bundler, dist writer. | npm (`@skills-house/build`) |
+| `internal-scripts/install/` | Install built skills into agent directories. | npm (`@skills-house/install`) |
 | `internal-scripts/create/` | Project scaffold. | npm (`@skills-house/create`) |
 | `skills-dist/` | Transpiled Agent Skills artifacts. | Not published — local install only |
 
@@ -52,13 +53,12 @@ skills-house/
 - Writing spec-compliant output to `skills-dist/`
 - Injecting skill-dependency notes for skill-package links
 
-**install** — `install-skills.sh` / `remove-skills.sh`:
+**install** — `@skills-house/install` (Node CLI + `install-skills.sh` / `remove-skills.sh`):
 
-- Copies built dist into agent skill directories
+- Copies built dist from `skills-dist/` into agent skill directories
+- Resolves dist from local monorepo, `--from` path, or optional npm skill packages
 - Prepares the repo so **other agents** can load skills during development
 - Not a consumer distribution channel (see [distribution.md](./distribution.md))
-
-**cli** — optional `pnpm skills add` wrapper; consumers use the official skills.sh CLI.
 
 ## Source vs dist
 

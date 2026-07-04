@@ -7,16 +7,19 @@ import assert from "node:assert/strict";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, "../../..");
-const CLI = join(REPO_ROOT, "internal-scripts/cli/dist/cli.js");
+const CLI = join(REPO_ROOT, "internal-scripts/install/dist/cli.js");
 
-test("CLI --help exits 0", () => {
-  assert.ok(existsSync(CLI), "build CLI first: pnpm --filter @skills-house/cli build");
+test("install CLI --help exits 0", () => {
+  assert.ok(
+    existsSync(CLI),
+    "build install CLI first: pnpm --filter @skills-house/install build",
+  );
   const result = spawnSync(process.execPath, [CLI, "--help"], { encoding: "utf-8" });
   assert.equal(result.status, 0);
-  assert.match(result.stdout, /skills add/);
+  assert.match(result.stdout, /install-skills add/);
 });
 
-test("CLI add --dry-run against skills-dist", () => {
+test("install CLI add --dry-run against skills-dist", () => {
   const dist = join(REPO_ROOT, "skills-dist");
   const skillMd = join(dist, "skill-auditor", "SKILL.md");
   assert.ok(existsSync(skillMd), "build skill-auditor first");

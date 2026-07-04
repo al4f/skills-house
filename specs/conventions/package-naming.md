@@ -9,7 +9,7 @@ Published **framework** packages use `@skills-house`:
 
 ```
 @skills-house/build                  # build tool (published via tag)
-@skills-house/cli                    # optional dev CLI (published via tag)
+@skills-house/install                # install tool (published via tag)
 @skills-house/create                 # scaffold CLI (published via tag)
 ```
 
@@ -20,7 +20,7 @@ Skills are **not** published to npm. Skill distribution is [skills.sh only](../a
 | Context | Pattern | Example |
 |---------|---------|---------|
 | Workspace skill package | `@skills-house/<dir-name>` (private) | `@skills-house/skill-auditor` in `skills/skill-auditor/` |
-| Framework tool | `@skills-house/<tool>` | `@skills-house/build`, `@skills-house/cli`, `@skills-house/create` |
+| Framework tool | `@skills-house/<tool>` | `@skills-house/build`, `@skills-house/install`, `@skills-house/create` |
 | Scripts workspace | `@skills-house/script-<name>` (private) | `@skills-house/script-fixture-helper` |
 
 ## Skill `name` field (Agent Skills spec)

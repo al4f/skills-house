@@ -27,19 +27,19 @@ importers:
         specifier: ^5.8.0
         version: 5.9.3
 
-  internal-scripts/cli:
+  internal-scripts/create:
     devDependencies:
       '@types/node':
         specifier: ^22.15.0
         version: 22.20.0
       tsup:
         specifier: ^8.5.0
-        version: 8.5.1(postcss@8.5.16)(typescript@5.9.3)(yaml@2.9.0)
+        version: 8.5.1(postcss@8.5.16)(typescript@5.8.3)(yaml@2.9.0)
       typescript:
         specifier: ^5.8.0
-        version: 5.9.3
+        version: 5.8.3
 
-  internal-scripts/create:
+  internal-scripts/install:
     devDependencies:
       '@types/node':
         specifier: ^22.15.0

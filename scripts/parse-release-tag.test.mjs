@@ -9,9 +9,16 @@ test("parseReleaseTag parses build tags", () => {
   });
 });
 
-test("parseReleaseTag parses CLI tags", () => {
+test("parseReleaseTag parses install tags", () => {
+  assert.deepEqual(parseReleaseTag("v0.0.1-install"), {
+    type: "install",
+    version: "0.0.1",
+  });
+});
+
+test("parseReleaseTag parses legacy cli tags as install", () => {
   assert.deepEqual(parseReleaseTag("v0.0.1-cli"), {
-    type: "cli",
+    type: "install",
     version: "0.0.1",
   });
 });

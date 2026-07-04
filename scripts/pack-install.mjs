@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * Pack the built CLI into an npm-ready directory.
+ * Pack @skills-house/install into an npm-ready directory.
  *
  * Usage:
- *   node scripts/pack-cli.mjs
- *   node scripts/pack-cli.mjs --out packages/publish
+ *   node scripts/pack-install.mjs
+ *   node scripts/pack-install.mjs --out packages/publish
  */
 
 import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -13,9 +13,8 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, "..");
-const CLI_SRC = join(REPO_ROOT, "internal-scripts", "cli");
 const INSTALL_SRC = join(REPO_ROOT, "internal-scripts", "install");
-const DIST = join(CLI_SRC, "dist", "cli.js");
+const DIST = join(INSTALL_SRC, "dist", "cli.js");
 
 function parseArgs(argv) {
   let outDir = join(REPO_ROOT, "packages", "publish");
@@ -29,27 +28,30 @@ function main() {
   const { outDir } = parseArgs(process.argv);
 
   if (!existsSync(DIST)) {
-    console.error(`CLI dist not found: ${DIST} — run pnpm build first.`);
+    console.error(`Install CLI dist not found: ${DIST} — run pnpm build first.`);
     process.exit(1);
   }
 
   const sourcePkg = JSON.parse(
-    readFileSync(join(CLI_SRC, "package.json"), "utf-8"),
+    readFileSync(join(INSTALL_SRC, "package.json"), "utf-8"),
   );
-  const dest = join(outDir, "cli");
+  const dest = join(outDir, "install");
 
   mkdirSync(dest, { recursive: true });
-  cpSync(join(CLI_SRC, "dist"), join(dest, "dist"), { recursive: true });
+  cpSync(join(INSTALL_SRC, "dist"), join(dest, "dist"), { recursive: true });
 
-  const installDest = join(dest, "install");
-  mkdirSync(join(installDest, "lib"), { recursive: true });
+  mkdirSync(join(dest, "lib"), { recursive: true });
   cpSync(
     join(INSTALL_SRC, "install-skills.sh"),
-    join(installDest, "install-skills.sh"),
+    join(dest, "install-skills.sh"),
+  );
+  cpSync(
+    join(INSTALL_SRC, "remove-skills.sh"),
+    join(dest, "remove-skills.sh"),
   );
   cpSync(
     join(INSTALL_SRC, "lib", "agent-targets.sh"),
-    join(installDest, "lib", "agent-targets.sh"),
+    join(dest, "lib", "agent-targets.sh"),
   );
 
   const packageJson = {
@@ -64,7 +66,7 @@ function main() {
     keywords: sourcePkg.keywords,
     engines: { node: ">=20" },
     publishConfig: { access: "public" },
-    files: ["dist", "install"],
+    files: sourcePkg.files,
     bin: sourcePkg.bin,
   };
 

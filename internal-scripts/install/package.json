@@ -1,27 +1,39 @@
 {
-  "name": "@skills-house/cli",
+  "name": "@skills-house/install",
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "description": "Install Agent Skills built with skills-house — npx @skills-house/cli add <name>",
+  "description": "Install Agent Skills from built dist into agent directories — npx @skills-house/install add <name>",
   "author": "al4f <https://al4f.dev>",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/al4f/skills-house.git",
-    "directory": "internal-scripts/cli"
+    "directory": "internal-scripts/install"
   },
   "homepage": "https://al4f.dev",
-  "keywords": ["agent-skills", "skills-house", "cursor", "claude", "codex"],
+  "keywords": [
+    "agent-skills",
+    "skills-house",
+    "install",
+    "cursor",
+    "claude",
+    "codex"
+  ],
   "engines": {
     "node": ">=20"
   },
   "publishConfig": {
     "access": "public"
   },
-  "files": ["dist"],
+  "files": [
+    "dist",
+    "install-skills.sh",
+    "remove-skills.sh",
+    "lib"
+  ],
   "bin": {
-    "skills": "./dist/cli.js"
+    "install-skills": "./dist/cli.js"
   },
   "scripts": {
     "build": "tsup",

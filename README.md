@@ -25,6 +25,8 @@ npx skills add al4f/skills-house --skill skill-auditor -a cursor -y
 | `skills/` | Author skills (only `SKILL.md` required) |
 | `scripts/` | Shared script packages |
 | `@skills-house/build` | Compiles source → Agent Skills layout |
+| `@skills-house/install` | Installs built dist into agent directories |
+| `@skills-house/create` | Scaffolds a new skills-house project |
 | `skills-dist/` | What agents load |
 | Install | `npx skills add owner/repo --skill <name>` |
 
@@ -73,7 +75,7 @@ Spec: [skill-md-authoring.md](./specs/authoring/skill-md-authoring.md)
 skills-house/
 ├── skills/              # Source skill packages
 ├── scripts/             # Shared script packages
-├── internal-scripts/    # build, create, cli, install
+├── internal-scripts/    # build, install, create
 ├── skills-dist/         # Built output
 └── specs/               # Architecture docs
 ```

@@ -4,12 +4,13 @@
  *
  * Formats:
  *   v0.0.1-build          → @skills-house/build
- *   v0.0.1-cli            → @skills-house/cli
+ *   v0.0.1-install        → @skills-house/install
+ *   v0.0.1-cli            → @skills-house/install (legacy alias)
  *   v0.0.1-create        → @skills-house/create
  *   v0.0.1-skill-auditor → @skills-house/skill-skill-auditor
  *
  * Usage:
- *   node scripts/parse-release-tag.mjs v0.0.1-cli
+ *   node scripts/parse-release-tag.mjs v0.0.1-install
  */
 
 import { fileURLToPath } from "node:url";
@@ -18,7 +19,7 @@ const __filename = fileURLToPath(import.meta.url);
 
 /**
  * @param {string} tag
- * @returns {{ type: "build", version: string } | { type: "cli", version: string } | { type: "create", version: string } | { type: "skill", version: string, skill: string } | null}
+ * @returns {{ type: "build", version: string } | { type: "install", version: string } | { type: "create", version: string } | { type: "skill", version: string, skill: string } | null}
  */
 export function parseReleaseTag(tag) {
   const match = tag.match(/^v(\d+\.\d+\.\d+)-(.+)$/);
@@ -33,8 +34,8 @@ export function parseReleaseTag(tag) {
     return { type: "build", version };
   }
 
-  if (target === "cli") {
-    return { type: "cli", version };
+  if (target === "install" || target === "cli") {
+    return { type: "install", version };
   }
 
   if (target === "create") {
@@ -54,7 +55,9 @@ function main() {
   const parsed = parseReleaseTag(tag);
   if (!parsed) {
     console.error(`Invalid release tag: ${tag}`);
-    console.error("Expected v<semver>-build, v<semver>-cli, v<semver>-create, or v<semver>-<skill-name>");
+    console.error(
+      "Expected v<semver>-build, v<semver>-install, v<semver>-create, or v<semver>-<skill-name>",
+    );
     process.exit(1);
   }
 

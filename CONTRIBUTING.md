@@ -73,7 +73,7 @@ pnpm build
 pnpm test
 pnpm generate    # metadata + website data
 pnpm generate:check  # fail if generated output is stale
-node scripts/sync-create-template.mjs  # after build/cli changes — refresh @skills-house/create vendor
+node scripts/sync-create-template.mjs  # after build/install changes — refresh @skills-house/create vendor
 ```
 
 ## Pull request checklist

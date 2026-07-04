@@ -34,6 +34,30 @@ export function SiteFooter({ variant = "default" }: SiteFooterProps) {
               <a href="./feed.xml">RSS</a>
             </div>
             <div className="site-footer-col">
+              <h4>Packages</h4>
+              <a
+                href="https://www.npmjs.com/package/@skills-house/build"
+                target="_blank"
+                rel="noreferrer"
+              >
+                @skills-house/build
+              </a>
+              <a
+                href="https://www.npmjs.com/package/@skills-house/install"
+                target="_blank"
+                rel="noreferrer"
+              >
+                @skills-house/install
+              </a>
+              <a
+                href="https://www.npmjs.com/package/@skills-house/create"
+                target="_blank"
+                rel="noreferrer"
+              >
+                @skills-house/create
+              </a>
+            </div>
+            <div className="site-footer-col">
               <h4>Install</h4>
               <a href="https://www.skills.sh/docs/cli">skills.sh CLI</a>
               <a

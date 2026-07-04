@@ -16,18 +16,18 @@ function runPack(script, args = []) {
   });
 }
 
-test("pack-cli emits publish-ready package.json", () => {
-  const outDir = fs.mkdtempSync(path.join(os.tmpdir(), "skills-house-pack-cli-"));
-  runPack(path.join(repoRoot, "scripts/pack-cli.mjs"), ["--out", outDir]);
+test("pack-install emits publish-ready package.json", () => {
+  const outDir = fs.mkdtempSync(path.join(os.tmpdir(), "skills-house-pack-install-"));
+  runPack(path.join(repoRoot, "scripts/pack-install.mjs"), ["--out", outDir]);
 
-  const pkgPath = path.join(outDir, "cli", "package.json");
+  const pkgPath = path.join(outDir, "install", "package.json");
   const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
 
-  assert.equal(pkg.name, "@skills-house/cli");
+  assert.equal(pkg.name, "@skills-house/install");
   assert.equal(pkg.publishConfig.access, "public");
-  assert.ok(fs.existsSync(path.join(outDir, "cli", "dist", "cli.js")));
-  assert.ok(fs.existsSync(path.join(outDir, "cli", "install", "install-skills.sh")));
-  assert.ok(fs.existsSync(path.join(outDir, "cli", "install", "lib", "agent-targets.sh")));
+  assert.ok(fs.existsSync(path.join(outDir, "install", "dist", "cli.js")));
+  assert.ok(fs.existsSync(path.join(outDir, "install", "install-skills.sh")));
+  assert.ok(fs.existsSync(path.join(outDir, "install", "lib", "agent-targets.sh")));
 });
 
 test("pack-build emits publish-ready package.json", () => {

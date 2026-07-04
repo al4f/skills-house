@@ -31,11 +31,11 @@ pnpm --filter @skills-house/create build
 pnpm --filter @skills-house/create test
 ```
 
-After changing `@skills-house/build` or `@skills-house/cli`, refresh vendored template files:
+After changing `@skills-house/build` or `@skills-house/install`, refresh vendored template files:
 
 ```bash
 pnpm --filter @skills-house/build build
-pnpm --filter @skills-house/cli build
+pnpm --filter @skills-house/install build
 node scripts/sync-create-template.mjs
 ```
 

@@ -3136,14 +3136,26 @@ pre code {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.landing-bento-commands .landing-bento-card {
+.landing-bento-packages {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .landing-bento-packages {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.landing-bento-commands .landing-bento-card,
+.landing-bento-packages .landing-bento-card {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding: 1.25rem;
 }
 
-.landing-bento-commands .code-snippet {
+.landing-bento-commands .code-snippet,
+.landing-bento-packages .code-snippet {
   box-shadow: none;
 }
 

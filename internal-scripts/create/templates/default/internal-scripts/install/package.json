@@ -1,10 +1,10 @@
 {
-  "name": "@skills-house/cli",
+  "name": "@skills-house/install",
   "version": "0.0.1",
   "private": true,
   "type": "module",
   "bin": {
-    "skills": "./dist/cli.js"
+    "install-skills": "./dist/cli.js"
   },
   "dependencies": {}
 }
