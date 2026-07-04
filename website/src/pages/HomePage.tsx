@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
-import { CodeSnippet } from "@/components/CodeSnippet";
+import { CommandStack } from "@/components/CommandStack";
 import { Layout } from "@/components/Layout";
 import { PageMeta } from "@/components/ui";
+import { FRAMEWORK_COMMANDS } from "@/lib/commands";
 
-const steps = [
-  { title: "Create", body: "npx @skills-house/create scaffolds build + install tooling." },
-  { title: "Build", body: "@skills-house/build compiles skills/ to spec-compliant skills-dist/." },
-  { title: "Install", body: "@skills-house/install or skills.sh ships skills to any agent." },
-];
+const steps = FRAMEWORK_COMMANDS.map((item) => ({
+  title: item.label,
+  body: item.desc,
+}));
 
 export function HomePage() {
   return (
@@ -35,7 +35,7 @@ export function HomePage() {
           </p>
 
           <div className="landing-hero-cta">
-            <CodeSnippet code="npx @skills-house/create my-app" label="Get started" />
+            <CommandStack commands={FRAMEWORK_COMMANDS} />
             <div className="landing-hero-actions">
               <Link to="/platform" className="btn btn-primary btn-lg">
                 Framework docs

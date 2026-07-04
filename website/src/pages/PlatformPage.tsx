@@ -3,28 +3,17 @@ import { CodeSnippet } from "@/components/CodeSnippet";
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
 import { PageMeta, Section } from "@/components/ui";
+import { FRAMEWORK_COMMANDS } from "@/lib/commands";
 import { registry } from "@/lib/registry";
 import { BRAND } from "@/lib/types";
 
-const packages = [
-  {
-    name: "@skills-house/build",
-    desc: "Compiles skill source into spec-compliant skills-dist/ — resolves @include, links, and dependencies.",
-  },
-  {
-    name: "@skills-house/install",
-    desc: "Installs built dist into agent directories (Cursor, Claude, Codex). Shell scripts + Node CLI.",
-  },
-  {
-    name: "@skills-house/create",
-    desc: "Scaffolds a new project with build + install tooling and a starter skill.",
-  },
-];
+const packages = FRAMEWORK_COMMANDS.map((item) => ({
+  name: `@skills-house/${item.label.toLowerCase()}`,
+  desc: item.desc,
+}));
 
 const commands = [
-  { cmd: "npx @skills-house/create my-app", desc: "Scaffold a new project" },
-  { cmd: "pnpm build", desc: "Compile skills to skills-dist/" },
-  { cmd: "pnpm install:skills --scope project", desc: "Install dist locally (dev)" },
+  ...FRAMEWORK_COMMANDS.map((item) => ({ cmd: item.code, desc: item.desc })),
   { cmd: "npx skills add owner/repo --skill name", desc: "Install a skill (consumer)" },
 ];
 
@@ -41,7 +30,7 @@ export function PlatformPage() {
         eyebrow="Framework"
         title="Source → build → install"
         lead="Not a skill catalog. Fork the framework, author your own skills, ship from your repo."
-        command="npx @skills-house/create my-app"
+        commands={FRAMEWORK_COMMANDS}
       >
         <Link to="/learn" className="btn btn-primary">
           Getting started

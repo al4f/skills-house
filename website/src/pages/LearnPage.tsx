@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
-import { CodeSnippet } from "@/components/CodeSnippet";
+import { CommandStack } from "@/components/CommandStack";
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
 import { PageMeta, Section } from "@/components/ui";
+import { FRAMEWORK_COMMANDS } from "@/lib/commands";
 
 const steps = [
   "Describe what the agent should do in SKILL.md.",
-  "Scaffold a project: npx @skills-house/create my-app",
-  "pnpm dev — @skills-house/build compiles, @skills-house/install wires skills to your agent.",
+  "Scaffold a project with @skills-house/create.",
+  "Compile skills with @skills-house/build.",
+  "Install into your agent with @skills-house/install.",
   "The agent loads the skill when a task matches its description.",
 ];
 
@@ -24,7 +26,7 @@ export function LearnPage() {
         eyebrow="Getting started"
         title="Build your first skill"
         lead="Write instructions in plain language. The framework handles packaging and install."
-        command="npx @skills-house/create my-app"
+        commands={FRAMEWORK_COMMANDS}
       />
 
       <Section>
@@ -42,8 +44,8 @@ export function LearnPage() {
       </Section>
 
       <Section>
-        <h2 className="section-heading">What you get</h2>
-        <CodeSnippet code="npx @skills-house/create my-app" label="Scaffold" />
+        <h2 className="section-heading">Core commands</h2>
+        <CommandStack commands={FRAMEWORK_COMMANDS} />
         <pre className="learn-code-sample">
           <code>{`my-app/
   skills/my-app-skill/SKILL.md   ← edit this
