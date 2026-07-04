@@ -1,26 +1,54 @@
 import { Link } from "react-router-dom";
 import { BRAND } from "@/lib/types";
 
-export function SiteFooter() {
+type SiteFooterProps = {
+  variant?: "default" | "landing";
+};
+
+export function SiteFooter({ variant = "default" }: SiteFooterProps) {
   return (
-    <footer className="site-footer">
-      <div className="site-footer-inner">
-        <p>
-          <strong>{BRAND.site}</strong> — Framework for Agent Skills by{" "}
-          <a href={BRAND.authorUrl}>{BRAND.author}</a>
-        </p>
-        <p className="footer-links">
-          <Link to="/">Home</Link>
-          <span aria-hidden="true">·</span>
-          <Link to="/platform">Framework</Link>
-          <span aria-hidden="true">·</span>
-          <Link to="/writing">Writing</Link>
-          <span aria-hidden="true">·</span>
-          <a href={BRAND.repo}>GitHub</a>
-          <span aria-hidden="true">·</span>
-          <a href="./feed.xml">RSS</a>
-        </p>
-        <p className="footer-copy">© 2026 al4f</p>
+    <footer className={`site-footer${variant === "landing" ? " site-footer-landing" : ""}`}>
+      <div className={variant === "landing" ? "landing-container site-footer-inner" : "site-footer-inner"}>
+        <div className="site-footer-top">
+          <div className="site-footer-brand">
+            <Link to="/" className="logo logo-footer">
+              <span className="logo-mark" aria-hidden="true" />
+              Skills House
+            </Link>
+            <p className="site-footer-tagline">
+              The framework layer for Agent Skills — by{" "}
+              <a href={BRAND.authorUrl}>{BRAND.author}</a>
+            </p>
+          </div>
+          <div className="site-footer-columns">
+            <div className="site-footer-col">
+              <h4>Framework</h4>
+              <Link to="/platform">Overview</Link>
+              <Link to="/learn">Learn</Link>
+              <Link to="/skills/skill-auditor">Example skill</Link>
+            </div>
+            <div className="site-footer-col">
+              <h4>Resources</h4>
+              <Link to="/writing">Writing</Link>
+              <a href={BRAND.repo}>GitHub</a>
+              <a href="./feed.xml">RSS</a>
+            </div>
+            <div className="site-footer-col">
+              <h4>Install</h4>
+              <a href="https://www.skills.sh/docs/cli">skills.sh CLI</a>
+              <a
+                href="https://github.com/al4f/skills-house/blob/main/content/publish/INSTALL.md"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Install guide
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="site-footer-bottom">
+          <p className="footer-copy">© 2026 al4f · MIT License</p>
+        </div>
       </div>
     </footer>
   );
