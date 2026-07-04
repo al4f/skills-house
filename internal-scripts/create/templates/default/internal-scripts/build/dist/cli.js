@@ -2,9 +2,9 @@
 import {
   classifyHref,
   findLinks,
-  getRepoSlug,
-  parseSkillMd
-} from "./chunk-5FQ3JEP5.js";
+  parseSkillMd,
+  tryGetRepoSlug
+} from "./chunk-ANZL3RXW.js";
 
 // src/cli.ts
 import fs5 from "fs/promises";
@@ -150,6 +150,11 @@ async function resolvePackageLinks(body, links, repoRoot, repoSlug, outDir, depe
     const { pkg, export: exportKey } = classified;
     const { dir, workspace } = await findPackageDir(repoRoot, pkg);
     if (workspace === "skills") {
+      if (!repoSlug) {
+        throw new Error(
+          `Cannot resolve skill dependency "${pkg}": root package.json has no GitHub repository URL. Add a "repository" field, then rebuild.`
+        );
+      }
       if (!dependencies.includes(pkg)) {
         dependencies.push(pkg);
       }
@@ -203,7 +208,7 @@ async function buildSkill(options) {
   const links = findLinks(body);
   const dependencies = [];
   body = await resolveFileLinks(body, links, skillDir, outDir);
-  const repoSlug = await getRepoSlug(repoRoot);
+  const repoSlug = await tryGetRepoSlug(repoRoot);
   body = await resolvePackageLinks(
     body,
     links,

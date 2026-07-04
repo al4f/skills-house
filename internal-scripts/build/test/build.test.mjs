@@ -84,6 +84,59 @@ test("rejects frontmatter name that does not match directory", () => {
   );
 });
 
+test("builds minimal-skill fixture without repository URL when no skill deps", () => {
+  const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "skills-house-no-repo-"));
+  const skillDir = path.join(tmpRoot, "standalone");
+  fs.mkdirSync(skillDir, { recursive: true });
+  const skillMdSource = fs
+    .readFileSync(path.join(fixtureDir, "SKILL.md"), "utf8")
+    .replace("name: minimal-skill", "name: standalone");
+  fs.writeFileSync(path.join(skillDir, "SKILL.md"), skillMdSource);
+  fs.writeFileSync(
+    path.join(skillDir, "package.json"),
+    JSON.stringify({ name: "@example/standalone" }),
+  );
+  fs.cpSync(path.join(fixtureDir, "sections"), path.join(skillDir, "sections"), {
+    recursive: true,
+  });
+  fs.cpSync(
+    path.join(fixtureDir, "references"),
+    path.join(skillDir, "references"),
+    { recursive: true },
+  );
+
+  const repoRoot = path.join(tmpRoot, "repo");
+  fs.mkdirSync(repoRoot, { recursive: true });
+  fs.writeFileSync(
+    path.join(repoRoot, "package.json"),
+    JSON.stringify({ name: "no-repo-yet" }),
+  );
+  fs.mkdirSync(path.join(repoRoot, "scripts", "fixture-helper", "scripts"), {
+    recursive: true,
+  });
+  fs.writeFileSync(
+    path.join(repoRoot, "scripts", "fixture-helper", "package.json"),
+    JSON.stringify({
+      name: "fixture-helper",
+      exports: { "./hello": "./scripts/hello.sh" },
+    }),
+  );
+  fs.writeFileSync(
+    path.join(repoRoot, "scripts", "fixture-helper", "scripts", "hello.sh"),
+    '#!/bin/sh\necho "hello from fixture-helper"\n',
+  );
+
+  const outDir = path.join(tmpRoot, "out");
+  execFileSync(
+    process.execPath,
+    [cli, skillDir, "--out", outDir, "--repo-root", repoRoot],
+    { stdio: "pipe" },
+  );
+
+  const skillMd = fs.readFileSync(path.join(outDir, "SKILL.md"), "utf8");
+  assert.match(skillMd, /\[Run helper\]\(scripts\/hello\.sh\)/);
+});
+
 test("injects skill dependency note with skills.sh install command", () => {
   const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "skills-house-dep-"));
   const skillDir = path.join(tmpRoot, "needs-auditor");

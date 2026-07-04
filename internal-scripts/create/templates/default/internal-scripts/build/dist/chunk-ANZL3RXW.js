@@ -52,20 +52,25 @@ function classifyHref(href) {
 // src/get-repo-slug.ts
 import fs from "fs/promises";
 import path from "path";
-async function getRepoSlug(repoRoot) {
+function parseRepoSlug(url) {
+  const match = url.match(/github\.com[/:]([^/]+\/[^/.]+)/);
+  return match?.[1] ?? null;
+}
+async function tryGetRepoSlug(repoRoot) {
   const raw = await fs.readFile(path.join(repoRoot, "package.json"), "utf-8");
   const pkg = JSON.parse(raw);
   const url = typeof pkg.repository === "string" ? pkg.repository : pkg.repository?.url;
-  if (!url) {
+  if (!url) return null;
+  return parseRepoSlug(url);
+}
+async function getRepoSlug(repoRoot) {
+  const slug = await tryGetRepoSlug(repoRoot);
+  if (!slug) {
     throw new Error(
       "Cannot resolve repo slug: root package.json has no repository URL"
     );
   }
-  const match = url.match(/github\.com[/:]([^/]+\/[^/.]+)/);
-  if (!match) {
-    throw new Error(`Cannot parse GitHub repo slug from: ${url}`);
-  }
-  return match[1];
+  return slug;
 }
 
 export {
@@ -73,5 +78,6 @@ export {
   findIncludes,
   findLinks,
   classifyHref,
+  tryGetRepoSlug,
   getRepoSlug
 };

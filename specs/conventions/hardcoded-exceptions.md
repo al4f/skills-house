@@ -11,7 +11,7 @@ skills-house is a **framework**. Install commands and repo slugs must derive fro
 |-----------|--------|
 | `@skills-house/build` dependency notes | `getRepoSlug(repoRoot)` from root `package.json` |
 | `@skills-house/registry` `installCommand` + `repository` | Same |
-| Scaffolded projects | Authors set `repository` in root `package.json` after `npx create-skills-house` |
+| Scaffolded projects | `repository` auto-filled from `git remote origin` when present; otherwise `YOUR_ORG/<project>` placeholder until authors push to GitHub |
 
 **Canonical install form:** `npx skills add <owner>/<repo> --skill <skill-name>`
 

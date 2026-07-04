@@ -94,7 +94,7 @@ export async function resolvePackageLinks(
   body: string,
   links: SkillLink[],
   repoRoot: string,
-  repoSlug: string,
+  repoSlug: string | null,
   outDir: string,
   dependencies: string[],
 ): Promise<string> {
@@ -110,6 +110,11 @@ export async function resolvePackageLinks(
     const { dir, workspace } = await findPackageDir(repoRoot, pkg);
 
     if (workspace === "skills") {
+      if (!repoSlug) {
+        throw new Error(
+          `Cannot resolve skill dependency "${pkg}": root package.json has no GitHub repository URL. Add a "repository" field, then rebuild.`,
+        );
+      }
       if (!dependencies.includes(pkg)) {
         dependencies.push(pkg);
       }

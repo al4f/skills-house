@@ -3,12 +3,14 @@ import {
   findIncludes,
   findLinks,
   getRepoSlug,
-  parseSkillMd
-} from "./chunk-5FQ3JEP5.js";
+  parseSkillMd,
+  tryGetRepoSlug
+} from "./chunk-ANZL3RXW.js";
 export {
   classifyHref,
   findIncludes,
   findLinks,
   getRepoSlug,
-  parseSkillMd
+  parseSkillMd,
+  tryGetRepoSlug
 };
