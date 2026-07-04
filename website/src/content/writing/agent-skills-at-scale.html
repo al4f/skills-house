@@ -94,22 +94,27 @@ Run [hello](fixture-helper/hello).</code></pre>
       <h2>Multi-agent install strategy</h2>
 
       <p>
-        Different agents read skills from different paths. skills-house installs from one dist output:
+        Different agents read skills from different paths. Consumers install from the framework author's GitHub
+        source with the official <a href="https://www.skills.sh/docs/cli">skills.sh CLI</a>:
       </p>
 
-      <ul>
-        <li><strong>Global:</strong> <code>~/.cursor/skills/</code>, <code>~/.claude/skills/</code>, <code>~/.agents/skills/</code></li>
-        <li><strong>Project:</strong> <code>.agents/skills/</code>, <code>.cursor/skills/</code>, <code>.claude/skills/</code></li>
-      </ul>
-
-      <pre><code>pnpm build
-pnpm install:skills --scope project   # this repo
-pnpm install:skills                     # all agents, global</code></pre>
+      <pre><code>npx skills add al4f/skills-house --skill skill-auditor -a cursor -y</code></pre>
 
       <p>
-        Build once. Install everywhere. The install script is a thin layer over <code>skills-dist/</code> — no
-        per-agent authoring forks.
+        The CLI targets agent-specific directories — global (<code>~/.cursor/skills/</code>,
+        <code>~/.claude/skills/</code>, <code>~/.agents/skills/</code>) or project-local
+        (<code>.agents/skills/</code>, <code>.cursor/skills/</code>, <code>.claude/skills/</code>) — from one
+        source layout. No per-agent authoring forks.
       </p>
+
+      <p>
+        <strong>Monorepo maintainers only:</strong> after <code>pnpm build</code>, use <code>pnpm install:skills</code> to
+        copy built <code>skills-dist/</code> into local agent dirs for dogfooding — not the consumer install path.
+      </p>
+
+      <pre><code>pnpm build
+pnpm install:skills --scope project   # dev: this monorepo
+pnpm install:skills                     # dev: all agents, global</code></pre>
 
       <h2>How we built skills-house</h2>
 
@@ -130,7 +135,7 @@ pnpm install:skills                     # all agents, global</code></pre>
         <a href="https://www.skills.sh/docs/cli">skills.sh</a>
         (<code>npx skills add al4f/skills-house --skill skill-auditor</code>),
         optional npm dist packages, nested <code>@include</code>.
-        See the <a href="skills-house-distribution-rfc.html">distribution RFC</a>.
+        See the adopted <a href="skills-house-distribution-rfc.html">distribution model</a>.
       </p>
 
       <h2>What this means for skill authors</h2>
@@ -150,6 +155,6 @@ pnpm install:skills                     # all agents, global</code></pre>
       <blockquote>
         <p>
           <strong>Next:</strong> <a href="how-i-built-skill-auditor.html">How I built skill-auditor</a> —
-          a walkthrough of authoring a second reference skill in the monorepo.
+          a walkthrough of authoring the example skill in the reference monorepo.
         </p>
       </blockquote>

@@ -45,7 +45,7 @@ Last updated: Jul 2026 — post skills.sh distribution adoption.
 - [ ] **Publish LinkedIn post 1** — `content/publish/linkedin-1-ready.md`
 - [ ] **Record demo** — `content/demo-video/SCRIPT.md`
 - [ ] **Ecosystem posts** — `content/ecosystem/ENGAGEMENT.md`
-- [ ] Update distribution RFC article status to **Adopted** on al4f.dev
+- [x] Update distribution RFC article status to **Adopted** on al4f.dev
 
 ---
 

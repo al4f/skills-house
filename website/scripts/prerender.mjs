@@ -18,13 +18,8 @@ function getStaticRoutes() {
   return [
     "/",
     "/platform",
-    "/skills",
-    "/scripts",
-    "/graph",
-    "/search",
     "/writing",
     ...registry.skills.map((s) => `/skills/${s.id}`),
-    ...registry.scripts.map((s) => `/scripts/${s.id}`),
     ...writingSlugs.map((slug) => `/writing/${slug}`),
   ];
 }
@@ -66,7 +61,7 @@ for (const route of routes) {
 
   let html = template;
   if (head) {
-    html = html.replace("<title>al4f — Agent Skills infrastructure</title>", "");
+    html = html.replace("<title>Skills House — Framework for Agent Skills</title>", "");
     html = html.replace("</head>", `    ${head}\n  </head>`);
   }
 

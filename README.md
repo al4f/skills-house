@@ -40,7 +40,7 @@ skills-house fixes that with a clear split — for developers and non-developers
 | **Scripts** (`scripts/`) | Reusable execution packages shared across skills |
 | **Build** (`@skills-house/build`) | Compiles markers + links → Agent Skills layout |
 | **Dist** (`skills-dist/`) | What agents consume |
-| **Install** | One command per agent or all at once |
+| **Install** | `npx skills add owner/repo --skill <name>` (consumer) · `pnpm install:skills` (monorepo dev only) |
 
 ---
 
@@ -60,6 +60,14 @@ skills-house fixes that with a clear split — for developers and non-developers
 npx create-skills-house my-app
 cd my-app
 pnpm dev          # build + install skills to this project
+```
+
+Until `create-skills-house` is published to npm, scaffold from a clone:
+
+```bash
+git clone https://github.com/al4f/skills-house.git
+cd skills-house && nvm use && pnpm install && pnpm build
+node internal-scripts/create/dist/cli.js my-app
 ```
 
 **Contributors** — work from this reference monorepo:
@@ -98,13 +106,13 @@ pnpm remove:skills --agent cursor --skill skill-auditor
 
 ## Example skill
 
-One reference skill ships with the framework to demonstrate patterns — not a catalog:
+One reference skill ships with the framework to demonstrate patterns — not a catalog. Fork the framework and add skills in **your** repo; consumers install with `npx skills add your-org/your-repo --skill <name>`.
 
 | Skill | Description |
 |-------|-------------|
 | [skill-auditor](./skills/skill-auditor/) | Validates Agent Skills before ship — shows `@include`, references, and shared scripts |
 
-Add your own skills under `skills/<name>/`. Skill PRs auto-merge when validation passes. See [Contributing](#contributing).
+Updates to the example skill auto-merge when validation passes. New skills in this repo require maintainer review. See [Contributing](#contributing).
 
 ---
 
@@ -231,8 +239,9 @@ Deep dive: **[specs/architecture/monorepo-overview.md](./specs/architecture/mono
 
 skills-house has two contribution types:
 
-1. **Skill contributions** — content under `skills/<name>/` auto-merges when schema, lint, docs, and dependency checks pass
-2. **Framework contributions** — build system, CLI, generators, website, CI require maintainer review
+1. **Skill updates** — changes to existing skills under `skills/<name>/` auto-merge when checks pass
+2. **New skills** — require maintainer review (reference repo ships one example only)
+3. **Framework contributions** — build system, CLI, generators, website, CI require maintainer review
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full workflow.
 
@@ -244,7 +253,7 @@ Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCR
 
 ## Roadmap
 
-- [ ] Publish `create-skills-house` to npm
+- [ ] Publish `create-skills-house` to npm (`git tag v0.1.0-create` — see [NPM-SETUP.md](./content/publish/NPM-SETUP.md))
 - [x] `create-skills-house` scaffolder (one-command project setup)
 - [x] Nested `@include` support
 - [x] skills.sh consumer install (`npx skills add al4f/skills-house`)
@@ -252,7 +261,7 @@ Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCR
 - [x] CI, al4f.dev, custom domain
 - [x] Registry generator (metadata, search, dependency graph — internal tooling)
 - [x] Framework docs site on al4f.dev
-- [x] Auto-merge for skill contributions
+- [x] Auto-merge for skill updates (existing skills only)
 
 Optional: [PROGRESS.md](./content/publish/PROGRESS.md) — brand content, demo, ecosystem.
 

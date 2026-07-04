@@ -9,6 +9,13 @@ test("parseReleaseTag parses CLI tags", () => {
   });
 });
 
+test("parseReleaseTag parses create tags", () => {
+  assert.deepEqual(parseReleaseTag("v0.1.0-create"), {
+    type: "create",
+    version: "0.1.0",
+  });
+});
+
 test("parseReleaseTag parses skill tags", () => {
   assert.deepEqual(parseReleaseTag("v0.1.0-skill-auditor"), {
     type: "skill",

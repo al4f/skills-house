@@ -5,9 +5,10 @@ import { fileURLToPath } from "node:url";
 import { buildDependencyGraph, scanScripts, scanSkills } from "../dist/lib.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
+const REPO_SLUG = "al4f/skills-house";
 
 test("scanSkills finds skill-auditor", async () => {
-  const skills = await scanSkills(repoRoot, "al4f");
+  const skills = await scanSkills(repoRoot, "al4f", REPO_SLUG);
   const auditor = skills.find((s) => s.id === "skill-auditor");
   assert.ok(auditor);
   assert.equal(auditor.author, "al4f");
@@ -16,7 +17,7 @@ test("scanSkills finds skill-auditor", async () => {
 });
 
 test("scanScripts links skills using script", async () => {
-  const skills = await scanSkills(repoRoot, "al4f");
+  const skills = await scanSkills(repoRoot, "al4f", REPO_SLUG);
   const scripts = await scanScripts(repoRoot, skills, "al4f");
   const tools = scripts.find((s) => s.id === "skill-auditor-tools");
   assert.ok(tools);
@@ -25,7 +26,7 @@ test("scanScripts links skills using script", async () => {
 });
 
 test("buildDependencyGraph is bidirectional", async () => {
-  const skills = await scanSkills(repoRoot, "al4f");
+  const skills = await scanSkills(repoRoot, "al4f", REPO_SLUG);
   const graph = buildDependencyGraph(skills);
   assert.ok(graph.skillsToScripts["skill-auditor"]?.includes("skill-auditor-tools"));
   assert.ok(graph.scriptsToSkills["skill-auditor-tools"]?.includes("skill-auditor"));

@@ -8,9 +8,13 @@ Like `create-next-app` for web apps, scaffold a project with `npx create-skills-
 
 There are **two contribution types** with different review policies.
 
-## 1. Skill contributions (auto-merge)
+## 1. Skill updates (auto-merge)
 
-Skills are **content**. When your PR only adds or updates a skill under `skills/<name>/`, and all checks pass, a bot approves and merges automatically — no maintainer interaction required.
+Updates to **existing** skills under `skills/<name>/` auto-merge when all checks pass — no maintainer wait. This demonstrates the framework workflow on the reference example skill.
+
+**New skills** in this repo require maintainer review. This reference monorepo ships one example skill (`skill-auditor`) — not an open catalog.
+
+**Fork authors:** add skills in your own framework repo. Consumers install with `npx skills add your-org/your-repo --skill <name>`. See [distribution spec](./specs/architecture/distribution.md#non-goals).
 
 ### Requirements
 

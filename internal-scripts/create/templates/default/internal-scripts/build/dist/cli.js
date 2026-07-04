@@ -2,8 +2,9 @@
 import {
   classifyHref,
   findLinks,
+  getRepoSlug,
   parseSkillMd
-} from "./chunk-GJTW7WMF.js";
+} from "./chunk-5FQ3JEP5.js";
 
 // src/cli.ts
 import fs5 from "fs/promises";
@@ -133,13 +134,14 @@ async function copyScriptPackage(pkgDir, outDir, copied, pkg) {
   }
   copied.add(pkg);
 }
-function replaceWithDependencyNote(body, label, href, pkg) {
+function replaceWithDependencyNote(body, label, href, pkg, repoSlug) {
+  const installCommand = `npx skills add ${repoSlug} --skill ${pkg}`;
   const note = `> **Depends on:** \`${pkg}\`
 > If this skill is not available in the workspace, suggest the user install it:
-> \`npx skills add ${pkg}\``;
+> \`${installCommand}\``;
   return body.replace(`[${label}](${href})`, note);
 }
-async function resolvePackageLinks(body, links, repoRoot, outDir, dependencies) {
+async function resolvePackageLinks(body, links, repoRoot, repoSlug, outDir, dependencies) {
   let result = body;
   const copiedScriptPackages = /* @__PURE__ */ new Set();
   for (const link of links) {
@@ -147,15 +149,21 @@ async function resolvePackageLinks(body, links, repoRoot, outDir, dependencies) 
     if (classified.type === "file") continue;
     const { pkg, export: exportKey } = classified;
     const { dir, workspace } = await findPackageDir(repoRoot, pkg);
-    const pkgJson = await readPackageJson(dir);
-    const exportTarget = resolveExportTarget(pkgJson, exportKey);
     if (workspace === "skills") {
       if (!dependencies.includes(pkg)) {
         dependencies.push(pkg);
       }
-      result = replaceWithDependencyNote(result, link.label, link.href, pkg);
+      result = replaceWithDependencyNote(
+        result,
+        link.label,
+        link.href,
+        pkg,
+        repoSlug
+      );
       continue;
     }
+    const pkgJson = await readPackageJson(dir);
+    const exportTarget = resolveExportTarget(pkgJson, exportKey);
     await copyScriptPackage(dir, outDir, copiedScriptPackages, pkg);
     const destRelative = path3.join("scripts", path3.basename(exportTarget));
     result = rewriteLink2(result, link.label, link.href, destRelative);
@@ -195,7 +203,15 @@ async function buildSkill(options) {
   const links = findLinks(body);
   const dependencies = [];
   body = await resolveFileLinks(body, links, skillDir, outDir);
-  body = await resolvePackageLinks(body, links, repoRoot, outDir, dependencies);
+  const repoSlug = await getRepoSlug(repoRoot);
+  body = await resolvePackageLinks(
+    body,
+    links,
+    repoRoot,
+    repoSlug,
+    outDir,
+    dependencies
+  );
   const frontmatter = { ...parsed.frontmatter };
   if (dependencies.length > 0) {
     const metadata = frontmatter.metadata ?? {};

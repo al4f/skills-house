@@ -13,6 +13,7 @@ Architecture and design docs. **Paper first, code second.**
 | [authoring/skill-md-authoring.md](./authoring/skill-md-authoring.md) | `@include` marker and markdown link resolution |
 | [schema/skill-frontmatter.md](./schema/skill-frontmatter.md) | `SKILL.md` YAML frontmatter fields for authors |
 | [conventions/package-naming.md](./conventions/package-naming.md) | Workspace and published npm naming |
+| [conventions/hardcoded-exceptions.md](./conventions/hardcoded-exceptions.md) | Where `al4f/skills-house` may appear vs dynamic slug |
 
 ## Status
 
