@@ -6,15 +6,16 @@ type LayoutProps = {
   children: ReactNode;
   active?: string;
   className?: string;
+  variant?: "default" | "landing";
 };
 
-export function Layout({ children, active, className = "" }: LayoutProps) {
+export function Layout({ children, active, className = "", variant = "default" }: LayoutProps) {
   return (
-    <div className={`page ${className}`.trim()}>
-      <div className="page-glow" aria-hidden="true" />
-      <SiteHeader active={active} />
-      <main className="main-content">{children}</main>
-      <SiteFooter />
+    <div className={`page page-${variant} ${className}`.trim()}>
+      {variant !== "landing" ? <div className="page-glow" aria-hidden="true" /> : null}
+      <SiteHeader active={active} variant={variant} />
+      <main className={variant === "landing" ? "landing-main" : "main-content"}>{children}</main>
+      <SiteFooter variant={variant} />
     </div>
   );
 }
