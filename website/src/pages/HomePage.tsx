@@ -2,9 +2,14 @@ import { Link } from "react-router-dom";
 import { HeroVisual } from "@/components/HeroVisual";
 import { Layout } from "@/components/Layout";
 import { PageMeta, Section } from "@/components/ui";
-import { BRAND } from "@/lib/types";
 
 const exploreLinks = [
+  {
+    to: "/learn",
+    label: "Learn",
+    desc: "Plain-language guide",
+    accent: "skill",
+  },
   {
     to: "/platform",
     label: "Framework",
@@ -12,23 +17,16 @@ const exploreLinks = [
     accent: "neutral",
   },
   {
+    to: "/skills/skill-auditor",
+    label: "Live skill",
+    desc: "Agentic work in action",
+    accent: "skill",
+  },
+  {
     to: "/writing",
     label: "Writing",
     desc: "Guides & architecture",
     accent: "neutral",
-  },
-  {
-    to: "/skills/skill-auditor",
-    label: "Example skill",
-    desc: "skill-auditor patterns",
-    accent: "skill",
-  },
-  {
-    to: BRAND.repo,
-    label: "GitHub",
-    desc: "Source & specs",
-    accent: "neutral",
-    external: true as const,
   },
 ];
 
@@ -36,8 +34,8 @@ export function HomePage() {
   return (
     <Layout active="home" className="page-home">
       <PageMeta
-        title="Skills House — Framework for Agent Skills"
-        description="Open-source framework to scaffold, author, build, and ship agentic skill-based software with Agent Skills. Not a skill catalog."
+        title="Skills House — Teach your AI assistant new skills"
+        description="Open-source framework to author agentic work skills and ship them to Cursor, Claude, Codex, and more. No programming background required."
         path="/"
       />
 
@@ -45,25 +43,25 @@ export function HomePage() {
         <div className="hero-landing-copy">
           <p className="eyebrow">
             <span className="pulse-dot" aria-hidden="true" />
-            Open-source framework
+            For builders, not just developers
           </p>
           <h1 className="hero-title">
-            Agent Skills, <span className="gradient-text">at scale</span>
+            Agentic skills, <span className="gradient-text">made simple</span>
           </h1>
           <p className="lead">
-            Scaffold a project, author skills in freeform source, compile to spec-compliant dist, and ship to
-            Cursor, Claude, Codex, and more — with one command per skill via skills.sh.
+            Write instructions that teach your AI assistant how to do real work — then ship them with one
+            framework. Skills are live agentic capabilities on the framework, not copy-paste examples.
           </p>
           <pre className="hero-code">
             <code>npx create-skills-house my-app</code>
           </pre>
           <div className="hero-actions">
-            <Link to="/platform" className="btn btn-primary">
+            <Link to="/learn" className="btn btn-primary">
+              Start learning
+            </Link>
+            <Link to="/platform" className="btn btn-secondary">
               How it works
             </Link>
-            <a href={BRAND.repo} className="btn btn-secondary" target="_blank" rel="noreferrer">
-              View on GitHub
-            </a>
           </div>
         </div>
         <HeroVisual />
@@ -71,25 +69,26 @@ export function HomePage() {
 
       <Section className="explore-section">
         <div className="explore-grid">
-          {exploreLinks.map((item) =>
-            "external" in item && item.external ? (
-              <a
-                key={item.label}
-                href={item.to}
-                className={`explore-card explore-card-${item.accent}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <span className="explore-card-label">{item.label}</span>
-                <span className="explore-card-desc">{item.desc}</span>
-              </a>
-            ) : (
-              <Link key={item.to} to={item.to} className={`explore-card explore-card-${item.accent}`}>
-                <span className="explore-card-label">{item.label}</span>
-                <span className="explore-card-desc">{item.desc}</span>
-              </Link>
-            ),
-          )}
+          {exploreLinks.map((item) => (
+            <Link key={item.to} to={item.to} className={`explore-card explore-card-${item.accent}`}>
+              <span className="explore-card-label">{item.label}</span>
+              <span className="explore-card-desc">{item.desc}</span>
+            </Link>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <div className="learn-callout learn-callout-inline">
+          <h2>New to programming? Start here.</h2>
+          <p>
+            The Learn guide walks you through skills, scaffolding, and installation in plain language — no
+            jargon required. See exactly what <code>create-skills-house</code> builds and how agents use your
+            skills to do work.
+          </p>
+          <Link to="/learn#demo" className="btn btn-ghost">
+            View the scaffold demo →
+          </Link>
         </div>
       </Section>
 
