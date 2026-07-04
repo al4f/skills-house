@@ -63,7 +63,7 @@ skills-house/
 - **`@include /path`** — only build marker; nested includes supported.
 - **Markdown links** `[label](target)` — in-package files (`/path`) or package refs (`package/export`).
 
-Authoring rules: [marker spec](../markers/marker-spec.md). Frontmatter fields: [skill-frontmatter.md](../schema/skill-frontmatter.md).
+Authoring rules: [SKILL.md authoring spec](../authoring/skill-md-authoring.md). Frontmatter fields: [skill-frontmatter.md](../schema/skill-frontmatter.md).
 
 ### Dist (`skills-dist/`)
 
@@ -120,5 +120,5 @@ When the builder encounters `[other-skill](other-skill)`:
 
 - [Framework vision](./framework-vision.md)
 - [Distribution](./distribution.md)
-- [Marker spec](../markers/marker-spec.md)
+- [SKILL.md authoring spec](../authoring/skill-md-authoring.md)
 - [Package naming](../conventions/package-naming.md)

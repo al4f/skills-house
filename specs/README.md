@@ -9,10 +9,10 @@ Architecture and design docs. **Paper first, code second.**
 | [architecture/framework-vision.md](./architecture/framework-vision.md) | Canonical framework definition, DX, website role, contribution model |
 | [architecture/monorepo-overview.md](./architecture/monorepo-overview.md) | Workspaces, build flow, source vs dist |
 | [architecture/distribution.md](./architecture/distribution.md) | skills.sh + npm channels, install commands |
-| [markers/marker-spec.md](./markers/marker-spec.md) | `@include` marker and markdown link resolution |
+| [architecture/registry.md](./architecture/registry.md) | `pnpm generate` outputs and CI (maintainers) |
+| [authoring/skill-md-authoring.md](./authoring/skill-md-authoring.md) | `@include` marker and markdown link resolution |
 | [schema/skill-frontmatter.md](./schema/skill-frontmatter.md) | `SKILL.md` YAML frontmatter fields for authors |
 | [conventions/package-naming.md](./conventions/package-naming.md) | Workspace and published npm naming |
-| [plans/2026-07-03-implementation-plan.md](./plans/2026-07-03-implementation-plan.md) | Original phased plan (completed) |
 
 ## Status
 
@@ -20,11 +20,11 @@ Architecture and design docs. **Paper first, code second.**
 |------|--------|
 | Monorepo architecture | Adopted |
 | Distribution | Adopted |
-| Marker spec | Adopted |
+| Registry generator | Adopted |
+| SKILL.md authoring | Adopted |
 | Package naming | Adopted |
 | Framework vision | Adopted |
 | Skill frontmatter schema | Adopted (`specs/schema/skill-frontmatter.schema.json`) |
-| Implementation plan | Completed (historical) |
 
 ## Principles
 

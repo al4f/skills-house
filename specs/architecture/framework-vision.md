@@ -51,7 +51,7 @@ skills-house is an open-source **framework** for building **agentic, skill-based
 
 ## Generated artifacts
 
-Internal outputs from `pnpm generate` — not a public skill catalog:
+Internal outputs from `pnpm generate` — not a public skill catalog. Maintainer details: [registry.md](./registry.md).
 
 | Artifact | Path | Purpose |
 |----------|------|---------|

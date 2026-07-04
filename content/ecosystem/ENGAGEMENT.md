@@ -6,7 +6,7 @@ Notes for participating in the Agent Skills specification community.
 
 When discussing authoring conventions, link:
 
-- [Marker spec](https://github.com/al4f/skills-house/blob/main/specs/markers/marker-spec.md)
+- [SKILL.md authoring spec](https://github.com/al4f/skills-house/blob/main/specs/authoring/skill-md-authoring.md)
 - [Monorepo architecture](https://github.com/al4f/skills-house/blob/main/specs/architecture/monorepo-overview.md)
 - [Flagship article](https://al4f.dev/writing/agent-skills-at-scale.html)
 - [v2 conventions proposal](https://al4f.dev/writing/authoring-conventions-v2.html)

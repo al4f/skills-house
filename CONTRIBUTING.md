@@ -23,7 +23,7 @@ Your skill PR must pass:
 
 ### How to add a skill
 
-1. Read [specs/markers/marker-spec.md](./specs/markers/marker-spec.md)
+1. Read [specs/authoring/skill-md-authoring.md](./specs/authoring/skill-md-authoring.md)
 2. Create `skills/<name>/` with `SKILL.md` and `package.json`
 3. Set frontmatter `name` to match the directory name exactly
 4. Add optional `metadata.author`, `metadata.tags`, `metadata.version`

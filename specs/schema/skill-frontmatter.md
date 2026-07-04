@@ -51,7 +51,7 @@ metadata:
     - publishing
 ```
 
-Do not hand-author `metadata.dependencies` in source; the builder adds them when you link to another skill package (see [marker spec](../markers/marker-spec.md#form-3-skill-package)).
+Do not hand-author `metadata.dependencies` in source; the builder adds them when you link to another skill package (see [SKILL.md authoring spec](../authoring/skill-md-authoring.md#form-3-skill-package)).
 
 ## Full example
 
@@ -85,6 +85,6 @@ pnpm validate
 
 ## Related
 
-- [Marker / authoring spec](../markers/marker-spec.md)
+- [SKILL.md authoring spec](../authoring/skill-md-authoring.md)
 - [Package naming](../conventions/package-naming.md)
 - [Agent Skills spec](https://agentskills.io)

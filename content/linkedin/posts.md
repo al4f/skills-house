@@ -58,7 +58,7 @@ That's the whole parser surface. Authors stay productive. Dist stays spec-compli
 
 **CTA**
 
-Marker spec: https://github.com/al4f/skills-house/blob/main/specs/markers/marker-spec.md
+Authoring spec: https://github.com/al4f/skills-house/blob/main/specs/authoring/skill-md-authoring.md
 
 More writing: https://al4f.dev
 
