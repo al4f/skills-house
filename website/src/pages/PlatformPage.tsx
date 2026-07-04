@@ -6,11 +6,26 @@ import { PageMeta, Section } from "@/components/ui";
 import { registry } from "@/lib/registry";
 import { BRAND } from "@/lib/types";
 
+const packages = [
+  {
+    name: "@skills-house/build",
+    desc: "Compiles skill source into spec-compliant skills-dist/ — resolves @include, links, and dependencies.",
+  },
+  {
+    name: "@skills-house/install",
+    desc: "Installs built dist into agent directories (Cursor, Claude, Codex). Shell scripts + Node CLI.",
+  },
+  {
+    name: "@skills-house/create",
+    desc: "Scaffolds a new project with build + install tooling and a starter skill.",
+  },
+];
+
 const commands = [
   { cmd: "npx @skills-house/create my-app", desc: "Scaffold a new project" },
   { cmd: "pnpm build", desc: "Compile skills to skills-dist/" },
+  { cmd: "pnpm install:skills --scope project", desc: "Install dist locally (dev)" },
   { cmd: "npx skills add owner/repo --skill name", desc: "Install a skill (consumer)" },
-  { cmd: "pnpm install:skills", desc: "Install dist locally (monorepo dev)" },
 ];
 
 export function PlatformPage() {
@@ -35,6 +50,18 @@ export function PlatformPage() {
           GitHub
         </a>
       </PageHero>
+
+      <Section>
+        <h2 className="section-heading">Framework packages</h2>
+        <div className="landing-bento landing-bento-packages">
+          {packages.map((pkg) => (
+            <article key={pkg.name} className="landing-bento-card landing-bento-framework">
+              <CodeSnippet code={pkg.name} />
+              <p className="command-card-desc">{pkg.desc}</p>
+            </article>
+          ))}
+        </div>
+      </Section>
 
       <Section>
         <h2 className="section-heading">Commands</h2>

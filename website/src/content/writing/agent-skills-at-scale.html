@@ -51,7 +51,7 @@
         <li><strong>Source</strong> (<code>skills/</code>) — freeform layout. Only <code>SKILL.md</code> is required.</li>
         <li><strong>Build</strong> (<code>@skills-house/build</code>) — compiles markers and links into spec-compliant output.</li>
         <li><strong>Dist</strong> (<code>skills-dist/</code>) — what agents load. Always valid Agent Skills layout.</li>
-        <li><strong>Install</strong> — one command targets Cursor, Claude, Codex, or all at once.</li>
+        <li><strong>Install</strong> (<code>@skills-house/install</code>) — copies built dist into Cursor, Claude, Codex, and other agent directories.</li>
       </ul>
 
       <p>
@@ -108,8 +108,9 @@ Run [hello](fixture-helper/hello).</code></pre>
       </p>
 
       <p>
-        <strong>Monorepo maintainers only:</strong> after <code>pnpm build</code>, use <code>pnpm install:skills</code> to
-        copy built <code>skills-dist/</code> into local agent dirs for dogfooding — not the consumer install path.
+        <strong>Monorepo maintainers only:</strong> after <code>pnpm build</code>, use <code>pnpm install:skills</code> or
+        <code>pnpm install:cli add &lt;name&gt; --from ./skills-dist</code> to copy built <code>skills-dist/</code> into local
+        agent dirs for dogfooding — not the consumer install path.
       </p>
 
       <pre><code>pnpm build
@@ -124,8 +125,9 @@ pnpm install:skills                     # dev: all agents, global</code></pre>
 
       <ul>
         <li><strong>Paper first, code second</strong> — specs in <code>specs/</code> before implementation</li>
+        <li><strong>Three npm products</strong> — <code>@skills-house/build</code>, <code>@skills-house/install</code>, and <code>@skills-house/create</code></li>
         <li><strong>Committed dist in v1</strong> — inspectable PRs; you see exactly what agents load</li>
-        <li><strong>pnpm workspaces</strong> — skills, scripts, and build tooling in one monorepo</li>
+        <li><strong>pnpm workspaces</strong> — skills, scripts, and framework tooling in one monorepo</li>
         <li><strong>esbuild for script graphs</strong> — bundle namespace exports from <code>scripts/</code> packages</li>
         <li><strong>No dist validation</strong> — if build is correct, dist is correct by construction</li>
       </ul>

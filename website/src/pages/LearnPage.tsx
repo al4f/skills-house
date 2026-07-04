@@ -7,7 +7,7 @@ import { PageMeta, Section } from "@/components/ui";
 const steps = [
   "Describe what the agent should do in SKILL.md.",
   "Scaffold a project: npx @skills-house/create my-app",
-  "pnpm dev — build and install skills for your agent.",
+  "pnpm dev — @skills-house/build compiles, @skills-house/install wires skills to your agent.",
   "The agent loads the skill when a task matches its description.",
 ];
 
@@ -48,7 +48,10 @@ export function LearnPage() {
           <code>{`my-app/
   skills/my-app-skill/SKILL.md   ← edit this
   scripts/                       ← shared helpers
-  skills-dist/                   ← build output`}</code>
+  skills-dist/                   ← @skills-house/build output
+  internal-scripts/
+    build/                       ← @skills-house/build
+    install/                     ← @skills-house/install`}</code>
         </pre>
       </Section>
 

@@ -4,9 +4,9 @@ import { Layout } from "@/components/Layout";
 import { PageMeta } from "@/components/ui";
 
 const steps = [
-  { title: "Author", body: "Write skills in skills/. Share scripts across skills." },
-  { title: "Build", body: "pnpm build compiles to spec-compliant skills-dist/." },
-  { title: "Ship", body: "npx skills add owner/repo --skill name installs to any agent." },
+  { title: "Create", body: "npx @skills-house/create scaffolds build + install tooling." },
+  { title: "Build", body: "@skills-house/build compiles skills/ to spec-compliant skills-dist/." },
+  { title: "Install", body: "@skills-house/install or skills.sh ships skills to any agent." },
 ];
 
 export function HomePage() {

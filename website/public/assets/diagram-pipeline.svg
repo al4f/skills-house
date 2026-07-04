@@ -46,9 +46,11 @@
   <!-- Install -->
   <rect x="800" y="95" width="120" height="120" class="box"/>
   <text x="860" y="123" text-anchor="middle" class="title">Install</text>
-  <text x="815" y="153" class="label">Cursor</text>
-  <text x="815" y="173" class="label">Claude</text>
-  <text x="815" y="193" class="label">Codex</text>
+  <text x="815" y="148" class="label">@skills-house/</text>
+  <text x="815" y="163" class="label">install</text>
+  <text x="815" y="183" class="label">Cursor</text>
+  <text x="815" y="198" class="label">Claude</text>
+  <text x="815" y="213" class="label">Codex</text>
 
   <line x1="240" y1="155" x2="300" y2="155" class="arrow"/>
   <line x1="480" y1="155" x2="540" y2="155" class="arrow"/>
