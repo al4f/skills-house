@@ -64,10 +64,12 @@ When a skill links to another skill package, dist `SKILL.md` includes:
 ```markdown
 > **Depends on:** `other-skill`
 > If this skill is not available in the workspace, suggest the user install it:
-> `npx skills add <owner>/other-skill`
+> `npx skills add al4f/skills-house --skill other-skill`
 ```
 
-Use the real skills.sh install command — not a custom skills-house CLI.
+**Canonical form:** `npx skills add <owner>/<repo> --skill <skill-name>`
+
+The builder derives `<owner>/<repo>` from the root `package.json` `repository` URL. Use the official [skills.sh](https://www.skills.sh/docs/cli) CLI — not a custom skills-house CLI.
 
 ## Non-goals
 

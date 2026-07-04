@@ -83,3 +83,28 @@ test("rejects frontmatter name that does not match directory", () => {
     /must match directory "wrong-name"/,
   );
 });
+
+test("injects skill dependency note with skills.sh install command", () => {
+  const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "skills-house-dep-"));
+  const skillDir = path.join(tmpRoot, "needs-auditor");
+  fs.mkdirSync(skillDir, { recursive: true });
+  fs.writeFileSync(
+    path.join(skillDir, "package.json"),
+    JSON.stringify({ name: "@skills-house/needs-auditor" }),
+  );
+  fs.writeFileSync(
+    path.join(skillDir, "SKILL.md"),
+    "---\nname: needs-auditor\ndescription: depends on skill-auditor for validation checks\n---\n\nUses [auditor](skill-auditor) for review.\n",
+  );
+
+  const outDir = path.join(tmpRoot, "out");
+  runBuild(skillDir, outDir);
+
+  const skillMd = fs.readFileSync(path.join(outDir, "SKILL.md"), "utf8");
+  assert.match(skillMd, /> \*\*Depends on:\*\* `skill-auditor`/);
+  assert.match(
+    skillMd,
+    /npx skills add al4f\/skills-house --skill skill-auditor/,
+  );
+  assert.match(skillMd, /dependencies:\s*\n\s*- skill-auditor/);
+});

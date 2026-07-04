@@ -77,13 +77,7 @@ Internal outputs from `pnpm generate` — not a public skill catalog:
 
 ## Distribution
 
-| Audience | Install |
-|----------|---------|
-| Consumers (any repo) | `npx skills add al4f/skills-house --skill <name>` via [skills.sh](https://www.skills.sh) |
-| Maintainers (npm dist) | Tag-driven publish → `@skills-house/skill-<name>` |
-| Monorepo dev | `pnpm install:skills` after `pnpm build` |
-
-See [distribution.md](./distribution.md) for channel details.
+Install channels, consumer commands, and npm publish workflow: **[distribution.md](./distribution.md)**.
 
 ## Branding
 

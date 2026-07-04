@@ -128,7 +128,7 @@ Uses [other-skill](other-skill) as a dependency.
 ```markdown
 > **Depends on:** `other-skill`
 > If this skill is not available in the workspace, suggest the user install it:
-> `npx skills add other-skill`
+> `npx skills add al4f/skills-house --skill other-skill`
 ```
 
 ---
