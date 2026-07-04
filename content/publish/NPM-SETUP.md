@@ -57,14 +57,14 @@ Push a tag to `main`. GitHub Actions (`.github/workflows/publish-npm.yml`) build
 | Tag | Publishes |
 |-----|-----------|
 | `v0.0.1-skill-auditor` | `@skills-house/skill-skill-auditor@0.0.1` |
-| `v0.1.0-create` | `@skills-house/create@0.1.0` |
+| `v0.1.1-create` | `@skills-house/create@0.1.1` |
 
 ```bash
 git tag v0.0.1-skill-auditor
 git push origin v0.0.1-skill-auditor
 
-git tag v0.1.0-create
-git push origin v0.1.0-create
+git tag v0.1.1-create
+git push origin v0.1.1-create
 ```
 
 Optional (not needed for consumers): `v0.0.1-cli` → `@skills-house/cli`

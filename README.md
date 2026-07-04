@@ -262,7 +262,7 @@ Screen recording script: [content/demo-video/SCRIPT.md](./content/demo-video/SCR
 
 ## Roadmap
 
-- [ ] Publish `@skills-house/create` to npm (`git tag v0.1.0-create` — see [NPM-SETUP.md](./content/publish/NPM-SETUP.md))
+- [ ] Publish `@skills-house/create` to npm (`git tag v0.1.1-create` — see [NPM-SETUP.md](./content/publish/NPM-SETUP.md))
 - [x] `@skills-house/create` scaffolder (one-command project setup)
 - [x] Nested `@include` support
 - [x] skills.sh consumer install (`npx skills add al4f/skills-house`)

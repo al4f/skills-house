@@ -17,11 +17,11 @@ node internal-scripts/create/dist/cli.js my-app
 
 ## Publish to npm
 
-Tag format: `v<semver>-create` (e.g. `v0.1.0-create`). GitHub Actions packs and publishes via `.github/workflows/publish-npm.yml`.
+Tag format: `v<semver>-create` (e.g. `v0.1.1-create`). GitHub Actions packs and publishes via `.github/workflows/publish-npm.yml`.
 
 ```bash
-git tag v0.1.0-create
-git push origin v0.1.0-create
+git tag v0.1.1-create
+git push origin v0.1.1-create
 ```
 
 ## Monorepo development
