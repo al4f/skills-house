@@ -18,14 +18,14 @@ export function ScriptsIndexPage() {
   return (
     <Layout active="scripts">
       <PageMeta
-        title="Scripts Explorer"
-        description="Browse shared script packages in Skills House"
+        title="Shared scripts"
+        description="Script packages in the skills-house reference monorepo"
         path="/scripts"
       />
 
       <Section className="page-header">
-        <h1>Scripts Explorer</h1>
-        <p>Shared execution packages referenced by skills across the ecosystem.</p>
+        <h1>Shared scripts</h1>
+        <p>Reusable execution packages referenced from skills in this reference monorepo.</p>
       </Section>
 
       <InlineFilter

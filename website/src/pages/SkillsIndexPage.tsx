@@ -17,11 +17,19 @@ function filterSkill(skill: SkillEntry, query: string): boolean {
 export function SkillsIndexPage() {
   return (
     <Layout active="skills">
-      <PageMeta title="Skills Explorer" description="Browse all AI Skills in Skills House" path="/skills" />
+      <PageMeta
+        title="Example skills"
+        description="Skills in the skills-house reference monorepo — one example skill demonstrating framework patterns, not a catalog."
+        path="/skills"
+      />
 
       <Section className="page-header">
-        <h1>Skills Explorer</h1>
-        <p>Every skill in the Skills House registry, generated from repository metadata.</p>
+        <h1>Example skills</h1>
+        <p>
+          This reference monorepo ships skills to demonstrate authoring patterns. Fork the framework and publish
+          skills from your own GitHub repo — consumers install with{" "}
+          <code>npx skills add owner/repo --skill name</code>.
+        </p>
       </Section>
 
       <InlineFilter

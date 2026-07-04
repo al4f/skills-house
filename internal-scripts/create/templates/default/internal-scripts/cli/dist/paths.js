@@ -3,11 +3,13 @@ import {
   PACKAGE_ROOT,
   defaultRepoRoot,
   monorepoDistDir,
+  readRepoSlug,
   resolveInstallScript
-} from "./chunk-R4VHVVPK.js";
+} from "./chunk-GQFFS3X4.js";
 export {
   PACKAGE_ROOT,
   defaultRepoRoot,
   monorepoDistDir,
+  readRepoSlug,
   resolveInstallScript
 };

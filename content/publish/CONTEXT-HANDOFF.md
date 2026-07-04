@@ -1,6 +1,6 @@
 # Context handoff: al4f / skills-house
 
-Short pointer for new AI sessions. **Full status:** [PROGRESS.md](./PROGRESS.md). **Specs:** [specs/README.md](../../specs/README.md).
+Short pointer for new AI sessions. **Full status:** [PROGRESS.md](./PROGRESS.md). **Specs:** [specs/README.md](../../specs/README.md). **Continue spec↔code sync:** [SYNC-HANDOFF-PROMPT.md](./SYNC-HANDOFF-PROMPT.md).
 
 ---
 

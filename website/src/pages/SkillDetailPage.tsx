@@ -48,7 +48,10 @@ export function SkillDetailPage() {
         </header>
 
         <Section>
-          <h2>Install</h2>
+          <h2>Install (consumer)</h2>
+          <p>
+            Primary path — official skills.sh CLI from GitHub source in any repo where agents run:
+          </p>
           <pre>
             <code>{skill.installCommand}</code>
           </pre>

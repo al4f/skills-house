@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { getRepoSlug } from "@skills-house/build";
 import {
   buildDependencyGraph,
   findRepoRoot,
@@ -23,13 +24,14 @@ export async function generateRegistry(options: GenerateOptions = {}): Promise<R
   const rootPkg = JSON.parse(await fs.readFile(path.join(repoRoot, "package.json"), "utf-8")) as PackageJson;
   const authorDefault = typeof rootPkg.author === "string" ? rootPkg.author.split("<")[0].trim() : "al4f";
 
-  const skills = await scanSkills(repoRoot, authorDefault);
+  const repoSlug = await getRepoSlug(repoRoot);
+  const skills = await scanSkills(repoRoot, authorDefault, repoSlug);
   const scripts = await scanScripts(repoRoot, skills, authorDefault);
   const graph = buildDependencyGraph(skills);
 
   const partial: Omit<Registry, "searchIndex"> = {
     generatedAt: new Date().toISOString(),
-    repository: "https://github.com/al4f/skills-house",
+    repository: `https://github.com/${repoSlug}`,
     skills,
     scripts,
     graph,

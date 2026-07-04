@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -30,4 +30,19 @@ export function monorepoDistDir(): string {
 
 export function defaultRepoRoot(): string {
   return resolve(PACKAGE_ROOT, "../..");
+}
+
+export function readRepoSlug(repoRoot: string): string | null {
+  try {
+    const pkg = JSON.parse(readFileSync(join(repoRoot, "package.json"), "utf-8")) as {
+      repository?: string | { url?: string };
+    };
+    const url =
+      typeof pkg.repository === "string" ? pkg.repository : pkg.repository?.url;
+    if (!url) return null;
+    const match = url.match(/github\.com[/:]([^/]+\/[^/.]+)/);
+    return match?.[1] ?? null;
+  } catch {
+    return null;
+  }
 }

@@ -9,6 +9,7 @@ import {
 import {
   defaultRepoRoot,
   monorepoDistDir,
+  readRepoSlug,
   resolveInstallScript,
 } from "./paths.js";
 
@@ -40,8 +41,8 @@ Examples:
   skills add skill-auditor --agent cursor --scope project
   skills add skill-auditor --from ./skills-dist
 
-npm distribution:
-  npx skills add al4f/skills-house --skill skill-auditor
+Consumer install (skills.sh — primary, from your GitHub repo):
+  npx skills add <owner>/<repo> --skill <name>
 `);
 }
 
@@ -165,8 +166,9 @@ function resolveDistDir(options: AddOptions): string {
   console.error(
     `  • Clone skills-house and run: pnpm build && skills add ${options.skill} --from ./skills-dist`,
   );
-  console.error(`  • npx skills add al4f/skills-house --skill ${options.skill}`);
-  console.error(`  • npm package: ${npmPackageForSkill(options.skill)}`);
+  const repoSlug = readRepoSlug(defaultRepoRoot()) ?? "<owner>/<repo>";
+  console.error(`  • npx skills add ${repoSlug} --skill ${options.skill}`);
+  console.error(`  • npm (secondary): ${npmPackageForSkill(options.skill)}`);
   process.exit(1);
 }
 

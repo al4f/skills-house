@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-04T13:36:33.191Z",
+  "generatedAt": "2026-07-04T13:59:28.225Z",
   "repository": "https://github.com/al4f/skills-house",
   "skills": [
     {
@@ -13,7 +13,7 @@
         "agent-skills"
       ],
       "version": "0.1.0",
-      "installCommand": "npx skills add al4f/skills-house --skill skill-auditor -a cursor -y",
+      "installCommand": "npx skills add al4f/skills-house --skill skill-auditor",
       "scripts": [
         {
           "package": "skill-auditor-tools",

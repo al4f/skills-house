@@ -56,14 +56,14 @@ export function GraphPage() {
   return (
     <Layout active="graph">
       <PageMeta
-        title="Dependency Graph"
-        description="Visualize skill and script relationships"
+        title="Dependency graph"
+        description="Skill and script relationships in the reference monorepo"
         path="/graph"
       />
 
       <Section className="page-header">
-        <h1>Dependency Graph</h1>
-        <p>Bidirectional relationships between skills and scripts. Click a node to explore connections.</p>
+        <h1>Dependency graph</h1>
+        <p>Internal view of skill ↔ script links in this reference monorepo.</p>
       </Section>
 
       <div className="graph-layout">

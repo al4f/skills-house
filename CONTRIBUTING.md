@@ -10,7 +10,9 @@ There are **two contribution types** with different review policies.
 
 ## 1. Skill contributions (auto-merge)
 
-Skills are **content**. When your PR only adds or updates a skill under `skills/<name>/`, and all checks pass, a bot approves and merges automatically — no maintainer interaction required.
+Skills are **content** in this **reference monorepo**. When your PR only adds or updates a skill under `skills/<name>/`, and all checks pass, a bot approves and merges automatically.
+
+**Fork authors:** add skills in your own framework repo — do not treat this repo as an open skill catalog. See [distribution spec](./specs/architecture/distribution.md#non-goals).
 
 ### Requirements
 

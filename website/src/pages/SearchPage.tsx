@@ -43,11 +43,11 @@ export function SearchPage() {
 
   return (
     <Layout active="search">
-      <PageMeta title="Search" description="Search the Skills House registry" path="/search" />
+      <PageMeta title="Search" description="Search reference monorepo metadata (maintainer view)" path="/search" />
 
       <Section className="page-header">
         <h1>Search</h1>
-        <p>Search skills, scripts, tags, and authors across the registry.</p>
+        <p>Search skills, scripts, tags, and authors in this reference monorepo — internal metadata, not a public catalog.</p>
       </Section>
 
       <RegistrySearch

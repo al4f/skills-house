@@ -40,7 +40,7 @@ skills-house fixes that with a clear split — for developers and non-developers
 | **Scripts** (`scripts/`) | Reusable execution packages shared across skills |
 | **Build** (`@skills-house/build`) | Compiles markers + links → Agent Skills layout |
 | **Dist** (`skills-dist/`) | What agents consume |
-| **Install** | One command per agent or all at once |
+| **Install** | `npx skills add owner/repo --skill <name>` (consumer) · `pnpm install:skills` (monorepo dev only) |
 
 ---
 
@@ -98,13 +98,13 @@ pnpm remove:skills --agent cursor --skill skill-auditor
 
 ## Example skill
 
-One reference skill ships with the framework to demonstrate patterns — not a catalog:
+One reference skill ships with the framework to demonstrate patterns — not a catalog. Fork the framework and add skills in **your** repo; consumers install with `npx skills add your-org/your-repo --skill <name>`.
 
 | Skill | Description |
 |-------|-------------|
 | [skill-auditor](./skills/skill-auditor/) | Validates Agent Skills before ship — shows `@include`, references, and shared scripts |
 
-Add your own skills under `skills/<name>/`. Skill PRs auto-merge when validation passes. See [Contributing](#contributing).
+In this reference monorepo, skill PRs auto-merge when validation passes. See [Contributing](#contributing).
 
 ---
 

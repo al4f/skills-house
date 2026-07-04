@@ -21,6 +21,8 @@ skills-house/
 │       └── package.json            # exports → named namespaces
 ├── internal-scripts/
 │   ├── build/                      # @skills-house/build
+│   ├── create/                     # create-skills-house scaffolder
+│   ├── registry/                   # pnpm generate
 │   ├── cli/                        # optional dev CLI (pnpm skills)
 │   └── install/                    # install-skills.sh, remove-skills.sh
 ├── skills-dist/                    # generated Agent Skills output

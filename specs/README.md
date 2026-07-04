@@ -13,6 +13,7 @@ Architecture and design docs. **Paper first, code second.**
 | [authoring/skill-md-authoring.md](./authoring/skill-md-authoring.md) | `@include` marker and markdown link resolution |
 | [schema/skill-frontmatter.md](./schema/skill-frontmatter.md) | `SKILL.md` YAML frontmatter fields for authors |
 | [conventions/package-naming.md](./conventions/package-naming.md) | Workspace and published npm naming |
+| [conventions/hardcoded-exceptions.md](./conventions/hardcoded-exceptions.md) | When `owner/repo` may be hardcoded vs derived |
 
 ## Status
 
@@ -28,7 +29,7 @@ Architecture and design docs. **Paper first, code second.**
 
 ## Principles
 
-1. **Framework for agentic, skill-based software** — one-command scaffold (target), freeform authoring, compile-and-ship; [al4f.dev](https://al4f.dev) documents usage and use cases, not skill browsing.
+1. **Framework for agentic, skill-based software** — `npx create-skills-house` scaffolds a project; freeform authoring, compile-and-ship; [al4f.dev](https://al4f.dev) documents usage and use cases, not skill browsing.
 2. **Source is freeform** — only `SKILL.md` is required as the builder entry.
 3. **Dist is spec-compliant** — build output conforms to [Agent Skills](https://agentskills.io).
 4. **Primary install = skills.sh** — `npx skills add owner/repo --skill <name>`; npm dist is secondary.

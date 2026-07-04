@@ -43,7 +43,7 @@ jobs:
                 dir="${dir%%/*}"
                 skill_dirs+="$dir "
                 ;;
-              generated/*|website/data/*|website/skills/*|website/platform/*|website/platform.css)
+              generated/*|website/public/data/*|website/skills/*|website/platform/*|website/platform.css)
                 continue
                 ;;
               *)

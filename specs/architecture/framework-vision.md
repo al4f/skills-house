@@ -17,7 +17,7 @@ skills-house is an open-source **framework** for building **agentic, skill-based
 
 ## Principles
 
-1. **One-command onboarding** — target DX: `npx create-skills-house` (or equivalent) scaffolds a ready-to-build project.
+1. **One-command onboarding** — `npx create-skills-house` scaffolds a ready-to-build project (`internal-scripts/create/`).
 2. **Source is freeform** — only `SKILL.md` is required; `@include` and markdown links compose larger skills.
 3. **Build produces spec-compliant dist** — `@skills-house/build` is the framework core.
 4. **Authors bring skills; the framework handles compile and ship** — validation, metadata generation, and install paths are provided.
@@ -58,7 +58,7 @@ Internal outputs from `pnpm generate` — not a public skill catalog. Maintainer
 | Registry index | `generated/registry.json` | Skill + script metadata |
 | Search index | `generated/search-index.json` | Internal search data |
 | Dependency graph | `generated/dependency-graph.json` | Skill ↔ script relationships |
-| Website data | `website/data/*.json` | Static site consumption |
+| Website data | `website/public/data/*.json` | Static site consumption |
 
 ## Website
 

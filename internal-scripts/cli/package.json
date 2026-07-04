@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "description": "Install Agent Skills built with skills-house — npx @skills-house/cli add <name>",
+  "description": "Monorepo dev helper — install built dist skills locally. Consumers use npx skills add owner/repo --skill name (skills.sh).",
   "author": "al4f <https://al4f.dev>",
   "license": "MIT",
   "repository": {

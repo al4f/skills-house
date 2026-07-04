@@ -6,8 +6,9 @@ import {
 import {
   defaultRepoRoot,
   monorepoDistDir,
+  readRepoSlug,
   resolveInstallScript
-} from "./chunk-R4VHVVPK.js";
+} from "./chunk-GQFFS3X4.js";
 
 // src/cli.ts
 import { spawnSync } from "child_process";
@@ -33,8 +34,8 @@ Examples:
   skills add skill-auditor --agent cursor --scope project
   skills add skill-auditor --from ./skills-dist
 
-npm distribution:
-  npx skills add al4f/skills-house --skill skill-auditor
+Consumer install (skills.sh \u2014 primary, from your GitHub repo):
+  npx skills add <owner>/<repo> --skill <name>
 `);
 }
 function parseArgs(argv) {
@@ -135,8 +136,9 @@ function resolveDistDir(options) {
   console.error(
     `  \u2022 Clone skills-house and run: pnpm build && skills add ${options.skill} --from ./skills-dist`
   );
-  console.error(`  \u2022 npx skills add al4f/skills-house --skill ${options.skill}`);
-  console.error(`  \u2022 npm package: ${npmPackageForSkill(options.skill)}`);
+  const repoSlug = readRepoSlug(defaultRepoRoot()) ?? "<owner>/<repo>";
+  console.error(`  \u2022 npx skills add ${repoSlug} --skill ${options.skill}`);
+  console.error(`  \u2022 npm (secondary): ${npmPackageForSkill(options.skill)}`);
   process.exit(1);
 }
 function runInstall(distDir, options) {
