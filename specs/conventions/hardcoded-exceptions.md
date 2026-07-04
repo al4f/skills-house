@@ -10,7 +10,6 @@ skills-house is a **framework**. Install commands and repo slugs must derive fro
 | Component | Source |
 |-----------|--------|
 | `@skills-house/build` dependency notes | `getRepoSlug(repoRoot)` from root `package.json` |
-| `@skills-house/registry` `installCommand` + `repository` | Same |
 | Scaffolded projects | `repository` auto-filled from `git remote origin` when present; otherwise `YOUR_ORG/<project>` placeholder until authors push to GitHub |
 
 **Canonical install form:** `npx skills add <owner>/<repo> --skill <skill-name>`
@@ -31,16 +30,15 @@ These may use `al4f/skills-house` as the **reference monorepo** example:
 
 Do **not** hardcode `al4f/skills-house` in:
 
-- Forked or scaffolded project tooling (CLI errors, build output, registry)
+- Forked or scaffolded project tooling (CLI errors, build output)
 - `internal-scripts/create` templates (use `YOUR_ORG/repo` placeholders)
 
 ## Install channels (reminder)
 
-| Priority | Channel | When |
-|----------|---------|------|
-| **Primary** | `npx skills add owner/repo --skill name` | Any consumer repo; installs GitHub **source** from the framework repo |
-| **Secondary** | `@skills-house/skill-*` npm packages | Semver / metrics only |
-| **Dev only** | `pnpm install:skills` | Monorepo dogfooding of **dist** |
+| Channel | When |
+|---------|------|
+| `npx skills add owner/repo --skill name` | Consumer repos; installs GitHub **source** |
+| `pnpm install:skills` | Monorepo dev only; installs **dist** locally |
 
 ## Related
 

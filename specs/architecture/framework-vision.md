@@ -7,61 +7,76 @@
 
 skills-house is an open-source **framework** for building **agentic, skill-based software** with [Agent Skills](https://agentskills.io).
 
-**Ease of use** is a first-class goal: scaffold a project with one command (like `create-next-app` for web apps), author skills in freeform source, and let the framework compile, validate, and ship them to any agent runtime.
+**Ease of use** is a first-class goal: scaffold a project with one command (like `create-next-app`), author skills in freeform source, and let the framework compile and ship them to any agent runtime.
 
-**Who it's for** goes beyond traditional developers. With tools like Cursor, Claude Code, Cursor mobile, or Claude mobile, teams can use skills as the building blocks of agentic applications — the framework supplies structure and delivery; agents supply execution.
+**Who it's for** goes beyond traditional developers. With Cursor, Claude Code, mobile agents, or cloud agents, teams use skills as building blocks — the framework supplies structure and delivery; agents supply execution.
 
-**Not a skill catalog** — this repo ships one example skill (`skill-auditor`) to demonstrate patterns.
+**Not a skill catalog** — this repo ships one **framework skill** (`skill-auditor`) that documents how the framework works. Fork authors ship their own skills from their own repositories.
 
-**Website** — [al4f.dev](https://al4f.dev) explains how to work with the framework and what you can build with it. Browsing or showcasing skills is not its purpose.
+**Website** — [al4f.dev](https://al4f.dev) explains how to work with the framework. Browsing or showcasing skills is not its purpose.
+
+## Core purpose of build
+
+`@skills-house/build` exists to:
+
+1. **Compile** freeform skill source into spec-compliant Agent Skills dist.
+2. **Wire executable scripts** from `scripts/` into skill output so agents can invoke them.
+3. **Enable execution where the runtime cannot** — some agent runtimes (mobile, cloud) cannot run bundled scripts locally. When the repo is connected via **GitHub integration**, those runtimes can still trigger script execution against the repository (CI workflows, repo-connected cloud agents). Build output must make script entry points discoverable and documented for both local and GitHub-backed execution.
+
+Build does **not** exist to generate catalogs, search indexes, or dependency graphs for product features.
 
 ## Principles
 
 1. **One-command onboarding** — target DX: `npx @skills-house/create` scaffolds a ready-to-build project.
 2. **Source is freeform** — only `SKILL.md` is required; `@include` and markdown links compose larger skills.
 3. **Build produces spec-compliant dist** — `@skills-house/build` is the framework core.
-4. **Authors bring skills; the framework handles compile and ship** — validation, metadata generation, and install paths are provided.
-5. **Framework changes require humans** — build system, CLI, generators, website, and CI never auto-merge.
-6. **GitHub is the source of truth** — generated metadata and site data come from repository contents.
+4. **Scripts are first-class** — shared execution packages in `scripts/` are linked into skills at build time; authors do not duplicate script logic inside skill folders.
+5. **GitHub is the source of truth** — website data, when needed, is derived from repository contents at build time.
 
-## Contribution model
+## Contribution
 
-| Type | Paths | Review | Auto-merge |
-|------|-------|--------|------------|
-| Skill update | `skills/<name>/` (existing) | Automated checks only | Yes, when checks pass |
-| New skill | `skills/<new-name>/` | Maintainer review | Never |
-| Framework | Everything else | Maintainer review | Never |
+Same as any open-source repository:
 
-This reference repo ships **one example skill** (`skill-auditor`). Fork authors add skills in their own repositories — see [distribution](./distribution.md#non-goals).
-
-### Skill checks
-
-- Schema validation (`specs/schema/skill-frontmatter.schema.json`)
-- Per-package lint (`pnpm validate`)
-- Registry generation (`pnpm generate`)
-- Dependency and reference validation
+- Open an **issue** before substantial work.
+- All changes require **maintainer review and approval** before merge.
+- **No auto-merge. No exceptions.**
 
 ## Framework components
 
 | Component | Path | Role |
 |-----------|------|------|
 | Scaffold CLI | `internal-scripts/create/` (`@skills-house/create`) | One-command project setup |
-| Build pipeline | `internal-scripts/build/` | `@skills-house/build` — markers, links, dist writer |
+| Build pipeline | `internal-scripts/build/` (`@skills-house/build`) | Compile skills, resolve links, bundle scripts into dist |
 | Shared scripts | `scripts/<name>/` | Reusable execution packages referenced from skills |
-| Metadata generator | `@skills-house/registry` (`pnpm generate`) | Skill + script metadata for CI and internal tooling |
-| Install scripts | `internal-scripts/install/` | Local dist install for dogfooding |
-| Example skill | `skills/skill-auditor/` | Demonstrates authoring patterns |
+| Install scripts | `internal-scripts/install/` | Prepare the repo so other agents can consume built skills locally |
+| Framework skill | `skills/skill-auditor/` | Canonical framework documentation — not a demo |
+
+### Framework skill (`skill-auditor`)
+
+This skill is **required reading for agents working in a skills-house repository**. Every scaffolded project installs it and references it from always-included agent context (e.g. `AGENTS.md`, Cursor rules).
+
+It documents:
+
+- How to define skills and scripts and what each is for
+- How to build skills (`pnpm build`, per-skill commands)
+- How to install skills for use by other agents (`install-skills.sh`, skills.sh)
+- Repository conventions agents must follow
+
+It is **not** an example or optional add-on. It is the operational manual for the framework inside Agent Skills format.
+
+### Install scripts
+
+`internal-scripts/install/` copies built dist into agent skill directories so **other agents** (not just the authoring agent) can load and use skills from this repo during development.
 
 ## Generated artifacts
 
-Internal outputs from `pnpm generate` — not a public skill catalog. Maintainer details: [registry.md](./registry.md).
+Only **website data** is a retained generated output:
 
 | Artifact | Path | Purpose |
 |----------|------|---------|
-| Registry index | `generated/registry.json` | Skill + script metadata |
-| Search index | `generated/search-index.json` | Internal search data |
-| Dependency graph | `generated/dependency-graph.json` | Skill ↔ script relationships |
-| Website data | `website/data/*.json` | Static site consumption |
+| Website data | `website/public/data/*.json` | Static site consumption |
+
+Registry indexes, search indexes, and dependency graphs are **not** framework outputs. If the website needs repo metadata, generate it with simple build-time scripts — not a dedicated metadata subsystem.
 
 ## Website
 
@@ -70,17 +85,20 @@ Internal outputs from `pnpm generate` — not a public skill catalog. Maintainer
 **In scope:**
 
 - How to scaffold, author, build, and ship with skills-house
-- Use cases: agentic apps, multi-agent workflows, mobile agent tooling
+- Use cases: agentic apps, multi-agent workflows, mobile and cloud agent tooling
 - Architecture articles and build logs
 
 **Out of scope:**
 
-- Skill discovery UI or registry browsing as a product surface
+- Skill discovery UI or registry browsing
 - Marketplace, leaderboard, or catalog positioning
 
 ## Distribution
 
-Install channels, consumer commands, and npm publish workflow: **[distribution.md](./distribution.md)**.
+See **[distribution.md](./distribution.md)**.
+
+- **Skills** — [skills.sh](https://www.skills.sh) only (`npx skills add owner/repo --skill <name>`).
+- **Framework packages** — npm, tag-driven publish (`@skills-house/build`, `@skills-house/create`, etc.).
 
 ## Branding
 
@@ -94,10 +112,9 @@ Framework docs reinforce Skills House by **al4f**, linking to:
 
 | Workflow | Trigger | Action |
 |----------|---------|--------|
-| `ci.yml` | PR + push | Build, test, validate, `generate:check` |
-| `generate-registry.yml` | Push to `main` | Regenerate and commit artifacts |
-| `auto-merge-skills.yml` | Skill-only update PR | Approve + auto-merge when CI passes (existing skills only) |
+| `ci.yml` | PR + push | Build, test, validate |
 | `deploy-al4f-dev.yml` | Website changes | Deploy GitHub Pages |
+| `publish-npm.yml` | Version tag | Publish framework packages to npm |
 
 ## Related
 

@@ -1,18 +1,19 @@
 # Package Naming Conventions
 
-**Date:** 2026-07-03  
+**Date:** 2026-07-04  
 **Status:** Adopted
 
 ## npm scope
 
-Published packages use `@skills-house`:
+Published **framework** packages use `@skills-house`:
 
 ```
-@skills-house/build                  # build tool (published)
-@skills-house/cli                    # install CLI (published)
-@skills-house/create                 # scaffold CLI (published)
-@skills-house/skill-skill-auditor    # published skill dist (npm channel)
+@skills-house/build                  # build tool (published via tag)
+@skills-house/cli                    # optional dev CLI (published via tag)
+@skills-house/create                 # scaffold CLI (published via tag)
 ```
+
+Skills are **not** published to npm. Skill distribution is [skills.sh only](../architecture/distribution.md).
 
 ## Workspace vs published names
 
@@ -20,10 +21,7 @@ Published packages use `@skills-house`:
 |---------|---------|---------|
 | Workspace skill package | `@skills-house/<dir-name>` (private) | `@skills-house/skill-auditor` in `skills/skill-auditor/` |
 | Framework tool | `@skills-house/<tool>` | `@skills-house/build`, `@skills-house/cli`, `@skills-house/create` |
-| Published dist package | `@skills-house/skill-<dir-name>` | `@skills-house/skill-skill-auditor` |
 | Scripts workspace | `@skills-house/script-<name>` (private) | `@skills-house/script-fixture-helper` |
-
-The `skill-` prefix on **published** npm packages distinguishes dist artifacts from workspace package names.
 
 ## Skill `name` field (Agent Skills spec)
 

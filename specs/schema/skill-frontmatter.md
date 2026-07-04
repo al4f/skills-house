@@ -4,7 +4,7 @@
 **Status:** Adopted  
 **Schema:** [skill-frontmatter.schema.json](./skill-frontmatter.schema.json)
 
-YAML frontmatter at the top of source `SKILL.md` (and preserved in dist). Validated in CI via `@skills-house/registry`.
+YAML frontmatter at the top of source `SKILL.md` (and preserved in dist). Validated per-package in CI (`pnpm validate`).
 
 ## Required fields
 
