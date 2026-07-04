@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { PageMeta, Section } from "@/components/ui";
-import { getWritingBody, getWritingPost } from "@/lib/writing";
+import { getWritingBody, getWritingPost, writingPosts } from "@/lib/writing";
 
 export function WritingPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -21,9 +21,11 @@ export function WritingPostPage() {
   }
 
   const body = getWritingBody(slug);
+  const currentIndex = writingPosts.findIndex((p) => p.slug === slug);
+  const nextPost = currentIndex >= 0 ? writingPosts[currentIndex + 1] : undefined;
 
   return (
-    <Layout active="writing">
+    <Layout active="writing" className="page-writing-post">
       <PageMeta
         title={post.title}
         description={post.description}
@@ -31,21 +33,40 @@ export function WritingPostPage() {
         ogImage={post.ogImage}
       />
 
-      <header className="article-header">
-        {post.eyebrow && <p className="eyebrow">{post.eyebrow}</p>}
-        <h1>{post.title}</h1>
-        <p className="article-meta">
-          {post.date} · {post.readTime}
-        </p>
-      </header>
+      <article className="writing-article">
+        <header className="writing-article-header">
+          {post.eyebrow ? <p className="landing-eyebrow">{post.eyebrow}</p> : null}
+          <h1 className="writing-article-title">{post.title}</h1>
+          <p className="writing-article-meta">
+            {post.date} · {post.readTime}
+          </p>
+        </header>
 
-      <article className="article-content" dangerouslySetInnerHTML={{ __html: body }} />
+        <div className="writing-article-body article-content" dangerouslySetInnerHTML={{ __html: body }} />
 
-      <nav className="article-nav">
-        <p>
-          <a href="https://github.com/al4f/skills-house">skills-house on GitHub</a> · <Link to="/writing">More writing</Link>
-        </p>
-      </nav>
+        <footer className="writing-article-footer">
+          <div className="landing-cta-card landing-cta-card-compact">
+            <h2>Build with skills-house</h2>
+            <p>Scaffold a project and ship your first Agent Skill to any runtime.</p>
+            <div className="landing-cta-links">
+              <Link to="/platform" className="btn btn-primary">
+                Framework overview
+              </Link>
+              <a href="https://github.com/al4f/skills-house" className="btn btn-ghost" target="_blank" rel="noreferrer">
+                View on GitHub
+              </a>
+            </div>
+          </div>
+          {nextPost ? (
+            <p className="writing-article-next">
+              Next: <Link to={`/writing/${nextPost.slug}`}>{nextPost.title}</Link>
+            </p>
+          ) : null}
+          <p className="writing-article-back">
+            <Link to="/writing">← All writing</Link>
+          </p>
+        </footer>
+      </article>
     </Layout>
   );
 }

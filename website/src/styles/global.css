@@ -3217,4 +3217,212 @@ pre code {
   max-width: 520px;
 }
 
+/* Writing pages */
+.writing-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.writing-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  min-height: 100%;
+}
+
+.writing-card:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+  border-color: rgba(91, 141, 239, 0.3);
+  box-shadow: var(--shadow);
+}
+
+.writing-card-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+.writing-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+  transition: color 0.15s;
+}
+
+.writing-card:hover .writing-card-title {
+  color: var(--accent-hover);
+}
+
+.writing-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.writing-card-meta {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  margin-top: 0.5rem;
+}
+
+.writing-article {
+  max-width: var(--max-width);
+}
+
+.writing-article-header {
+  margin-bottom: 2.5rem;
+}
+
+.writing-article-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.writing-article-meta {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.writing-article-body {
+  margin-bottom: 3rem;
+}
+
+.writing-article-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.writing-article-next,
+.writing-article-back {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.writing-article-next a,
+.writing-article-back a {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Skill detail */
+.skill-detail-header {
+  margin-bottom: 2.5rem;
+  max-width: 640px;
+}
+
+.skill-detail-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+}
+
+.skill-detail-lead {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+}
+
+.skill-detail-author {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.skill-detail-author a {
+  color: var(--text);
+}
+
+.skill-detail-panel {
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.skill-detail-panel h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.skill-detail-panel-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.skill-detail-panel .code-snippet {
+  max-width: 100%;
+}
+
+.skill-detail-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.skill-detail-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.skill-detail-list-label {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.skill-detail-links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-detail-links a {
+  display: inline-flex;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+
+.skill-detail-links a:hover {
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+.page-skill-detail .landing-cta-card-compact {
+  max-width: 640px;
+}
+
+
 
