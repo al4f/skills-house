@@ -19,8 +19,6 @@ type PackageJson = {
   };
 };
 
-const REPO_SLUG = "al4f/skills-house";
-
 export async function findRepoRoot(start = process.cwd()): Promise<string> {
   let dir = start;
   for (;;) {
@@ -80,7 +78,11 @@ async function packageExists(repoRoot: string, pkg: string): Promise<"skills" | 
   return null;
 }
 
-export async function scanSkills(repoRoot: string, authorDefault: string): Promise<SkillEntry[]> {
+export async function scanSkills(
+  repoRoot: string,
+  authorDefault: string,
+  repoSlug = "owner/repo",
+): Promise<SkillEntry[]> {
   const skillsDir = path.join(repoRoot, "skills");
   const entries = await fs.readdir(skillsDir, { withFileTypes: true });
   const skills: SkillEntry[] = [];
@@ -132,7 +134,7 @@ export async function scanSkills(repoRoot: string, authorDefault: string): Promi
       author,
       tags: Array.isArray(tags) ? tags.map(String) : [],
       version,
-      installCommand: `npx skills add ${REPO_SLUG} --skill ${entry.name} -a cursor -y`,
+      installCommand: `npx skills add ${repoSlug} --skill ${entry.name}`,
       scripts,
       dependencies,
       relatedSkills: dependencies,

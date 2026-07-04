@@ -7,6 +7,23 @@ npx create-skills-house my-app
 cd my-app && pnpm dev
 ```
 
+**Until published to npm**, scaffold from a clone of this repo:
+
+```bash
+git clone https://github.com/al4f/skills-house.git
+cd skills-house && nvm use && pnpm install && pnpm build
+node internal-scripts/create/dist/cli.js my-app
+```
+
+## Publish to npm
+
+Tag format: `v<semver>-create` (e.g. `v0.1.0-create`). GitHub Actions packs and publishes via `.github/workflows/publish-npm.yml`.
+
+```bash
+git tag v0.1.0-create
+git push origin v0.1.0-create
+```
+
 ## Monorepo development
 
 ```bash

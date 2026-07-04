@@ -4,6 +4,7 @@
  *
  * Formats:
  *   v0.0.1-cli           → @skills-house/cli
+ *   v0.0.1-create        → create-skills-house
  *   v0.0.1-skill-auditor → @skills-house/skill-skill-auditor
  *
  * Usage:
@@ -16,7 +17,7 @@ const __filename = fileURLToPath(import.meta.url);
 
 /**
  * @param {string} tag
- * @returns {{ type: "cli", version: string } | { type: "skill", version: string, skill: string } | null}
+ * @returns {{ type: "cli", version: string } | { type: "create", version: string } | { type: "skill", version: string, skill: string } | null}
  */
 export function parseReleaseTag(tag) {
   const match = tag.match(/^v(\d+\.\d+\.\d+)-(.+)$/);
@@ -29,6 +30,10 @@ export function parseReleaseTag(tag) {
 
   if (target === "cli") {
     return { type: "cli", version };
+  }
+
+  if (target === "create") {
+    return { type: "create", version };
   }
 
   return { type: "skill", version, skill: target };
@@ -44,7 +49,7 @@ function main() {
   const parsed = parseReleaseTag(tag);
   if (!parsed) {
     console.error(`Invalid release tag: ${tag}`);
-    console.error("Expected v<semver>-cli or v<semver>-<skill-name>");
+    console.error("Expected v<semver>-cli, v<semver>-create, or v<semver>-<skill-name>");
     process.exit(1);
   }
 

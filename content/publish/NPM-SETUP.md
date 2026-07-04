@@ -56,10 +56,14 @@ Push a tag to `main`. GitHub Actions (`.github/workflows/publish-npm.yml`) build
 | Tag | Publishes |
 |-----|-----------|
 | `v0.0.1-skill-auditor` | `@skills-house/skill-skill-auditor@0.0.1` |
+| `v0.1.0-create` | `create-skills-house@0.1.0` |
 
 ```bash
 git tag v0.0.1-skill-auditor
 git push origin v0.0.1-skill-auditor
+
+git tag v0.1.0-create
+git push origin v0.1.0-create
 ```
 
 Optional (not needed for consumers): `v0.0.1-cli` → `@skills-house/cli`
@@ -88,7 +92,7 @@ npm view @skills-house/skill-skill-auditor version
 
 | Error | Fix |
 |-------|-----|
-| Workflow skipped / no publish | Tag must match `v<semver>-cli` or `v<semver>-<skill-name>` |
+| Workflow skipped / no publish | Tag must match `v<semver>-cli`, `v<semver>-create`, or `v<semver>-<skill-name>` |
 | `NPM_TOKEN` missing | Add repository secret (step 3) |
 | `403 Forbidden` ... `bypass 2fa` | Regenerate token as **Automation** (not Publish); update `NPM_TOKEN` secret |
 | `403 Forbidden` (other) | Token needs publish access to `@skills-house` scope |

@@ -22,7 +22,7 @@ export const writingPosts: WritingPost[] = [
   {
     slug: "how-i-built-skill-auditor",
     title: "How I Built skill-auditor in skills-house",
-    description: "A walkthrough of authoring a second reference skill in the skills-house monorepo.",
+    description: "A walkthrough of authoring the example skill-auditor in the skills-house reference monorepo.",
     date: "Jul 2026",
     readTime: "8 min read",
     eyebrow: "Build log",
@@ -37,11 +37,11 @@ export const writingPosts: WritingPost[] = [
   },
   {
     slug: "skills-house-distribution-rfc",
-    title: "RFC: skills-house Distribution Model",
-    description: "Public RFC for npx skills add and per-skill npm distribution.",
+    title: "skills-house Distribution Model",
+    description: "Adopted distribution model — npx skills add primary, per-skill npm secondary.",
     date: "Jul 2026",
     readTime: "6 min read",
-    eyebrow: "RFC",
+    eyebrow: "Adopted",
   },
 ];
 

@@ -28,8 +28,11 @@ skills-house is an open-source **framework** for building **agentic, skill-based
 
 | Type | Paths | Review | Auto-merge |
 |------|-------|--------|------------|
-| Skill | `skills/<name>/` | Automated checks only | Yes, when checks pass |
+| Skill update | `skills/<name>/` (existing) | Automated checks only | Yes, when checks pass |
+| New skill | `skills/<new-name>/` | Maintainer review | Never |
 | Framework | Everything else | Maintainer review | Never |
+
+This reference repo ships **one example skill** (`skill-auditor`). Fork authors add skills in their own repositories — see [distribution](./distribution.md#non-goals).
 
 ### Skill checks
 
@@ -93,7 +96,7 @@ Framework docs reinforce Skills House by **al4f**, linking to:
 |----------|---------|--------|
 | `ci.yml` | PR + push | Build, test, validate, `generate:check` |
 | `generate-registry.yml` | Push to `main` | Regenerate and commit artifacts |
-| `auto-merge-skills.yml` | Skill-only PR | Approve + auto-merge when CI passes |
+| `auto-merge-skills.yml` | Skill-only update PR | Approve + auto-merge when CI passes (existing skills only) |
 | `deploy-al4f-dev.yml` | Website changes | Deploy GitHub Pages |
 
 ## Related

@@ -69,7 +69,7 @@ When a skill links to another skill package, dist `SKILL.md` includes:
 
 **Canonical form:** `npx skills add <owner>/<repo> --skill <skill-name>`
 
-The builder derives `<owner>/<repo>` from the root `package.json` `repository` URL. Use the official [skills.sh](https://www.skills.sh/docs/cli) CLI — not a custom skills-house CLI.
+The builder derives `<owner>/<repo>` from the root `package.json` `repository` URL. See [hardcoded exceptions](../conventions/hardcoded-exceptions.md). Use the official [skills.sh](https://www.skills.sh/docs/cli) CLI — not a custom skills-house CLI.
 
 ## Non-goals
 

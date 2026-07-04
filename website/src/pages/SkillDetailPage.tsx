@@ -14,7 +14,7 @@ export function SkillDetailPage() {
         <Section className="page-header">
           <h1>Skill not found</h1>
           <p>
-            <Link to="/skills">← Back to skills</Link>
+            <Link to="/platform">← Back to framework</Link>
           </p>
         </Section>
       </Layout>
@@ -26,7 +26,7 @@ export function SkillDetailPage() {
       <PageMeta title={skill.name} description={skill.description} path={`/skills/${skill.id}`} />
 
       <nav className="breadcrumb">
-        <Link to="/skills">Skills</Link> / {skill.name}
+        <Link to="/platform">Framework</Link> / {skill.name}
       </nav>
 
       <article className="detail-page">

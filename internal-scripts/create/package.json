@@ -1,7 +1,7 @@
 {
   "name": "create-skills-house",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "type": "module",
   "description": "Scaffold a skills-house project — npx create-skills-house my-app",
   "author": "al4f <https://al4f.dev>",

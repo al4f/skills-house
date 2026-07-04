@@ -40,6 +40,14 @@ jobs:
         if: steps.release.outputs.type == 'cli'
         run: pnpm --filter @skills-house/cli build
 
+      - name: Build create-skills-house
+        if: steps.release.outputs.type == 'create'
+        run: |
+          pnpm --filter @skills-house/build build
+          pnpm --filter @skills-house/cli build
+          pnpm --filter create-skills-house build
+          node scripts/sync-create-template.mjs
+
       - name: Build skill
         if: steps.release.outputs.type == 'skill'
         run: node internal-scripts/build/dist/cli.js "skills/${{ steps.release.outputs.skill }}"
@@ -62,6 +70,26 @@ jobs:
         run: |
           pnpm pack:cli
           cd packages/publish/cli
+          npm publish --access public
+
+      - name: Set create-skills-house version from tag
+        if: steps.release.outputs.type == 'create'
+        run: |
+          node -e "
+            const fs = require('node:fs');
+            const path = 'internal-scripts/create/package.json';
+            const pkg = JSON.parse(fs.readFileSync(path, 'utf8'));
+            pkg.version = '${{ steps.release.outputs.version }}';
+            fs.writeFileSync(path, JSON.stringify(pkg, null, 2) + '\n');
+          "
+
+      - name: Pack and publish create-skills-house
+        if: steps.release.outputs.type == 'create'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          pnpm pack:create
+          cd packages/publish/create-skills-house
           npm publish --access public
 
       - name: Pack and publish skill

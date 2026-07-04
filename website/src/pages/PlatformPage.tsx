@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
-import { PageMeta, Section, Badge, Tag } from "@/components/ui";
+import { PageMeta, Section } from "@/components/ui";
 import { registry } from "@/lib/registry";
 import { BRAND } from "@/lib/types";
 
@@ -8,28 +8,26 @@ export function PlatformPage() {
   return (
     <Layout active="platform">
       <PageMeta
-        title="Platform overview"
-        description="How Skills House works — publish, validate, and distribute Agent Skills from GitHub to the registry."
+        title="Framework overview"
+        description="How skills-house works — scaffold, author, build, and ship Agent Skills. GitHub is source of truth; skills.sh is the primary consumer install path."
         path="/platform"
       />
 
       <Section className="hero hero-compact">
-        <p className="eyebrow">Platform overview</p>
+        <p className="eyebrow">Framework overview</p>
         <h1 className="hero-title">
-          GitHub is the source. <span className="gradient-text">This site is the registry.</span>
+          GitHub is the source. <span className="gradient-text">The framework compiles and ships.</span>
         </h1>
         <p className="lead">
-          Skills House connects repository metadata to a browsable catalog. Contributors author skills in GitHub; CI
-          validates and auto-merges; this site regenerates on every merge.
+          skills-house is not a skill catalog. Authors scaffold a project, write modular source skills, and let the
+          build pipeline produce Agent Skills–compliant dist. Consumers install from GitHub with the official
+          skills.sh CLI.
         </p>
         <div className="hero-actions">
-          <Link to="/skills" className="btn btn-primary">
-            Browse Skills
-          </Link>
-          <Link to="/" className="btn btn-secondary">
-            Getting started guide
-          </Link>
-          <a href={BRAND.repo} className="btn btn-ghost">
+          <pre>
+            <code>npx create-skills-house my-app</code>
+          </pre>
+          <a href={BRAND.repo} className="btn btn-ghost" target="_blank" rel="noreferrer">
             Contribute on GitHub
           </a>
         </div>
@@ -41,23 +39,23 @@ export function PlatformPage() {
             <img src="./assets/diagram-pipeline.svg" alt="skills-house pipeline diagram" width={720} height={240} />
           </div>
           <div className="feature-card-body">
-            <h3>Author → Build → Registry → Install</h3>
+            <h3>Scaffold → Author → Build → Install</h3>
             <p>
-              Skills are modular markdown packages with shared scripts. The build pipeline produces spec-compliant
-              artifacts; the registry exposes them for discovery and one-command install.
+              Freeform source under <code>skills/</code>, shared scripts under <code>scripts/</code>, compile with{" "}
+              <code>@skills-house/build</code>, install to agents locally for dev or publish to GitHub for consumers.
             </p>
             <ul className="feature-list">
               <li>
-                <Link to="/skills">Skills Explorer</Link>
+                <code>npx create-skills-house</code> — scaffold a new project
               </li>
               <li>
-                <Link to="/scripts">Scripts Explorer</Link>
+                <code>pnpm build</code> — compile skills to <code>skills-dist/</code>
               </li>
               <li>
-                <Link to="/graph">Dependency Graph</Link>
+                <code>pnpm install:skills</code> — monorepo dev only (dist → agent dirs)
               </li>
               <li>
-                <Link to="/search">Global Search</Link>
+                <code>npx skills add owner/repo --skill name</code> — primary consumer install (skills.sh)
               </li>
             </ul>
           </div>
@@ -65,47 +63,42 @@ export function PlatformPage() {
       </Section>
 
       <Section>
-        <h2>Published skills</h2>
-        <div className="registry-grid">
-          {registry.skills.length ? (
-            registry.skills.map((skill) => (
+        <h2>Example skill in this repo</h2>
+        <p>
+          The reference monorepo ships one example skill to demonstrate patterns — not an open catalog. Fork the
+          framework and add skills in your own repository.
+        </p>
+        {registry.skills.length > 0 && (
+          <div className="registry-grid">
+            {registry.skills.map((skill) => (
               <article key={skill.id} className="registry-card">
                 <h3>
                   <Link to={`/skills/${skill.id}`}>{skill.name}</Link>
                 </h3>
                 <p>{skill.description}</p>
-                <div className="meta-row">
-                  <Badge>v{skill.version}</Badge>
-                  {skill.tags.map((tag) => (
-                    <Tag key={tag} href={`/search?q=${encodeURIComponent(tag)}`}>
-                      {tag}
-                    </Tag>
-                  ))}
-                </div>
               </article>
-            ))
-          ) : (
-            <div className="empty-state">
-              <strong>No skills published yet</strong>
-              <p>Contribute a skill on GitHub to populate the registry.</p>
-            </div>
-          )}
-        </div>
-        <p className="section-cta">
-          <Link to="/skills">View all skills →</Link>
-        </p>
+            ))}
+          </div>
+        )}
       </Section>
 
       <Section>
-        <h2>Contribution workflow</h2>
-        <ol className="steps-list">
+        <h2>Specs</h2>
+        <ul className="link-list">
           <li>
-            Author a skill in <code>skills/&lt;name&gt;/</code> on GitHub
+            <a href={`${BRAND.repo}/tree/main/specs`} target="_blank" rel="noreferrer">
+              Architecture & authoring specs
+            </a>
           </li>
-          <li>CI validates schema, lint, docs, and dependencies</li>
-          <li>Skill PRs auto-merge when checks pass — no maintainer wait</li>
-          <li>This site regenerates from repository metadata on every merge</li>
-        </ol>
+          <li>
+            <a href={`${BRAND.repo}/blob/main/content/publish/INSTALL.md`} target="_blank" rel="noreferrer">
+              Consumer install guide
+            </a>
+          </li>
+          <li>
+            <Link to="/writing">Articles & build logs</Link>
+          </li>
+        </ul>
       </Section>
     </Layout>
   );

@@ -55,13 +55,19 @@ jobs:
           done
           unique_dirs=$(echo "$skill_dirs" | tr ' ' '\n' | sed '/^$/d' | sort -u)
           count=$(echo "$unique_dirs" | sed '/^$/d' | wc -l)
-          if [ "$count" -eq 1 ]; then
-            echo "Skill-only PR for: $unique_dirs"
-            echo "is_skill_pr=true" >> "$GITHUB_OUTPUT"
-          else
+          if [ "$count" -ne 1 ]; then
             echo "Multiple or no skill directories in PR"
             echo "is_skill_pr=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+          skill_name=$(echo "$unique_dirs" | head -1)
+          if ! git ls-tree -d --name-only "$BASE" "skills/${skill_name}" | grep -q .; then
+            echo "New skill directory requires maintainer review: skills/${skill_name}"
+            echo "is_skill_pr=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "Skill-only update PR for: $skill_name"
+          echo "is_skill_pr=true" >> "$GITHUB_OUTPUT"
 
   auto-merge:
     needs: detect-skill-contribution
