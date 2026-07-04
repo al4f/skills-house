@@ -136,7 +136,7 @@ Run [hello](fixture-helper/hello).
 
 Only **`@include /path`** is a build marker. Everything else uses markdown links.
 
-Full spec: **[specs/markers/marker-spec.md](./specs/markers/marker-spec.md)**
+Full spec: **[specs/authoring/skill-md-authoring.md](./specs/authoring/skill-md-authoring.md)**
 
 ---
 
@@ -269,5 +269,5 @@ Optional: [PROGRESS.md](./content/publish/PROGRESS.md) — brand content, demo, 
 - [al4f.dev](https://al4f.dev) — articles and architecture notes by the author
 - [Agent Skills specification](https://agentskills.io)
 - [Architecture specs](./specs/)
-- [Marker / authoring spec](./specs/markers/marker-spec.md)
+- [SKILL.md authoring spec](./specs/authoring/skill-md-authoring.md)
 - [Contributing](./CONTRIBUTING.md)

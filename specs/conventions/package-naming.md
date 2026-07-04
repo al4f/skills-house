@@ -65,4 +65,4 @@ A short name must exist in only one workspace. Do not create both `skills/foo/` 
 
 - [Monorepo overview](../architecture/monorepo-overview.md)
 - [Distribution](../architecture/distribution.md)
-- [Marker spec](../markers/marker-spec.md)
+- [SKILL.md authoring spec](../authoring/skill-md-authoring.md)

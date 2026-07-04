@@ -5,16 +5,7 @@
 
 ## Purpose
 
-skills-house is an open-source **framework** for building **agentic, skill-based software** with [Agent Skills](https://agentskills.io). Authors write modular source skills; the build pipeline produces spec-compliant dist artifacts. See [framework-vision.md](./framework-vision.md) for the canonical definition.
-
-**Not a skill catalog** — ships one example skill (`skill-auditor`) to demonstrate patterns.
-
-**Goals:**
-
-- Dogfood and demonstrate authoring patterns for other skill authors
-- Primary consumer install via [skills.sh](https://www.skills.sh) (`npx skills add owner/repo`)
-- Optional npm dist packages for semver and registry metrics
-- Clear separation: source → build → dist → install
+This document describes **repository structure and the build pipeline**. For vision and principles, see [framework-vision.md](./framework-vision.md). For install channels and publish workflow, see [distribution.md](./distribution.md).
 
 ## Repository layout
 
@@ -61,7 +52,7 @@ skills-house/
 
 **install** — `install-skills.sh` / `remove-skills.sh` for monorepo dev and optional CLI packaging.
 
-**cli** — optional `pnpm skills add` wrapper; consumers use `npx skills add` from skills.sh instead.
+**cli** — optional `pnpm skills add` wrapper; consumers use the official skills.sh CLI instead (see [distribution.md](./distribution.md)).
 
 ## Source vs dist
 
@@ -71,6 +62,8 @@ skills-house/
 - **Entry:** `SKILL.md`
 - **`@include /path`** — only build marker; nested includes supported.
 - **Markdown links** `[label](target)` — in-package files (`/path`) or package refs (`package/export`).
+
+Authoring rules: [SKILL.md authoring spec](../authoring/skill-md-authoring.md). Frontmatter fields: [skill-frontmatter.md](../schema/skill-frontmatter.md).
 
 ### Dist (`skills-dist/`)
 
@@ -120,21 +113,12 @@ pnpm validate
 When the builder encounters `[other-skill](other-skill)`:
 
 1. Record dependency in frontmatter metadata.
-2. Replace with install-suggestion note using **`npx skills add <owner>/other-skill`** (skills.sh CLI).
+2. Replace with an install-suggestion note (format defined in [distribution.md](./distribution.md#skill-dependency-notes-build-output)).
 3. No file copy.
-
-## Distribution
-
-See [distribution.md](./distribution.md).
-
-| Audience | Install |
-|----------|---------|
-| Consumers (any repo) | `npx skills add al4f/skills-house --skill <name>` |
-| Maintainers (npm dist) | Push tag `v<semver>-<skill-dir>` → GitHub Actions |
-| Monorepo dev | `pnpm install:skills` after `pnpm build` |
 
 ## Related specs
 
+- [Framework vision](./framework-vision.md)
 - [Distribution](./distribution.md)
-- [Marker spec](../markers/marker-spec.md)
+- [SKILL.md authoring spec](../authoring/skill-md-authoring.md)
 - [Package naming](../conventions/package-naming.md)

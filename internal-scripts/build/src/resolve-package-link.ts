@@ -83,8 +83,10 @@ function replaceWithDependencyNote(
   label: string,
   href: string,
   pkg: string,
+  repoSlug: string,
 ): string {
-  const note = `> **Depends on:** \`${pkg}\`\n> If this skill is not available in the workspace, suggest the user install it:\n> \`npx skills add ${pkg}\``;
+  const installCommand = `npx skills add ${repoSlug} --skill ${pkg}`;
+  const note = `> **Depends on:** \`${pkg}\`\n> If this skill is not available in the workspace, suggest the user install it:\n> \`${installCommand}\``;
   return body.replace(`[${label}](${href})`, note);
 }
 
@@ -92,6 +94,7 @@ export async function resolvePackageLinks(
   body: string,
   links: SkillLink[],
   repoRoot: string,
+  repoSlug: string,
   outDir: string,
   dependencies: string[],
 ): Promise<string> {
@@ -105,16 +108,23 @@ export async function resolvePackageLinks(
     const { pkg, export: exportKey } = classified;
 
     const { dir, workspace } = await findPackageDir(repoRoot, pkg);
-    const pkgJson = await readPackageJson(dir);
-    const exportTarget = resolveExportTarget(pkgJson, exportKey);
 
     if (workspace === "skills") {
       if (!dependencies.includes(pkg)) {
         dependencies.push(pkg);
       }
-      result = replaceWithDependencyNote(result, link.label, link.href, pkg);
+      result = replaceWithDependencyNote(
+        result,
+        link.label,
+        link.href,
+        pkg,
+        repoSlug,
+      );
       continue;
     }
+
+    const pkgJson = await readPackageJson(dir);
+    const exportTarget = resolveExportTarget(pkgJson, exportKey);
 
     await copyScriptPackage(dir, outDir, copiedScriptPackages, pkg);
     const destRelative = path.join("scripts", path.basename(exportTarget));

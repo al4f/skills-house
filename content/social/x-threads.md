@@ -65,7 +65,7 @@ That's it. Parser stays simple. Authors stay productive.
 
 **Tweet 4**
 Full marker spec in the repo:
-github.com/al4f/skills-house/blob/main/specs/markers/marker-spec.md
+github.com/al4f/skills-house/blob/main/specs/authoring/skill-md-authoring.md
 
 More at al4f.dev
 
