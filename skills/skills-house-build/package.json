@@ -1,0 +1,14 @@
+{
+  "name": "@skills-house/skill-skills-house-build",
+  "private": true,
+  "exports": {
+    ".": "./SKILL.md"
+  },
+  "scripts": {
+    "build": "build .",
+    "validate": "bash ../../scripts/skill-auditor-tools/scripts/validate.sh ."
+  },
+  "devDependencies": {
+    "@skills-house/build": "workspace:*"
+  }
+}
