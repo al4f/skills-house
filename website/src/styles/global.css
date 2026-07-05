@@ -1380,12 +1380,7 @@ pre code {
     padding: 0.55rem 0.65rem;
   }
 
-  /* Header search overlaps page content on small screens; use /search instead */
   .site-header-actions {
-    display: none;
-  }
-
-  .site-header-landing .site-header-actions {
     display: flex;
     flex-direction: column;
     align-items: stretch;
