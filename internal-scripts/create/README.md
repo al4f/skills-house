@@ -1,6 +1,6 @@
 # @skills-house/create
 
-Scaffold a new [skills-house](https://github.com/al4f/skills-house) project: workspace layout, starter skill, vendored build/install tooling, and `pnpm` scripts for the dev loop.
+Scaffold a new [skills-house](https://github.com/al4f/skills-house) project: workspace layout, starter skill, and `pnpm` scripts wired to published `@skills-house/*` tooling.
 
 ## Quick start
 
@@ -48,14 +48,18 @@ npx @skills-house/create my-app --no-install
 my-app/
 ├── skills/<skill-name>/SKILL.md   # Starter skill source
 ├── scripts/                       # Shared script packages
-├── internal-scripts/
-│   ├── build/                     # Vendored @skills-house/build
-│   └── install/                   # Vendored @skills-house/install
 ├── skills-dist/                   # Built output (after pnpm build)
 ├── package.json                   # build, dev, install:skills scripts
 ├── pnpm-workspace.yaml
 └── README.md
 ```
+
+Scaffolded projects install framework tooling from npm:
+
+| Package | Role |
+|---------|------|
+| `@skills-house/build` | Compile skills into `skills-dist/` |
+| `@skills-house/install` | Install built skills into agent directories |
 
 ### Default scripts
 
@@ -99,10 +103,8 @@ pnpm install:skills --scope project
 
 | Package | Role |
 |---------|------|
-| [`@skills-house/build`](https://www.npmjs.com/package/@skills-house/build) | Compile source skills (also vendored in scaffolded projects) |
-| [`@skills-house/install`](https://www.npmjs.com/package/@skills-house/install) | Install built skills locally (also vendored) |
-
-Scaffolded projects work offline with vendored CLIs. You can also add the npm packages as `devDependencies` and drop the `internal-scripts/` copies when you prefer.
+| [`@skills-house/build`](https://www.npmjs.com/package/@skills-house/build) | Compile source skills |
+| [`@skills-house/install`](https://www.npmjs.com/package/@skills-house/install) | Install built skills locally |
 
 ## Monorepo development
 
@@ -118,12 +120,10 @@ pnpm --filter @skills-house/create build
 pnpm --filter @skills-house/create test
 ```
 
-After changing `@skills-house/build` or `@skills-house/install`, refresh vendored template files:
+After changing `@skills-house/build` or `@skills-house/install` versions, rebuild `@skills-house/create` so template `devDependencies` stay in sync:
 
 ```bash
-pnpm --filter @skills-house/build build
-pnpm --filter @skills-house/install build
-node scripts/sync-create-template.mjs
+pnpm --filter @skills-house/create build
 ```
 
 Pack for npm publish:

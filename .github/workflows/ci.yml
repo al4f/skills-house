@@ -33,9 +33,6 @@ jobs:
       - name: Build @skills-house/create
         run: pnpm --filter @skills-house/create build
 
-      - name: Sync @skills-house/create template
-        run: node scripts/sync-create-template.mjs
-
       - name: Build skills
         run: |
           for skill in skills/*/; do

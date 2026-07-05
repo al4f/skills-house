@@ -6,10 +6,10 @@ This repository is a [skills-house](https://github.com/al4f/skills-house) projec
 
 | Command | Purpose |
 |---------|---------|
-| `pnpm build` | Compile skills from `skills/` into `skills-dist/` |
+| `pnpm build` | Compile skills from `skills/` into `skills-dist/` (`@skills-house/build`) |
 | `pnpm dev` | Build + install skills to this project (`.agents/skills/`, `.cursor/skills/`) |
-| `pnpm install:skills --scope project` | Install built skills after a build |
-| `pnpm remove:skills --scope project` | Remove installed skills |
+| `pnpm install:skills --scope project` | Install built skills after a build (`@skills-house/install`) |
+| `pnpm remove:skills --scope project` | Remove installed skills (`@skills-house/install`) |
 
 ## Authoring
 

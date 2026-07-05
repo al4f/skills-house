@@ -10,10 +10,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, "../../..");
 const CLI = join(REPO_ROOT, "internal-scripts/create/dist/cli.js");
 const SCAFFOLD = join(REPO_ROOT, "internal-scripts/create/dist/scaffold.js");
-const TEMPLATE_VENDOR = join(
-  REPO_ROOT,
-  "internal-scripts/create/templates/default/internal-scripts/build/dist/cli.js",
-);
 
 test("normalizeGitHubRepositoryUrl strips credentials", async () => {
   const { normalizeGitHubRepositoryUrl } = await import(
@@ -41,11 +37,6 @@ test("@skills-house/create --help exits 0", () => {
 });
 
 test("scaffolds a project with starter skill", () => {
-  assert.ok(
-    existsSync(TEMPLATE_VENDOR),
-    "sync template vendor first: node scripts/sync-create-template.mjs",
-  );
-
   const tempRoot = mkdtempSync(join(tmpdir(), "create-skills-house-"));
   const projectDir = join(tempRoot, "demo-app");
 
@@ -68,12 +59,21 @@ test("scaffolds a project with starter skill", () => {
     );
     assert.equal(rootPkg.name, "demo-app");
     assert.match(rootPkg.scripts.dev, /install:skills/);
-
-    const buildCli = join(
-      projectDir,
-      "internal-scripts/build/dist/cli.js",
+    assert.match(
+      rootPkg.scripts["install:skills"],
+      /@skills-house\/install\/install-skills\.sh/,
     );
-    assert.ok(existsSync(buildCli));
+    assert.ok(rootPkg.devDependencies["@skills-house/build"]);
+    assert.ok(rootPkg.devDependencies["@skills-house/install"]);
+    assert.ok(
+      !existsSync(join(projectDir, "internal-scripts")),
+      "scaffold must not include vendored internal-scripts",
+    );
+
+    const skillPkg = JSON.parse(
+      readFileSync(join(projectDir, "skills", "onboarding", "package.json"), "utf-8"),
+    );
+    assert.ok(skillPkg.devDependencies["@skills-house/build"]);
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }
@@ -94,11 +94,6 @@ test("rejects invalid project names", () => {
 });
 
 test("scaffolds into an existing git repository", () => {
-  assert.ok(
-    existsSync(TEMPLATE_VENDOR),
-    "sync template vendor first: node scripts/sync-create-template.mjs",
-  );
-
   const tempRoot = mkdtempSync(join(tmpdir(), "create-skills-house-git-"));
   const projectDir = join(tempRoot, "my-repo");
   mkdirSync(projectDir, { recursive: true });
@@ -129,6 +124,7 @@ test("scaffolds into an existing git repository", () => {
     );
     assert.equal(rootPkg.name, "my-repo");
     assert.ok(rootPkg.repository?.url);
+    assert.ok(!existsSync(join(projectDir, "internal-scripts")));
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }

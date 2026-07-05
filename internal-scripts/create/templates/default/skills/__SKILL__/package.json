@@ -5,6 +5,6 @@
     "build": "build ."
   },
   "devDependencies": {
-    "@skills-house/build": "workspace:*"
+    "@skills-house/build": "^0.0.2"
   }
 }

@@ -55,11 +55,7 @@ jobs:
 
       - name: Build @skills-house/create
         if: steps.release.outputs.type == 'create'
-        run: |
-          pnpm --filter @skills-house/build build
-          pnpm --filter @skills-house/install build
-          pnpm --filter @skills-house/create build
-          node scripts/sync-create-template.mjs
+        run: pnpm --filter @skills-house/create build
 
       - name: Build skill
         if: steps.release.outputs.type == 'skill'
