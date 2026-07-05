@@ -1,6 +1,6 @@
 {
   "name": "@skills-house/build",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "type": "module",
   "description": "Compile skills-house source skills to spec-compliant dist — npx @skills-house/build <skill-dir>",
