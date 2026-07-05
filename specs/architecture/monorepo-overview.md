@@ -1,11 +1,12 @@
 # Monorepo Overview
 
-**Date:** 2026-07-04  
-**Status:** Adopted
+**Date:** 2026-07-05  
+**Status:** Adopted  
+**Normative:** [RFC 0002](../rfc/0002-skill-source-package.md), [RFC 0003](../rfc/0003-build.md), [RFC 0004](../rfc/0004-install.md)
 
 ## Purpose
 
-Repository structure and the build pipeline. For vision and principles, see [framework-vision.md](./framework-vision.md). For install channels, see [distribution.md](./distribution.md).
+Repository structure and the build pipeline. For vision and principles, see [framework-vision.md](./framework-vision.md). For install channels, see [distribution.md](./distribution.md). Product behavior is specified in [RFCs](../rfc/README.md).
 
 ## Repository layout
 

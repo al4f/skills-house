@@ -51,7 +51,7 @@ metadata:
     - publishing
 ```
 
-Do not hand-author `metadata.dependencies` in source; the builder adds them when you link to another skill package (see [SKILL.md authoring spec](../authoring/skill-md-authoring.md#form-3-skill-package)).
+Do not hand-author `metadata.dependencies` in source; the builder adds them when you link to another skill package (see [SKILL.md authoring spec](../authoring/skill-md-authoring.md#form-3-skill-package)). Mention only **direct** dependencies in prose and links ([RFC 0002 §4](../rfc/0002-skill-source-package.md#4-dependency-mention-rule-authoring)).
 
 ## Full example
 

@@ -1,9 +1,22 @@
 # SKILL.md Authoring Spec
 
-**Date:** 2026-07-03  
-**Status:** Adopted
+**Date:** 2026-07-05  
+**Status:** Adopted  
+**Normative:** [RFC 0002](../rfc/0002-skill-source-package.md), [RFC 0003](../rfc/0003-build.md)
 
 Source `SKILL.md` (after YAML frontmatter) uses one build marker and standard markdown links. The parser and builder handle everything else.
+
+## Dependency mention rule
+
+In `SKILL.md` and any `@include` fragment, mention **only direct dependencies** of the skill package (`package.json` `dependencies` / workspace links):
+
+| Allowed | Not allowed |
+|---------|-------------|
+| `[dep](other-skill)` when `other-skill` is a direct skill dependency | Transitive skill or npm deps |
+| `[run](script-pkg/export)` when `script-pkg` is a direct dependency | Internals of a script package (e.g. a Python lib it uses) |
+| Third-party packages the skill directly depends on | Packages only used inside bundled scripts |
+
+Rationale: agent context stays aligned with the package graph. See [RFC 0002 §4](../rfc/0002-skill-source-package.md#4-dependency-mention-rule-authoring).
 
 ## Path convention
 

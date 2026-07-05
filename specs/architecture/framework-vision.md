@@ -1,7 +1,8 @@
 # Skills House Framework Vision
 
 **Status:** Active  
-**Date:** 2026-07-04
+**Date:** 2026-07-05  
+**Normative detail:** [specs/rfc/](../rfc/README.md) (Accepted RFCs bind releases until LTS)
 
 ## Definition
 
@@ -27,11 +28,13 @@ Build does **not** exist to generate catalogs, search indexes, or dependency gra
 
 ## Principles
 
-1. **One-command onboarding** — target DX: `npx @skills-house/create` scaffolds a ready-to-build project.
-2. **Source is freeform** — only `SKILL.md` is required; `@include` and markdown links compose larger skills.
-3. **Build produces spec-compliant dist** — `@skills-house/build` is the framework core.
-4. **Scripts are first-class** — shared execution packages in `scripts/` are linked into skills at build time; authors do not duplicate script logic inside skill folders.
-5. **GitHub is the source of truth** — website data, when needed, is derived from repository contents at build time.
+1. **Adopt, don't invent** — Agent Skills format, skills.sh consumer installs, universal `.agents/skills` paths; no parallel rule systems ([RFC 0001](../rfc/0001-framework-foundation.md)).
+2. **One-command onboarding** — target DX: `npx @skills-house/create` scaffolds a ready-to-build project ([RFC 0005](../rfc/0005-create.md)).
+3. **Source is freeform** — skill source packages with `SKILL.md` + `package.json`; `@include` and markdown links compose larger skills ([RFC 0002](../rfc/0002-skill-source-package.md)).
+4. **Build produces spec-compliant dist** — `@skills-house/build` is the framework core ([RFC 0003](../rfc/0003-build.md)).
+5. **Scripts are first-class and language-agnostic** — shared packages in `scripts/` link into skills at build time; runtime scripts may be any language.
+6. **Product skills** — each CLI product ships an Agent Skill documenting its full surface for reading agents ([RFC 0006](../rfc/0006-product-skills.md)).
+7. **GitHub is the source of truth** — website data, when needed, is derived from repository contents at build time.
 
 ## Contribution
 
@@ -118,6 +121,8 @@ Framework docs reinforce Skills House by **al4f**, linking to:
 
 ## Related
 
+- [RFC index](../rfc/README.md)
 - [Monorepo overview](./monorepo-overview.md)
 - [Distribution](./distribution.md)
+- [Project layout (`.house`)](../rfc/0007-project-layout.md)
 - [CONTRIBUTING.md](../../CONTRIBUTING.md)
