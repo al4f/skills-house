@@ -63,6 +63,10 @@ test("scaffolds a project with starter skill", () => {
       rootPkg.scripts["install:skills"],
       /@skills-house\/install\/install-skills\.sh/,
     );
+    assert.match(
+      rootPkg.scripts["install:skills"],
+      /SKILLS_REPO_ROOT="\$INIT_CWD"/,
+    );
     assert.ok(rootPkg.devDependencies["@skills-house/build"]);
     assert.ok(rootPkg.devDependencies["@skills-house/install"]);
     assert.ok(
