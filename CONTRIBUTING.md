@@ -64,6 +64,14 @@ Script packages are framework contributions unless bundled as part of an approve
 
 To add a new shared script package, open a **framework** PR under `scripts/<name>/` with `package.json` exports and optional `skills-house` metadata (`inputs`, `outputs`, `examples`, `maintainers`).
 
+**Script language:** Shared scripts and in-skill scripts may use any language (Bash, Python, Go, …). Framework packages under `internal-scripts/` are TypeScript. See [RFC 0001 §3](specs/rfc/0001-framework-foundation.md#3-implementation-language-policy).
+
+## Specifications and RFCs
+
+Normative framework behavior lives in [specs/rfc/](specs/rfc/README.md). Architecture and authoring docs provide context; **Accepted RFCs win** when they differ.
+
+Before changing `@skills-house/build`, `@skills-house/install`, or `@skills-house/create` behavior, read the matching RFC and update the spec in the same PR (or a preceding PR) when behavior intentionally changes.
+
 ## Local development
 
 ```bash

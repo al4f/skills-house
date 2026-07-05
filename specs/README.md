@@ -2,6 +2,21 @@
 
 Architecture and design docs. **Paper first, code second.**
 
+Normative behavior for framework products lives in **[RFCs](./rfc/README.md)**. Architecture docs provide narrative context; when they disagree with an Accepted RFC, **the RFC wins**.
+
+## RFCs (normative)
+
+| RFC | Title |
+|-----|-------|
+| [rfc/README.md](./rfc/README.md) | RFC process, LTS binding |
+| [0001](./rfc/0001-framework-foundation.md) | Foundation — Agent Skills adoption, language policy, KPIs |
+| [0002](./rfc/0002-skill-source-package.md) | Skill source package model |
+| [0003](./rfc/0003-build.md) | `@skills-house/build` |
+| [0004](./rfc/0004-install.md) | `@skills-house/install` |
+| [0005](./rfc/0005-create.md) | `@skills-house/create` |
+| [0006](./rfc/0006-product-skills.md) | Product skills for agents |
+| [0007](./rfc/0007-project-layout.md) | Project layout and `.house/` |
+
 ## Index
 
 | Document | Description |
@@ -18,6 +33,7 @@ Architecture and design docs. **Paper first, code second.**
 
 | Spec | Status |
 |------|--------|
+| RFC 0001–0007 | Accepted |
 | Framework vision | Active |
 | Monorepo architecture | Adopted |
 | Distribution | Adopted |
@@ -35,3 +51,5 @@ Architecture and design docs. **Paper first, code second.**
 6. **Framework packages publish via npm tags** — `@skills-house/build`, `@skills-house/create`, etc.
 7. **Framework skill is mandatory context** — `skill-auditor` documents how the repo works; every project installs and references it.
 8. **All contributions need maintainer approval** — open an issue first; no auto-merge.
+9. **Normative RFCs** — framework product behavior is specified in [specs/rfc/](./rfc/README.md); code changes must stay in sync.
+10. **Language policy** — TypeScript for `@skills-house/*` internals; no language restriction for skill scripts ([RFC 0001 §3](./rfc/0001-framework-foundation.md#3-implementation-language-policy)).
