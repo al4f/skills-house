@@ -33,7 +33,7 @@
     "create": "./dist/cli.js"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && node ../../scripts/inject-create-template-versions.mjs",
     "validate": "tsc --noEmit",
     "test": "node --test test/create.test.mjs"
   },

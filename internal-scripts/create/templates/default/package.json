@@ -10,9 +10,13 @@
   "scripts": {
     "build": "pnpm --filter \"./skills/*\" build",
     "dev": "pnpm build && pnpm install:skills --scope project",
-    "install:skills": "bash internal-scripts/install/install-skills.sh",
-    "remove:skills": "bash internal-scripts/install/remove-skills.sh",
-    "install:cli": "node internal-scripts/install/dist/cli.js",
+    "install:skills": "bash \"$INIT_CWD/node_modules/@skills-house/install/install-skills.sh\"",
+    "remove:skills": "bash \"$INIT_CWD/node_modules/@skills-house/install/remove-skills.sh\"",
+    "install:cli": "install-skills",
     "validate": "pnpm --filter \"./skills/*\" run validate --if-present"
+  },
+  "devDependencies": {
+    "@skills-house/build": "^0.0.2",
+    "@skills-house/install": "^0.0.2"
   }
 }
