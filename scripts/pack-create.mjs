@@ -46,6 +46,7 @@ function main() {
   mkdirSync(dest, { recursive: true });
   cpSync(join(CREATE_SRC, "dist"), join(dest, "dist"), { recursive: true });
   cpSync(TEMPLATES, join(dest, "templates"), { recursive: true });
+  cpSync(join(CREATE_SRC, "README.md"), join(dest, "README.md"));
 
   const packageJson = {
     name: sourcePkg.name,
