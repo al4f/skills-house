@@ -30,7 +30,8 @@
     "dist",
     "install-skills.sh",
     "remove-skills.sh",
-    "lib"
+    "lib",
+    "README.md"
   ],
   "bin": {
     "install-skills": "./dist/cli.js"

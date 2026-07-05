@@ -28,7 +28,8 @@
     ".": "./dist/lib.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "bin": {
     "build": "./dist/cli.js"

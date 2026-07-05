@@ -28,6 +28,7 @@ test("pack-install emits publish-ready package.json", () => {
   assert.ok(fs.existsSync(path.join(outDir, "install", "dist", "cli.js")));
   assert.ok(fs.existsSync(path.join(outDir, "install", "install-skills.sh")));
   assert.ok(fs.existsSync(path.join(outDir, "install", "lib", "agent-targets.sh")));
+  assert.ok(fs.existsSync(path.join(outDir, "install", "README.md")));
 });
 
 test("pack-build emits publish-ready package.json", () => {
@@ -42,6 +43,7 @@ test("pack-build emits publish-ready package.json", () => {
   assert.equal(pkg.bin.build, "./dist/cli.js");
   assert.ok(fs.existsSync(path.join(outDir, "build", "dist", "cli.js")));
   assert.ok(fs.existsSync(path.join(outDir, "build", "dist", "lib.js")));
+  assert.ok(fs.existsSync(path.join(outDir, "build", "README.md")));
 });
 
 test("pack-create emits publish-ready package.json", () => {
@@ -56,6 +58,7 @@ test("pack-create emits publish-ready package.json", () => {
   assert.equal(pkg.bin.create, "./dist/cli.js");
   assert.ok(fs.existsSync(path.join(outDir, "create", "dist", "cli.js")));
   assert.ok(fs.existsSync(path.join(outDir, "create", "templates")));
+  assert.ok(fs.existsSync(path.join(outDir, "create", "README.md")));
 });
 
 test("pack-skill emits publish-ready package.json", () => {

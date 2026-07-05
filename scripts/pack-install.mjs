@@ -53,6 +53,7 @@ function main() {
     join(INSTALL_SRC, "lib", "agent-targets.sh"),
     join(dest, "lib", "agent-targets.sh"),
   );
+  cpSync(join(INSTALL_SRC, "README.md"), join(dest, "README.md"));
 
   const packageJson = {
     name: sourcePkg.name,
