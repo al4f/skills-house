@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T16:24:16.217Z",
+  "generatedAt": "2026-07-05T16:25:34.533Z",
   "repository": "https://github.com/al4f/skills-house",
   "skills": [
     {
@@ -35,6 +35,82 @@
       ],
       "path": "skills/skill-auditor",
       "url": "skills/skill-auditor/"
+    },
+    {
+      "id": "skills-house-build",
+      "name": "skills-house-build",
+      "description": "Use when compiling skills-house source skills to Agent Skills dist. Covers @skills-house/build CLI, skill directory input, dist output paths, and @include/link addressing rules.",
+      "author": "al4f",
+      "tags": [
+        "build",
+        "skills-house",
+        "framework"
+      ],
+      "version": "0.1.0",
+      "installCommand": "npx skills add al4f/skills-house --skill skills-house-build",
+      "scripts": [],
+      "dependencies": [],
+      "relatedSkills": [],
+      "examples": [
+        "# Monorepo — all skills\npnpm build\n\n# Single skill (package script)\npnpm --filter @skills-house/skill-<name> build\n\n# CLI directly\nnpx @skills-house/build <skill-dir> [--out <dir>] [--repo-root <path>]",
+        "pnpm --filter @skills-house/skill-auditor build",
+        "pnpm build"
+      ],
+      "sections": [],
+      "references": [],
+      "path": "skills/skills-house-build",
+      "url": "skills/skills-house-build/"
+    },
+    {
+      "id": "skills-house-create",
+      "name": "skills-house-create",
+      "description": "Use when scaffolding a new skills-house project or bootstrapping the framework into a repo. Covers @skills-house/create CLI, generated layout, fresh-project constraints, and future .house isolation.",
+      "author": "al4f",
+      "tags": [
+        "create",
+        "scaffold",
+        "skills-house",
+        "framework"
+      ],
+      "version": "0.1.0",
+      "installCommand": "npx skills add al4f/skills-house --skill skills-house-create",
+      "scripts": [],
+      "dependencies": [],
+      "relatedSkills": [],
+      "examples": [
+        "npx @skills-house/create <project-directory> [options]",
+        "<project>/\n├── package.json\n├── pnpm-workspace.yaml\n├── skills/<starter-skill>/\n├── scripts/\n├── skills-dist/          # gitignored\n└── AGENTS.md",
+        "npx @skills-house/create my-app\ncd my-app && pnpm build"
+      ],
+      "sections": [],
+      "references": [],
+      "path": "skills/skills-house-create",
+      "url": "skills/skills-house-create/"
+    },
+    {
+      "id": "skills-house-install",
+      "name": "skills-house-install",
+      "description": "Use when installing built skills-house dist into agent skill directories. Covers source/target model, install-skills CLI flags, scope, and the difference from skills.sh consumer installs.",
+      "author": "al4f",
+      "tags": [
+        "install",
+        "skills-house",
+        "framework"
+      ],
+      "version": "0.1.0",
+      "installCommand": "npx skills add al4f/skills-house --skill skills-house-install",
+      "scripts": [],
+      "dependencies": [],
+      "relatedSkills": [],
+      "examples": [
+        "# Shell (monorepo)\npnpm install:skills [options]\nbash internal-scripts/install/install-skills.sh [options]\n\n# Node CLI\ninstall-skills add <skill-name> [options]\npnpm install:cli add <skill-name> [options]",
+        "pnpm install:skills --skill skill-auditor --agent cursor --scope project",
+        "pnpm install:skills --scope project"
+      ],
+      "sections": [],
+      "references": [],
+      "path": "skills/skills-house-install",
+      "url": "skills/skills-house-install/"
     }
   ],
   "scripts": [

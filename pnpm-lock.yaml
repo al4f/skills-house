@@ -83,6 +83,24 @@ importers:
         specifier: workspace:*
         version: link:../../internal-scripts/build
 
+  skills/skills-house-build:
+    devDependencies:
+      '@skills-house/build':
+        specifier: workspace:*
+        version: link:../../internal-scripts/build
+
+  skills/skills-house-create:
+    devDependencies:
+      '@skills-house/build':
+        specifier: workspace:*
+        version: link:../../internal-scripts/build
+
+  skills/skills-house-install:
+    devDependencies:
+      '@skills-house/build':
+        specifier: workspace:*
+        version: link:../../internal-scripts/build
+
   website:
     dependencies:
       react:
