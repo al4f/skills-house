@@ -93,7 +93,8 @@ Environment variables:
 | Variable | Purpose |
 |----------|---------|
 | `SKILLS_DIST_DIR` | Override dist directory (default: `<repo>/skills-dist`) |
-| `SKILLS_REPO_ROOT` | Repo root for project-scope paths |
+| `SKILLS_REPO_ROOT` | Repo root for project-scope paths (set automatically in scaffolded projects) |
+| `INIT_CWD` | Used by pnpm when running lifecycle scripts; honored when `SKILLS_REPO_ROOT` is unset |
 
 ## Consumer distribution
 

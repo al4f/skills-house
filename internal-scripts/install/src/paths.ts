@@ -16,10 +16,55 @@ export function resolveInstallScript(): string | null {
   return null;
 }
 
-export function monorepoDistDir(): string {
-  return resolve(PACKAGE_ROOT, "../../skills-dist");
+function isSkillsHouseMonorepo(dir: string): boolean {
+  return existsSync(join(dir, "pnpm-workspace.yaml"));
+}
+
+function isSkillsProjectRoot(dir: string): boolean {
+  if (!existsSync(join(dir, "package.json"))) {
+    return false;
+  }
+  return existsSync(join(dir, "skills-dist")) || existsSync(join(dir, "skills"));
+}
+
+export function findRepoRoot(startDir: string): string {
+  let dir = resolve(startDir);
+
+  while (true) {
+    if (isSkillsHouseMonorepo(dir) || isSkillsProjectRoot(dir)) {
+      return dir;
+    }
+
+    const parent = dirname(dir);
+    if (parent === dir) {
+      break;
+    }
+    dir = parent;
+  }
+
+  if (PACKAGE_ROOT.includes(join("internal-scripts", "install"))) {
+    return resolve(PACKAGE_ROOT, "../..");
+  }
+
+  if (PACKAGE_ROOT.includes(join("node_modules", "@skills-house", "install"))) {
+    return resolve(PACKAGE_ROOT, "../../..");
+  }
+
+  return resolve(PACKAGE_ROOT, "../..");
 }
 
 export function defaultRepoRoot(): string {
-  return resolve(PACKAGE_ROOT, "../..");
+  if (process.env.SKILLS_REPO_ROOT) {
+    return resolve(process.env.SKILLS_REPO_ROOT);
+  }
+
+  if (process.env.INIT_CWD) {
+    return resolve(process.env.INIT_CWD);
+  }
+
+  return findRepoRoot(process.cwd());
+}
+
+export function monorepoDistDir(): string {
+  return join(defaultRepoRoot(), "skills-dist");
 }

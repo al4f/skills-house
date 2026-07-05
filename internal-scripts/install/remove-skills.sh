@@ -20,7 +20,9 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-REPO_ROOT="${SKILLS_REPO_ROOT:-$(cd "$SCRIPT_DIR/../.." && pwd)}"
+# shellcheck source=lib/resolve-repo-root.sh
+source "$SCRIPT_DIR/lib/resolve-repo-root.sh"
+REPO_ROOT="$(resolve_repo_root "$SCRIPT_DIR")"
 DIST_DIR="${SKILLS_DIST_DIR:-$REPO_ROOT/skills-dist}"
 # shellcheck source=lib/agent-targets.sh
 source "$SCRIPT_DIR/lib/agent-targets.sh"

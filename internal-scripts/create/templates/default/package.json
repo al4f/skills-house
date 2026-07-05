@@ -10,8 +10,8 @@
   "scripts": {
     "build": "pnpm --filter \"./skills/*\" build",
     "dev": "pnpm build && pnpm install:skills --scope project",
-    "install:skills": "bash \"$INIT_CWD/node_modules/@skills-house/install/install-skills.sh\"",
-    "remove:skills": "bash \"$INIT_CWD/node_modules/@skills-house/install/remove-skills.sh\"",
+    "install:skills": "SKILLS_REPO_ROOT=\"$INIT_CWD\" bash \"$INIT_CWD/node_modules/@skills-house/install/install-skills.sh\"",
+    "remove:skills": "SKILLS_REPO_ROOT=\"$INIT_CWD\" bash \"$INIT_CWD/node_modules/@skills-house/install/remove-skills.sh\"",
     "install:cli": "install-skills",
     "validate": "pnpm --filter \"./skills/*\" run validate --if-present"
   },
