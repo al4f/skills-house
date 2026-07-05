@@ -17,6 +17,6 @@
   },
   "devDependencies": {
     "@skills-house/build": "^0.0.2",
-    "@skills-house/install": "^0.0.2"
+    "@skills-house/install": "^0.0.3"
   }
 }
