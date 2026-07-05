@@ -6,7 +6,7 @@
 #
 # Options:
 #   --agent <name>   Install only for one agent: agents, codex, cursor, claude
-#   --skill <name>   Install only this skill (default: all except minimal-skill)
+#   --skill <pattern> Install matching skill(s); supports globs (e.g. skills-house-*)
 #   --scope <scope>  global (default) or project
 #   --copy           Copy files instead of symlinking
 #   --all            Include test fixtures (e.g. minimal-skill)
@@ -17,7 +17,7 @@
 #   ./install-skills.sh
 #   ./install-skills.sh --agent cursor
 #   ./install-skills.sh --scope project
-#   ./install-skills.sh --agent codex --skill skill-auditor --copy
+#   ./install-skills.sh --agent codex --skill 'skills-house-*' --copy
 
 set -euo pipefail
 

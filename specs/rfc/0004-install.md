@@ -127,9 +127,9 @@ The install product MUST support these use cases (current + planned):
 | Copy vs symlink | Implemented | `--copy` |
 | Dry run | Implemented | `--dry-run` |
 | Remove / uninstall | Implemented | `remove-skills.sh` |
-| Multi-skill glob | Planned | `--skill 'pattern'` |
+| Multi-skill glob | Implemented | `--skill 'pattern'` / `add <pattern>` |
 | Target `all` explicit | Implemented | omit `--agent` |
-| List dist skills | Planned | `install-skills list --from …` |
+| List dist skills | Implemented | `install-skills list --from …` |
 
 ## 7. Control boundary
 
