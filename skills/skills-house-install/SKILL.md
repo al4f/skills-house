@@ -66,21 +66,13 @@ pnpm install:skills --skill skill-auditor --agent cursor --scope project
 pnpm install:skills --scope project
 ```
 
-**Advanced — custom dist root, copy mode:**
+**Advanced — glob pattern + list dist:**
 
 ```bash
-install-skills add skill-auditor \
-  --from ./skills-dist \
-  --agent claude \
-  --scope project \
-  --copy \
-  --dry-run
+install-skills list --from ./skills-dist --skill 'skills-house-*'
+install-skills add 'skills-house-*' --agent cursor --scope project
+pnpm install:skills --skill 'skills-house-*' --scope project
 ```
-
-### Planned (RFC 0004)
-
-- `--skill 'pattern'` — glob filter for multiple skills
-- `install-skills list --from <path>` — list skills in dist
 
 ## Boundaries
 

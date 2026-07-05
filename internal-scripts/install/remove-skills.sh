@@ -6,7 +6,7 @@
 #
 # Options:
 #   --agent <name>   Remove only from one agent: agents, codex, cursor, claude
-#   --skill <name>   Remove only this skill (default: all from skills-dist)
+#   --skill <pattern> Remove matching skill(s); supports globs (e.g. skills-house-*)
 #   --scope <scope>  global (default) or project
 #   --all            Include test fixtures (e.g. minimal-skill)
 #   --dry-run        Print actions without changing anything

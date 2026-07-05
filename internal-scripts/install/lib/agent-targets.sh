@@ -76,11 +76,22 @@ list_dist_skills() {
     if [[ "$include_all" != true && "$name" == "minimal-skill" ]]; then
       continue
     fi
-    if [[ -n "$skill_filter" && "$name" != "$skill_filter" ]]; then
+    if ! skill_matches_filter "$name" "$skill_filter"; then
       continue
     fi
     printf '%s\n' "$name"
   done
+}
+
+skill_matches_filter() {
+  local name="$1"
+  local filter="$2"
+  [[ -z "$filter" ]] && return 0
+  if [[ "$filter" == *[\*\?]* ]]; then
+    [[ "$name" == $filter ]]
+  else
+    [[ "$name" == "$filter" ]]
+  fi
 }
 
 SKILLS_LIST=()

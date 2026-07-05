@@ -115,3 +115,26 @@ test("install-skills.sh still works from monorepo internal-scripts path", () => 
   assert.match(result.stdout, /skill-auditor/);
   assert.doesNotMatch(result.stdout, /internal-scripts\/\.agents/);
 });
+
+test("install-skills.sh supports glob --skill filter", () => {
+  assert.ok(existsSync(INSTALL_SCRIPT), "install script must exist in monorepo");
+
+  const dist = join(REPO_ROOT, "skills-dist");
+  if (!existsSync(join(dist, "skills-house-build", "SKILL.md"))) {
+    return;
+  }
+
+  const result = spawnSync(
+    "bash",
+    [INSTALL_SCRIPT, "--scope", "project", "--dry-run", "--skill", "skills-house-*"],
+    {
+      cwd: REPO_ROOT,
+      encoding: "utf-8",
+    },
+  );
+
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /skills-house-build/);
+  assert.match(result.stdout, /skills-house-install/);
+  assert.doesNotMatch(result.stdout, /skill-auditor/);
+});

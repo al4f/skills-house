@@ -32,3 +32,31 @@ test("install CLI add --dry-run against skills-dist", () => {
   assert.equal(result.status, 0);
   assert.match(result.stdout, /skill-auditor/);
 });
+
+test("install CLI add glob --dry-run", () => {
+  const dist = join(REPO_ROOT, "skills-dist");
+  assert.ok(existsSync(join(dist, "skills-house-build", "SKILL.md")), "build product skills first");
+
+  const result = spawnSync(
+    process.execPath,
+    [CLI, "add", "skills-house-*", "--from", dist, "--dry-run"],
+    { encoding: "utf-8" },
+  );
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /skills-house-build/);
+  assert.match(result.stdout, /skills-house-install/);
+});
+
+test("install CLI list --from skills-dist", () => {
+  const dist = join(REPO_ROOT, "skills-dist");
+  assert.ok(existsSync(dist), "build skills first");
+
+  const result = spawnSync(
+    process.execPath,
+    [CLI, "list", "--from", dist, "--skill", "skills-house-*"],
+    { encoding: "utf-8" },
+  );
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /skills-house-build/);
+  assert.doesNotMatch(result.stdout, /skill-auditor/);
+});

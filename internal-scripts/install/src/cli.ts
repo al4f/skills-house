@@ -3,6 +3,10 @@ import { existsSync, mkdtempSync, readdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import {
+  isGlobPattern,
+  listDistSkills,
+} from "./dist-skills.js";
+import {
   layoutDistFromNpmPackage,
   npmPackageForSkill,
 } from "./layout-npm-skill.js";
@@ -21,25 +25,41 @@ type AddOptions = {
   dryRun: boolean;
 };
 
+type ListOptions = {
+  from?: string;
+  skill?: string;
+  includeAll: boolean;
+};
+
 function usage(): void {
   console.log(`@skills-house/install — install Agent Skills from dist
 
 Usage:
-  install-skills add <name> [options]
+  install-skills add <name|pattern> [options]
+  install-skills list [options]
 
-Options:
-  --agent <name>     agents | codex | cursor | claude
+Commands:
+  add              Install skill(s) from dist (name or glob pattern)
+  list             List skills available in dist
+
+Options (add):
+  --agent <name>     agents | codex | cursor | claude (default: all)
   --scope <scope>    global (default) | project
   --from <path>      Install from a local dist directory
   --copy             Copy files instead of symlinking
   --dry-run          Preview without installing
-  --help             Show this help
+
+Options (list):
+  --from <path>      Dist directory (default: ./skills-dist)
+  --skill <pattern>  Filter by name or glob (e.g. skills-house-*)
+  --all              Include test fixtures (e.g. minimal-skill)
 
 Examples:
   install-skills add skill-auditor
-  install-skills add skill-auditor --agent cursor --scope project
+  install-skills add 'skills-house-*' --agent cursor --scope project
   install-skills add skill-auditor --from ./skills-dist
-  pnpm install:skills --scope project --skill skill-auditor
+  install-skills list --from ./skills-dist
+  install-skills list --skill 'skill-*'
 
 Consumer distribution (skills.sh):
   npx skills add al4f/skills-house --skill skill-auditor
@@ -96,6 +116,36 @@ function parseAddArgs(args: string[]): AddOptions | null {
   return options;
 }
 
+function parseListArgs(args: string[]): ListOptions | null {
+  if (args.includes("--help")) {
+    usage();
+    return null;
+  }
+
+  const options: ListOptions = { includeAll: false };
+
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    switch (arg) {
+      case "--from":
+        options.from = resolve(args[++i]);
+        break;
+      case "--skill":
+        options.skill = args[++i];
+        break;
+      case "--all":
+        options.includeAll = true;
+        break;
+      default:
+        console.error(`Unknown option: ${arg}`);
+        usage();
+        return null;
+    }
+  }
+
+  return options;
+}
+
 function tryInstallFromNpm(name: string, targetDir: string): string | null {
   const pkg = npmPackageForSkill(name);
   const pack = spawnSync("npm", ["pack", pkg, "--pack-destination", targetDir], {
@@ -137,14 +187,19 @@ function tryInstallFromNpm(name: string, targetDir: string): string | null {
   return null;
 }
 
-function resolveDistDir(options: AddOptions): string {
+function resolveDistDirForAdd(options: AddOptions): string {
   if (options.from) {
     return options.from;
   }
 
   const monorepoDist = monorepoDistDir();
-  if (existsSync(join(monorepoDist, options.skill, "SKILL.md"))) {
+  const matches = listDistSkills(monorepoDist, { filter: options.skill });
+  if (matches.length > 0) {
     return monorepoDist;
+  }
+
+  if (isGlobPattern(options.skill)) {
+    failSkillNotFound(options.skill);
   }
 
   const tempRoot = mkdtempSync(join(tmpdir(), "skills-house-"));
@@ -160,14 +215,39 @@ function resolveDistDir(options: AddOptions): string {
     }
   }
 
-  console.error(`Could not find skill "${options.skill}".`);
+  failSkillNotFound(options.skill);
+}
+
+function resolveDistDirForList(options: ListOptions): string {
+  if (options.from) {
+    return options.from;
+  }
+
+  const monorepoDist = monorepoDistDir();
+  if (existsSync(monorepoDist)) {
+    return monorepoDist;
+  }
+
+  const cwdDist = resolve(process.cwd(), "skills-dist");
+  if (existsSync(cwdDist)) {
+    return cwdDist;
+  }
+
+  console.error("Could not find skills-dist/. Use --from <path>.");
+  process.exit(1);
+}
+
+function failSkillNotFound(skill: string): never {
+  console.error(`Could not find skill "${skill}".`);
   console.error("");
   console.error("Options:");
   console.error(
-    `  • Clone skills-house and run: pnpm build && install-skills add ${options.skill} --from ./skills-dist`,
+    `  • Clone skills-house and run: pnpm build && install-skills add ${skill} --from ./skills-dist`,
   );
-  console.error(`  • npx skills add al4f/skills-house --skill ${options.skill}`);
-  console.error(`  • npm package: ${npmPackageForSkill(options.skill)}`);
+  console.error(`  • npx skills add al4f/skills-house --skill ${skill}`);
+  if (!isGlobPattern(skill)) {
+    console.error(`  • npm package: ${npmPackageForSkill(skill)}`);
+  }
   process.exit(1);
 }
 
@@ -220,14 +300,40 @@ function addCommand(args: string[]): void {
   const options = parseAddArgs(args);
   if (!options) return;
 
-  const distDir = resolveDistDir(options);
+  const distDir = resolveDistDirForAdd(options);
+  const matches = listDistSkills(distDir, { filter: options.skill });
 
-  if (!existsSync(join(distDir, options.skill, "SKILL.md"))) {
-    console.error(`Skill not found in dist: ${join(distDir, options.skill)}`);
+  if (matches.length === 0) {
+    console.error(`No skills match "${options.skill}" in ${distDir}`);
     process.exit(1);
   }
 
   runInstall(distDir, options);
+}
+
+function listCommand(args: string[]): void {
+  const options = parseListArgs(args);
+  if (!options) return;
+
+  const distDir = resolveDistDirForList(options);
+  if (!existsSync(distDir)) {
+    console.error(`Dist directory not found: ${distDir}`);
+    process.exit(1);
+  }
+
+  const skills = listDistSkills(distDir, {
+    filter: options.skill,
+    includeAll: options.includeAll,
+  });
+
+  if (skills.length === 0) {
+    console.error(`No skills found in ${distDir}`);
+    process.exit(1);
+  }
+
+  for (const skill of skills) {
+    console.log(skill);
+  }
 }
 
 function main(): void {
@@ -236,6 +342,11 @@ function main(): void {
 
   if (parsed.command === "add") {
     addCommand(parsed.args);
+    return;
+  }
+
+  if (parsed.command === "list") {
+    listCommand(parsed.args);
     return;
   }
 
